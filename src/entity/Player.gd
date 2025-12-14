@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
 
-const SPEED = 100;
+var SPEED = 70;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,6 +9,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	move_and_slide();
+	
+#func _input(event: InputEvent) -> void:
+	## Debug
+	#if (Input.is_action_pressed("Debug")):
+		#SPEED -= 10
+		#print(SPEED)
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -24,23 +31,21 @@ func _process(delta: float) -> void:
 	 
 	if (direction.is_zero_approx()):
 		beforeAnim[0] = "Idle"
-		animated_sprite_2d.speed_scale = 1
+		# animated_sprite_2d.speed_scale = 1
 	else:
 		beforeAnim[0] = "Walk"
-		animated_sprite_2d.speed_scale = SPEED / 100.0
 	
-	if (direction.x < 0):
+	if (direction.x != 0):
 		beforeAnim[1] = "Left"
-	elif (direction.x > 0):
-		beforeAnim[1] = "Right"
-	elif (direction.x == 0 and direction.y != 0):
-		beforeAnim[1] = "0"
+		if direction.x < 0:
+			animated_sprite_2d.flip_h = true
+		elif direction.x > 0:
+			animated_sprite_2d.flip_h = false
 	
 	if (direction.y < 0):
-		beforeAnim[2] = "Up"
-	elif (direction.y > 0 or 
-		(direction.x != 0 and direction.y == 0)):
-		beforeAnim[2] = "Down"
+		beforeAnim[1] = "Up"
+	elif (direction.y > 0):
+		beforeAnim[1] = "Down"
 	
 	animated_sprite_2d.play("_".join(beforeAnim))
 	#endregion
