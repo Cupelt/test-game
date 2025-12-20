@@ -3,7 +3,7 @@ extends Camera2D
 var to: Vector2;
 var current: Vector2;
 
-const BLEND_SPEED = 200;
+const BLEND_SPEED = 150;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,5 +18,4 @@ func _process(delta: float) -> void:
 	current = current.lerp(to, pow(0.5, delta * BLEND_SPEED))
 	
 	offset = current - to;
-	print(offset)
 	pass
