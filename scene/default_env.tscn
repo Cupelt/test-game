@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxbuxhgfisf1k"]
+[gd_scene load_steps=6 format=3 uid="uid://cxbuxhgfisf1k"]
 
-[ext_resource type="TileSet" uid="uid://xsynckwqfik3" path="res://tilemap/Level_1.tres" id="1_2voor"]
+[ext_resource type="TileSet" uid="uid://prrr5rs4pp7x" path="res://tilemap/Level_1.tres" id="1_2voor"]
 [ext_resource type="Script" uid="uid://l51pytlp7k5k" path="res://src/room/RoomGenerator.gd" id="2_0y87c"]
-[ext_resource type="Script" uid="uid://cigokfu7h6sl6" path="res://src/room/RoomData.gd" id="3_04oit"]
 [ext_resource type="Resource" uid="uid://d027n6ql7ihmq" path="res://rooms/level_1/test_room/testRoom.tres" id="4_0y87c"]
 [ext_resource type="Resource" uid="uid://cahyriu1hbid7" path="res://rooms/level_1/test_room/baseRoom.tres" id="4_jx7jm"]
 
@@ -14,8 +13,7 @@ metadata/_edit_horizontal_guides_ = [-113.0]
 [node name="GeneratedMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_r6y4n")
 script = ExtResource("2_0y87c")
-rooms = Array[ExtResource("3_04oit")]([ExtResource("4_jx7jm"), ExtResource("4_0y87c")])
-maxRoom = 50
+rooms = [ExtResource("4_jx7jm"), ExtResource("4_0y87c")]
 
 [node name="EntityLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 3, 0, 0, 0, 0, 0, 1, 0)

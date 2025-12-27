@@ -1,9 +1,10 @@
 extends Resource
-class_name RoomData
+class_name RoomPrefab
 
 enum RoomType {
 	Start,
 	Room,
+	Big_Room,
 	Treasure,
 	Boss
 }
