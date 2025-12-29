@@ -1,4 +1,5 @@
 extends AbstractRoom
+class_name LargeRoom
 
 # 넓은방은 맵 생성에 전반적인 영향을 줌.
 func get_priority() -> RoomPriority:
@@ -7,7 +8,10 @@ func get_priority() -> RoomPriority:
 func is_special() -> bool:
 	return false
 
-func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void:
+func is_before_generate() -> bool:
+	return true
+
+func apply(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> void:
 	var check_offsets = [
 		Vector2i(-1, -1),
 		Vector2i(0, -1),
@@ -30,7 +34,7 @@ func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void:
 			
 			# 2x2 가 아닌경우
 			var canMerge = cases.all(func(p): 
-				return map.has(p) and map[p] == null
+				return map.has(p) and RoomGenerator.Instance.isDefaultRoom(p)
 			)
 			
 			if (canMerge):
@@ -38,3 +42,6 @@ func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void:
 					map[p] = self
 					
 				break
+
+func _get_display_char() -> String:
+	return "■"

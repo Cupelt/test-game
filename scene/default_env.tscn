@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxbuxhgfisf1k"]
+[gd_scene load_steps=8 format=3 uid="uid://cxbuxhgfisf1k"]
 
 [ext_resource type="TileSet" uid="uid://prrr5rs4pp7x" path="res://tilemap/Level_1.tres" id="1_2voor"]
+[ext_resource type="Script" uid="uid://cvt6g5kak4r4f" path="res://src/room/MapManager.gd" id="1_r6y4n"]
 [ext_resource type="Script" uid="uid://l51pytlp7k5k" path="res://src/room/RoomGenerator.gd" id="2_0y87c"]
+[ext_resource type="Script" uid="uid://cigokfu7h6sl6" path="res://src/room/RoomPrefab.gd" id="2_04oit"]
 [ext_resource type="Resource" uid="uid://d027n6ql7ihmq" path="res://rooms/level_1/test_room/testRoom.tres" id="4_0y87c"]
 [ext_resource type="Resource" uid="uid://cahyriu1hbid7" path="res://rooms/level_1/test_room/baseRoom.tres" id="4_jx7jm"]
 
@@ -10,10 +12,18 @@
 [node name="DefaultEnv" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [-113.0]
 
+[node name="MapManager" type="Node2D" parent="." node_paths=PackedStringArray("tilemap", "generator")]
+script = ExtResource("1_r6y4n")
+tilemap = NodePath("../GeneratedMapLayer")
+generator = NodePath("RoomGenerator")
+rooms = Array[ExtResource("2_04oit")]([ExtResource("4_jx7jm"), ExtResource("4_0y87c")])
+
+[node name="RoomGenerator" type="Node2D" parent="MapManager"]
+script = ExtResource("2_0y87c")
+
 [node name="GeneratedMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_r6y4n")
 script = ExtResource("2_0y87c")
-rooms = [ExtResource("4_jx7jm"), ExtResource("4_0y87c")]
 
 [node name="EntityLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 3, 0, 0, 0, 0, 0, 1, 0)

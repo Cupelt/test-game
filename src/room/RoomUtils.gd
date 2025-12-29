@@ -4,13 +4,13 @@ static func findFurthestRoomPos(map: Dictionary[Vector2i, AbstractRoom], include
 	var furthestPos: Vector2i = Vector2i(-1, -1)
 	var maxDistance: int = -1
 	
-	for pos in roomArray:
-		# 조건 1: 이미 큰 방(Big_Room)이거나 시작방이면 제외
-		if generatedRoom[pos] != RoomData.RoomType.Room:
+	for pos in map:
+		# 조건 1: 특수 방을 허용하지 않을때 특수방이라면 제외
+		if include_special or map[pos] != RoomGenerator.Instance.getDefaultRoom():
 			continue
 			
 		# 조건 2: 막다른 길인지 체크 (선택 사항: 보스방이 구석에 있게 하려면 유지)
-		if countAdjacentCount(pos) > 1:
+		if countAdjacentCount(map, pos) > 1:
 			continue
 			
 		# 맨해튼 거리 계산: |x1 - x2| + |y1 - y2|
@@ -22,19 +22,18 @@ static func findFurthestRoomPos(map: Dictionary[Vector2i, AbstractRoom], include
 			
 	return furthestPos
 
-func findOneAdjacentPos(map: Dictionary[Vector2i, AbstractRoom], include_special: bool):
-	var copy = roomArray.duplicate_deep()
-	
-	if (isShuffle):
-		copy.shuffle()
+static func sampleOneAdjacentPos(map: Dictionary[Vector2i, AbstractRoom], include_special: bool):
+	var copy = map.keys().duplicate_deep()
+	copy.shuffle()
 	
 	for pos in copy:
-		if countAdjacentCount(pos) <= 1 and generatedRoom[pos] == RoomData.RoomType.Room:
+		if (countAdjacentCount(map, pos) <= 1 
+			and (include_special or map[pos] == RoomGenerator.Instance.getDefaultRoom())):
 			return pos
 	
 	return null
 
-func countAdjacentCount(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> int:
+static func countAdjacentCount(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> int:
 	var count = 0
 	var dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
 	for d in dirs:
@@ -42,7 +41,7 @@ func countAdjacentCount(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) 
 			count += 1
 	return count
 
-func printMapDebug(generated_room: Dictionary):
+static func printMapDebug(generated_room: Dictionary[Vector2i, AbstractRoom]):
 	if generated_room.is_empty():
 		print("맵이 비어 있습니다.")
 		return
@@ -66,18 +65,9 @@ func printMapDebug(generated_room: Dictionary):
 			var pos = Vector2i(x, y)
 			if generated_room.has(pos):
 				# 타입에 따라 다른 문자 출력 (enum 값에 맞춰 수정 가능)
-				var type = generated_room[pos]
-				line += _get_room_char(type)
+				var room: AbstractRoom = generated_room[pos]
+				line += " " + room._get_display_char() + " "
 			else:
 				line += " . " # 빈 공간
 		print(line)
 	print("---------------------------------")
-
-# RoomType enum에 따른 문자 매칭 함수
-func _get_room_char(type: RoomData.RoomType) -> String:
-	match type:
-		RoomData.RoomType.Start: 	return " S "
-		RoomData.RoomType.Big_Room:	return " @ "
-		RoomData.RoomType.Boss:  	return " B "
-		RoomData.RoomType.Treasure:	return " $ "
-		_: return " # " # 일반 방

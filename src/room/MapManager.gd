@@ -1,41 +1,32 @@
+extends Node2D
 
-var map: Dictionary[Vector2i, AbstractRoom]
+@export_category("Tilemap Setting")
+@export var tilemap: TileMapLayer
+@export_category("Generator Setting")
+@export var generator: RoomGenerator
+@export var rooms: Array[RoomPrefab]
+var sourceID: int;
+var roomIDs: Dictionary[RoomPrefab, int]
 
-func generateRooms(roomCount: int, adjacentChance: float) -> void:
-	map.clear()
-	
-	var walkHistory: Array[Vector2i] = [Vector2i(0, 0)]
+@export var generateSeed: int = 0
+@export var maxRoom: int = 10
+@export var roomSize: Vector2i = Vector2i(33, 19)
+@export_range(0, 0.2) var adjacentChance = 0.04
 
-	## 시작방은 항상 존재
-	map[Vector2i(0, 0)] = null
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var collection: TileSetScenesCollectionSource = TileSetScenesCollectionSource.new()
+	for r in rooms:
+		# 생성된 TileSetScenesCollectionSource 의 아이디에 대응 하는 RoomData를 저장
+		roomIDs[r] = collection.create_scene_tile(r.roomScene)
 	
-	var currentPos;
-	while map.size() < roomCount:
-		currentPos = walkHistory.pick_random()
-		
-		var dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
-		dirs.shuffle()
-		
-		var placed = false
-		for d in dirs:
-			var targetPos = currentPos + d
-			
-			# 이미 그 자리에 방이 있다면 생성 불가.
-			if (map.has(targetPos)):
-				continue
-			
-			if (RoomUtils.countAdjacentCount(map, targetPos) > 1 and randf_range(0, 1) > adjacentChance):
-				continue
-				
-			walkHistory.append(targetPos)
-			map[targetPos] = null
-			
-			placed = true
-		
-		if not placed:
-			walkHistory.erase(currentPos)
-			
-		# 무한 루프 방지 (안전장치)
-		if walkHistory.is_empty():
-			break
+	sourceID = tilemap.tile_set.add_source(collection)
 	
+	## 랜덤시드 재설정
+	randomize()
+	
+	## 시드가 지정되어 있다면 해당 시드로 생성
+	if (generateSeed != 0):
+		seed(generateSeed)
+		
+	generator.generateMap(maxRoom, adjacentChance)
