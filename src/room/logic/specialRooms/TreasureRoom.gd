@@ -7,7 +7,7 @@ func get_priority() -> RoomPriority:
 func is_special() -> bool:
 	return true
 	
-func apply(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> void:
+func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void:
 	var furthestPos = RoomUtils.sampleOneAdjacentPos(map, false)
 	map[furthestPos] = self
 

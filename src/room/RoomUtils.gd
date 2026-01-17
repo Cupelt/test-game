@@ -33,13 +33,15 @@ static func sampleOneAdjacentPos(map: Dictionary[Vector2i, AbstractRoom], includ
 	
 	return null
 
-static func countAdjacentCount(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> int:
-	var count = 0
-	var dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
-	for d in dirs:
+static func getAdjacentRooms(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> Array[Vector2i]:
+	var dirs: Array[Vector2i] = []
+	for d in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
 		if map.has(pos + d):
-			count += 1
-	return count
+			dirs.append(d)
+	return dirs
+
+static func countAdjacentCount(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> int:
+	return getAdjacentRooms(map, pos).size()
 
 static func printMapDebug(generated_room: Dictionary[Vector2i, AbstractRoom]):
 	if generated_room.is_empty():

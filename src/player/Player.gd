@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 var SPEED = 70;
 
-# Called when the node enters the scene tree for the first time.
+# Called when the node enters the scene tree for the first time. 2.15
 func _ready() -> void:
 	pass # Replace with function body.
 

@@ -13,6 +13,11 @@ enum MapType {
 	SPECIAL
 }
 
+#enum ApplyPoint {
+	#ON_GENERATE,
+	#ON_POST
+#}
+
 ## Implemtable Method
 ## 맵 생성의 실행 우선도 입니다. HIGHEST 라면 가장 먼저 실행됩니다.
 func get_priority() -> RoomPriority:
@@ -22,18 +27,33 @@ func get_priority() -> RoomPriority:
 ## 방의 유형. 맵 생성시 참고 가능.
 func get_map_type() -> MapType:
 	return MapType.SPECIAL
+	
+# @abstract func get_apply_point() -> ApplyPoint
 
-## [method Abstract.is_before_generate()] 의 값이 true가 아니라면
-## 리턴값과, pos 값은 쓰지 않는 값입니다.
-@abstract func apply(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> bool
+@abstract func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void
 
-## 이 값이 true 인 경우
-## 맵을 생성할 때 apply를 참고하게 됩니다.
-##
-## 기본 apply 함수는 마지막에 딱 "한 번" 실행 되는 반면
-## 이 값이 true 인 경우는 "매 번" 생성 가능 여부를 판별합니다.
-func is_before_generate() -> bool:
-	return false
+func render(layer: TileMapLayer, pos: Vector2i) -> void:
+	var manager = MapManager.Instance
+	
+	var target_pos = pos * manager.roomSize
+	layer.set_cell(target_pos, manager.sourceID, Vector2i(0, 0), manager.roomIDs[manager.rooms[0]])
+	layer.update_internals()
+	
+	var room_instance: Node2D = layer.get_child(layer.get_child_count() - 1)
+	var AdjacentDirs: Array[Vector2i] = RoomUtils.getAdjacentRooms(RoomGenerator.Instance.map, pos)
+	for dir in AdjacentDirs:
+		if dir == Vector2i.LEFT:
+			var left_node = room_instance.find_child("IsLeftBlocked")
+			if left_node: left_node.queue_free()
+		elif dir == Vector2i.RIGHT:
+			var right_node = room_instance.find_child("IsRightBlocked")
+			if right_node: right_node.queue_free()
+		elif dir == Vector2i.UP:
+			var up_node = room_instance.find_child("IsTopBlocked")
+			if up_node: up_node.queue_free()
+		elif dir == Vector2i.DOWN:
+			var down_node = room_instance.find_child("IsDownBlocked")
+			if down_node: down_node.queue_free()
 
 #region Debug
 func _get_display_char():

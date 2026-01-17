@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=6 format=3 uid="uid://prrr5rs4pp7x"]
 
 [ext_resource type="Texture2D" uid="uid://bsoakexan2dvd" path="res://assets/Dungeon Gathering Full Ver. 1.1/Set 1.1.png" id="2_01ry6"]
-[ext_resource type="PackedScene" uid="uid://baje80lg3quet" path="res://rooms/player.tscn" id="3_01ry6"]
+[ext_resource type="PackedScene" uid="uid://baje80lg3quet" path="res://scene/player.tscn" id="3_aejix"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jx7jm"]
 texture = ExtResource("2_01ry6")
@@ -463,7 +463,7 @@ resource_name = "Props"
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_01ry6"]
 resource_name = "Entitys"
-scenes/1/scene = ExtResource("3_01ry6")
+scenes/1/scene = ExtResource("3_aejix")
 
 [resource]
 physics_layer_0/collision_layer = 1

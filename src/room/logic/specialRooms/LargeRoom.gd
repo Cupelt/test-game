@@ -11,7 +11,7 @@ func is_special() -> bool:
 func is_before_generate() -> bool:
 	return true
 
-func apply(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> void:
+func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void:
 	var check_offsets = [
 		Vector2i(-1, -1),
 		Vector2i(0, -1),

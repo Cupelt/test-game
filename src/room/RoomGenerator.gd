@@ -9,8 +9,7 @@ var _defaultRoom: AbstractRoom = SingleRoom.new()
 var _rooms: Array[AbstractRoom] = [
 	BossRoom.new(),
 	TreasureRoom.new(),
-	LargeRoom.new(),
-	StartRoom.new()
+	LargeRoom.new()
 ]
 
 func _ready() -> void:
@@ -25,28 +24,23 @@ func getDefaultRoom() -> AbstractRoom:
 	
 func isDefaultRoom(pos: Vector2i) -> bool:
 	return map[pos] == _defaultRoom;
+	
+func build(layer: TileMapLayer) -> void:
+	for pos in map:
+		map[pos].render(layer, pos);
 
 func generateMap(roomCount: int, adjacentChance: float) -> void:
 	map.clear()
-	var beforeGenerate: Array[AbstractRoom] = []
-	var afterGenerate: Array[AbstractRoom] = []
+	# var generators: Dictionary[AbstractRoom.ApplyPoint, Array]
 
-	_rooms.sort_custom(
-		func (a: AbstractRoom, b: AbstractRoom): 
-			return a.get_priority() < b.get_priority()
-	)
-
-	for r in _rooms:
-		if r.is_before_generate():
-			beforeGenerate.append(r)
-		else:
-			afterGenerate.append(r)
+	#for r in _rooms:
+		#generators[r.get_apply_point()].append(r);
 	
 	
 	var walkHistory: Array[Vector2i] = [Vector2i(0, 0)]
 
 	## 시작방은 항상 존재
-	map[Vector2i(0, 0)] = _defaultRoom
+	map[Vector2i(0, 0)] = StartRoom.new()
 	
 	var currentPos;
 	while map.size() < roomCount:
@@ -65,7 +59,7 @@ func generateMap(roomCount: int, adjacentChance: float) -> void:
 			
 			if (RoomUtils.countAdjacentCount(map, targetPos) > 1 and randf_range(0, 1) > adjacentChance):
 				continue
-				
+			
 			walkHistory.append(targetPos)
 			map[targetPos] = _defaultRoom
 			
@@ -78,8 +72,15 @@ func generateMap(roomCount: int, adjacentChance: float) -> void:
 		if walkHistory.is_empty():
 			break
 	
-	for pos in map:
-		for room in afterGenerate:
-			room.apply(map, pos)
+	#for room in generators[AbstractRoom.ApplyPoint.ON_POST]:
+		#(room as AbstractRoom).apply(map)
+		
+	_rooms.sort_custom(
+		func (a: AbstractRoom, b: AbstractRoom): 
+			return a.get_priority() < b.get_priority()
+	)
+	
+	for room in _rooms:
+		room.apply(map)
 	
 	RoomUtils.printMapDebug(map)

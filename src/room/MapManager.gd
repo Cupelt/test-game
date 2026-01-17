@@ -1,4 +1,7 @@
 extends Node2D
+class_name MapManager
+
+static var Instance: MapManager;
 
 @export_category("Tilemap Setting")
 @export var tilemap: TileMapLayer
@@ -15,6 +18,12 @@ var roomIDs: Dictionary[RoomPrefab, int]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if (Instance != null):
+		queue_free();
+		return
+	
+	Instance = self
+	
 	var collection: TileSetScenesCollectionSource = TileSetScenesCollectionSource.new()
 	for r in rooms:
 		# 생성된 TileSetScenesCollectionSource 의 아이디에 대응 하는 RoomData를 저장
@@ -30,3 +39,4 @@ func _ready() -> void:
 		seed(generateSeed)
 		
 	generator.generateMap(maxRoom, adjacentChance)
+	generator.build(tilemap)

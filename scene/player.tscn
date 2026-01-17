@@ -221,5 +221,5 @@ sprite_frames = SubResource("SpriteFrames_c2etn")
 animation = &"Idle_Down"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.15, 2.15)
+zoom = Vector2(0.5, 0.5)
 script = ExtResource("4_umjr7")
