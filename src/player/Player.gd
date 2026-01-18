@@ -8,7 +8,8 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:
-	move_and_slide();
+	move_and_slide()
+	MapManager.Instance.currentPlayerPos = MapManager.Instance.global_pos_to_room_pos(global_position)
 	
 #func _input(event: InputEvent) -> void:
 	## Debug

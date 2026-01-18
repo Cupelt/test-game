@@ -16,6 +16,17 @@ var roomIDs: Dictionary[RoomPrefab, int]
 @export var roomSize: Vector2i = Vector2i(33, 19)
 @export_range(0, 0.2) var adjacentChance = 0.04
 
+var currentPlayerPos: Vector2i = Vector2i(0, 0)
+
+func global_pos_to_room_pos(pos: Vector2) -> Vector2i:
+	var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
+	
+	return (pos / default_room_size).round() * Vector2(-1, -1)
+
+func room_pos_to_global_pos(pos: Vector2i) -> Vector2:
+	var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
+	return default_room_size * (pos as Vector2) * Vector2(-1, -1)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if (Instance != null):

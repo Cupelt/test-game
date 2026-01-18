@@ -1,9 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://baje80lg3quet"]
+[gd_scene load_steps=30 format=3 uid="uid://baje80lg3quet"]
 
 [ext_resource type="Script" uid="uid://dr2ph6p03fb5g" path="res://src/player/Player.gd" id="1_3igvs"]
 [ext_resource type="Texture2D" uid="uid://cikki53s3h3w3" path="res://assets/Eris Esra's Character Template 4.0/16x16/16x16 Idle-Sheet.png" id="2_6mvgr"]
 [ext_resource type="Texture2D" uid="uid://bimjm3i83pfb2" path="res://assets/Eris Esra's Character Template 4.0/16x16/16x16 Walk-Sheet.png" id="3_qomot"]
-[ext_resource type="Script" uid="uid://dpxympa2e04rf" path="res://src/player/CameraFollow.gd" id="4_umjr7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dx0e4"]
 size = Vector2(14, 13)
@@ -219,7 +218,3 @@ shape = SubResource("RectangleShape2D_dx0e4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c2etn")
 animation = &"Idle_Down"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
-script = ExtResource("4_umjr7")
