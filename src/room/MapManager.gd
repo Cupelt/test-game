@@ -6,8 +6,8 @@ static var Instance: MapManager;
 @export_category("Tilemap Setting")
 @export var tilemap: TileMapLayer
 @export_category("Generator Setting")
-@export var generator: RoomGenerator
-@export var rooms: Array[RoomPrefab]
+var _generators: Array[AbstractRoom];
+
 var sourceID: int;
 var roomIDs: Dictionary[RoomPrefab, int]
 
@@ -17,6 +17,9 @@ var roomIDs: Dictionary[RoomPrefab, int]
 @export_range(0, 0.2) var adjacentChance = 0.04
 
 var currentPlayerPos: Vector2i = Vector2i(0, 0)
+var map: Dictionary[Vector2i, AbstractRoom]
+
+var _defaultRoom: AbstractRoom = SingleRoom.new()
 
 func global_pos_to_room_pos(pos: Vector2) -> Vector2i:
 	var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
@@ -36,9 +39,10 @@ func _ready() -> void:
 	Instance = self
 	
 	var collection: TileSetScenesCollectionSource = TileSetScenesCollectionSource.new()
-	for r in rooms:
-		# 생성된 TileSetScenesCollectionSource 의 아이디에 대응 하는 RoomData를 저장
-		roomIDs[r] = collection.create_scene_tile(r.roomScene)
+	for g in _generators:
+		for data in g.presets:	
+			# 생성된 TileSetScenesCollectionSource 의 아이디에 대응 하는 RoomData를 저장
+			roomIDs[data] = collection.create_scene_tile(data.roomScene)
 	
 	sourceID = tilemap.tile_set.add_source(collection)
 	
@@ -49,5 +53,65 @@ func _ready() -> void:
 	if (generateSeed != 0):
 		seed(generateSeed)
 		
-	generator.generateMap(maxRoom, adjacentChance)
-	generator.build(tilemap)
+	generateMap()
+	build()
+
+func getDefaultRoom() -> AbstractRoom:
+	return _defaultRoom
+	
+func isDefaultRoom(pos: Vector2i) -> bool:
+	return map[pos] == _defaultRoom;
+	
+func build() -> void:
+	for pos in map:
+		map[pos].render(tilemap, pos);
+
+func generateMap() -> void:
+	map.clear()
+	var walkHistory: Array[Vector2i] = [Vector2i(0, 0)]
+
+	## 시작방은 항상 존재
+	map[Vector2i(0, 0)] = StartRoom.new()
+	
+	var currentPos;
+	while map.size() < maxRoom:
+		currentPos = walkHistory.pick_random()
+		
+		var dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
+		dirs.shuffle()
+		
+		var placed = false
+		for d in dirs:
+			var targetPos = currentPos + d
+			
+			# 이미 그 자리에 방이 있다면 생성 불가.
+			if (map.has(targetPos)):
+				continue
+			
+			if (RoomUtils.countAdjacentCount(map, targetPos) > 1 and randf_range(0, 1) > adjacentChance):
+				continue
+			
+			walkHistory.append(targetPos)
+			map[targetPos] = _defaultRoom
+			
+			placed = true
+		
+		if not placed:
+			walkHistory.erase(currentPos)
+			
+		# 무한 루프 방지 (안전장치)
+		if walkHistory.is_empty():
+			break
+	
+	#for room in generators[AbstractRoom.ApplyPoint.ON_POST]:
+		#(room as AbstractRoom).apply(map)
+		
+	_generators.sort_custom(
+		func (a: AbstractRoom, b: AbstractRoom): 
+			return a.get_priority() < b.get_priority()
+	)
+	
+	for room in _generators:
+		room.apply(map)
+	
+	RoomUtils.printMapDebug(map)

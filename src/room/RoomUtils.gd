@@ -6,7 +6,7 @@ static func findFurthestRoomPos(map: Dictionary[Vector2i, AbstractRoom], include
 	
 	for pos in map:
 		# 조건 1: 특수 방을 허용하지 않을때 특수방이라면 제외
-		if include_special or map[pos] != RoomGenerator.Instance.getDefaultRoom():
+		if include_special or map[pos] != MapManager.Instance.getDefaultRoom():
 			continue
 			
 		# 조건 2: 막다른 길인지 체크 (선택 사항: 보스방이 구석에 있게 하려면 유지)
@@ -28,7 +28,7 @@ static func sampleOneAdjacentPos(map: Dictionary[Vector2i, AbstractRoom], includ
 	
 	for pos in copy:
 		if (countAdjacentCount(map, pos) <= 1 
-			and (include_special or map[pos] == RoomGenerator.Instance.getDefaultRoom())):
+			and (include_special or map[pos] == MapManager.Instance.getDefaultRoom())):
 			return pos
 	
 	return null

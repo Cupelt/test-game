@@ -13,10 +13,7 @@ enum MapType {
 	SPECIAL
 }
 
-#enum ApplyPoint {
-	#ON_GENERATE,
-	#ON_POST
-#}
+var presets: Array[RoomPrefab]
 
 ## Implemtable Method
 ## 맵 생성의 실행 우선도 입니다. HIGHEST 라면 가장 먼저 실행됩니다.
@@ -27,8 +24,6 @@ func get_priority() -> RoomPriority:
 ## 방의 유형. 맵 생성시 참고 가능.
 func get_map_type() -> MapType:
 	return MapType.SPECIAL
-	
-# @abstract func get_apply_point() -> ApplyPoint
 
 @abstract func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void
 
@@ -40,7 +35,7 @@ func render(layer: TileMapLayer, pos: Vector2i) -> void:
 	layer.update_internals()
 	
 	var room_instance: Node2D = layer.get_child(layer.get_child_count() - 1)
-	var AdjacentDirs: Array[Vector2i] = RoomUtils.getAdjacentRooms(RoomGenerator.Instance.map, pos)
+	var AdjacentDirs: Array[Vector2i] = RoomUtils.getAdjacentRooms(MapManager.Instance.map, pos)
 	for dir in AdjacentDirs:
 		if dir == Vector2i.LEFT:
 			var left_node = room_instance.find_child("IsLeftBlocked")
