@@ -30,8 +30,11 @@ func get_map_type() -> MapType:
 func render(layer: TileMapLayer, pos: Vector2i) -> void:
 	var manager = MapManager.Instance
 	
+	var script_name = (get_script() as Script).get_global_name() as String
+	var presets: Array = manager._presets[script_name]
+	
 	var target_pos = pos * manager.roomSize
-	layer.set_cell(target_pos, manager.sourceID, Vector2i(0, 0), manager.roomIDs[manager.rooms[0]])
+	layer.set_cell(target_pos, manager.sourceID, Vector2i(0, 0), manager.roomIDs[presets.pick_random()])
 	layer.update_internals()
 	
 	var room_instance: Node2D = layer.get_child(layer.get_child_count() - 1)

@@ -34,7 +34,7 @@ func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void:
 			
 			# 2x2 가 아닌경우
 			var canMerge = cases.all(func(p): 
-				return map.has(p) and RoomGenerator.Instance.isDefaultRoom(p)
+				return map.has(p) and map[p] == null
 			)
 			
 			if (canMerge):

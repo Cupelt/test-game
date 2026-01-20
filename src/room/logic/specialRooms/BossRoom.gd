@@ -1,9 +1,8 @@
 extends AbstractRoom
 class_name BossRoom
 
-# 보스방이 없으면 다음 스테이지로 갈 수 없음. (우선도 가장 높음)
 func get_priority() -> RoomPriority:
-	return RoomPriority.HIGHEST;
+	return 9999 # 무조건 먼저 실행
 	
 func is_special() -> bool:
 	return true
