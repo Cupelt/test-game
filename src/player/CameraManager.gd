@@ -8,8 +8,8 @@ var to: Vector2;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#zoom = Vector2(0.5, 0.5);
-	zoom = Vector2(2.15, 2.15);
+	# zoom = Vector2(0.5, 0.5);
+	# zoom = Vector2(2.15, 2.15);
 	to = global_position;
 	pass # Replace with function body.
 
