@@ -1,4 +1,5 @@
-@abstract class_name AbstractRoom
+@abstract extends Node2D
+class_name AbstractRoom
 
 enum RoomPriority {
 	HIGHEST,
@@ -13,7 +14,7 @@ enum MapType {
 	SPECIAL
 }
 
-var presets: Array[RoomPrefab]
+@export var presets: Array[PackedScene]
 
 ## Implemtable Method
 ## 맵 생성의 실행 우선도 입니다. HIGHEST 라면 가장 먼저 실행됩니다.
@@ -29,9 +30,6 @@ func get_map_type() -> MapType:
 
 func render(layer: TileMapLayer, pos: Vector2i) -> void:
 	var manager = MapManager.Instance
-	
-	var script_name = (get_script() as Script).get_global_name() as String
-	var presets: Array = manager._presets[script_name]
 	
 	var target_pos = pos * manager.roomSize
 	layer.set_cell(target_pos, manager.sourceID, Vector2i(0, 0), manager.roomIDs[presets.pick_random()])

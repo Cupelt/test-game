@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://by47861o3cnm2"]
+
+[ext_resource type="Texture2D" uid="uid://c7reggb300k0r" path="res://textures/minimap_left.tres" id="1_2cr71"]
+
+[node name="room" type="TextureRect" unique_id=218821944]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2cr71")

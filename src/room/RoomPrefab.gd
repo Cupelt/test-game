@@ -1,14 +1,6 @@
+@tool
 extends Resource
 class_name RoomPrefab
 
-enum RoomType {
-	Start,
-	Room,
-	Big_Room,
-	Treasure,
-	Boss
-}
-
-@export var roomScene: PackedScene # Room Scene
-@export var roomType: RoomType = RoomType.Room # 방 유형
+@export var roomScene: Array[PackedScene] # Room Scene
 @export_range(0, 100) var spawnWeight: float = 10.0 # 생성 확률 (가중치)

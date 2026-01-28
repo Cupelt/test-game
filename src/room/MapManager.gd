@@ -5,12 +5,12 @@ static var Instance: MapManager;
 
 @export_category("Tilemap Setting")
 @export var tilemap: TileMapLayer
+@export var minimap: MinimapHover
 @export_category("Generator Setting")
-var _generators: Array[Script]
-var _presets: Dictionary[String, Array]
+var _generators: Array[AbstractRoom]
 
 var sourceID: int;
-var roomIDs: Dictionary[RoomPrefab, int]
+var roomIDs: Dictionary[PackedScene, int]
 
 @export var generateSeed: int = 0
 @export var maxRoom: int = 10
@@ -31,19 +31,28 @@ func room_pos_to_global_pos(pos: Vector2i) -> Vector2:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# 싱글톤 생성
 	if (Instance != null):
 		queue_free();
 		return
 	
 	Instance = self
 	
+	# generator 등록
+	for node in get_children():
+		_generators.append(node as AbstractRoom)
+	
+	_generators.sort_custom(
+		func (a: AbstractRoom, b: AbstractRoom): 
+			return a.get_priority() > b.get_priority()
+	)
+	
+	# Tileset 등록
 	var collection: TileSetScenesCollectionSource = TileSetScenesCollectionSource.new()
-	for sc in _generators:
-		# load(sc.resource_path).new()
-		for data in _presets[sc.get_global_name() as String]:
-			print(sc.get_global_name())
+	for gen in _generators:
+		for scene in gen.presets:
 			# 생성된 TileSetScenesCollectionSource 의 아이디에 대응 하는 RoomData를 저장
-			roomIDs[data] = collection.create_scene_tile(data.roomScene)
+			roomIDs[scene] = collection.create_scene_tile(scene)
 	
 	sourceID = tilemap.tile_set.add_source(collection)
 	
@@ -60,7 +69,8 @@ func _ready() -> void:
 	
 func build() -> void:
 	for pos in map:
-		map[pos].render(tilemap, pos);
+		map[pos].render(tilemap, pos)
+	minimap.build_minimap(map)
 
 func generateMap() -> void:
 	map.clear()
@@ -102,16 +112,7 @@ func generateMap() -> void:
 	#for room in generators[AbstractRoom.ApplyPoint.ON_POST]:
 		#(room as AbstractRoom).apply(map)
 	
-	var builder: Array[AbstractRoom] = []
-	for gen in _generators:
-		builder.append(load(gen.resource_path).new())
-	
-	builder.sort_custom(
-		func (a: AbstractRoom, b: AbstractRoom): 
-			return a.get_priority() > b.get_priority()
-	)
-	
-	for room in builder:
+	for room in _generators:
 		room.apply(map)
-	
+
 	RoomUtils.printMapDebug(map)
