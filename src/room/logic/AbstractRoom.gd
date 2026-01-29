@@ -14,6 +14,7 @@ enum MapType {
 	SPECIAL
 }
 
+@export var icon: Texture
 @export var presets: Array[PackedScene]
 
 ## Implemtable Method

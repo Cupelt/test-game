@@ -3,6 +3,7 @@ class_name MinimapHover
 
 @export var minimap: Control
 @export var roomPrefab: PackedScene
+@export var blindRoomPrefab: PackedScene
 @export var roomSize: Vector2 = Vector2()
 
 @export_range(0, 1, 0.1) var MAX_OPACITY: float = 1.0
@@ -20,6 +21,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	modulate.a = lerpf(modulate.a, to, pow(0.5, delta * BLEND_SPEED))
+	minimap.position = minimap.position.lerp(
+		roomSize * (MapManager.Instance.currentPlayerPos as Vector2), 
+		pow(0.5, delta * BLEND_SPEED))
 	
 func build_minimap(map: Dictionary[Vector2i, AbstractRoom]) -> void:
 	# clear minimap
@@ -28,6 +32,7 @@ func build_minimap(map: Dictionary[Vector2i, AbstractRoom]) -> void:
 	
 	for pos in map:
 		var room: Control = roomPrefab.instantiate(PackedScene.GEN_EDIT_STATE_MAIN)
+		# (room.get_child(0) as TextureRect).texture = map[pos].icon
 		minimap.add_child(room)
 		
 		room.position = room.position + roomSize * (pos as Vector2)

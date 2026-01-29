@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ck2r51fxkrmh2" path="res://assets/DG UI-HUD Exp/Mini map system idk.png" id="9_ldvgu"]
 [ext_resource type="Script" uid="uid://dpxympa2e04rf" path="res://src/player/CameraManager.gd" id="10_exl2s"]
 [ext_resource type="Script" uid="uid://b8qg0u0acnyck" path="res://src/MinimapHover.gd" id="11_rgneq"]
-[ext_resource type="PackedScene" uid="uid://dseq2ygifh0cl" path="res://scene/minimap_object.tscn" id="13_7nq3w"]
+[ext_resource type="PackedScene" uid="uid://by47861o3cnm2" path="res://scene/minimap_prefab.tscn" id="12_5lvw3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -100,9 +100,11 @@ offset_bottom = 109.0
 texture = SubResource("AtlasTexture_7nq3w")
 script = ExtResource("11_rgneq")
 minimap = NodePath("MinimapArea/Minimap")
-roomPrefab = ExtResource("13_7nq3w")
+roomPrefab = ExtResource("12_5lvw3")
 roomSize = Vector2(60, 60)
+MAX_OPACITY = null
 MIN_OPACITY = 0.8
+BLEND_SPEED = null
 
 [node name="MinimapArea" type="Control" parent="CanvasLayer/Control/MinimapLayout" unique_id=646952519]
 clip_contents = true

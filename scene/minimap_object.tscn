@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://dseq2ygifh0cl"]
+
+[ext_resource type="Texture2D" uid="uid://bxdrb6krygkm8" path="res://assets/DG UI-HUD Exp/Mini map UI icons.png" id="1_0i8k2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xfdh"]
+atlas = ExtResource("1_0i8k2")
+region = Rect2(99, 163, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i8k2"]
+atlas = ExtResource("1_0i8k2")
+region = Rect2(148, 132, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4psj1"]
+atlas = ExtResource("1_0i8k2")
+region = Rect2(83, 163, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afqia"]
+atlas = ExtResource("1_0i8k2")
+region = Rect2(100, 68, 8, 8)
+
+[node name="minimap_obejct" type="Control" unique_id=70336977]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="blinded" type="TextureRect" parent="." unique_id=2145045319]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_8xfdh")
+
+[node name="icon" type="TextureRect" parent="blinded" unique_id=1596746688]
+modulate = Color(0.29954746, 0.29954746, 0.29954743, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.000046
+offset_top = -12.0
+offset_right = 11.999954
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_0i8k2")
+
+[node name="bg" type="TextureRect" parent="." unique_id=1303063660]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_4psj1")
+
+[node name="icon" type="TextureRect" parent="bg" unique_id=196067765]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.000061
+offset_top = -12.0
+offset_right = 11.999939
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_afqia")

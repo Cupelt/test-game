@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://c7reggb300k0r"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t6f3t"]
-
-[resource]
-atlas = SubResource("AtlasTexture_t6f3t")
-region = Rect2(304, 64, 16, 16)
