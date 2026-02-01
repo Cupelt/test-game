@@ -3,9 +3,12 @@ class_name MapManager
 
 static var Instance: MapManager;
 
+@export_category("Default Setting")
+@export var player: Player
+
 @export_category("Tilemap Setting")
 @export var tilemap: TileMapLayer
-@export var minimap: MinimapHover
+@export var minimap: MinimapManager
 @export_category("Generator Setting")
 var _generators: Array[AbstractRoom]
 
@@ -17,8 +20,11 @@ var roomIDs: Dictionary[PackedScene, int]
 @export var roomSize: Vector2i = Vector2i(33, 19)
 @export_range(0, 0.2) var adjacentChance = 0.04
 
-var currentPlayerPos: Vector2i = Vector2i(0, 0)
+var currentPlayerPos: Vector2i = Vector2i.MAX
 var map: Dictionary[Vector2i, AbstractRoom]
+var visitedPos: Array[Vector2i]
+
+signal on_change_room(from: Vector2i, to: Vector2i)
 
 func global_pos_to_room_pos(pos: Vector2) -> Vector2i:
 	var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
@@ -66,7 +72,14 @@ func _ready() -> void:
 	generateMap()
 	build()
 
-	
+func _process(delta: float) -> void:
+	var afterPos = global_pos_to_room_pos(player.global_position)
+	if (currentPlayerPos != afterPos):
+		on_change_room.emit(currentPlayerPos, afterPos)
+		
+		currentPlayerPos = afterPos
+		visitedPos.append(afterPos)
+
 func build() -> void:
 	for pos in map:
 		map[pos].render(tilemap, pos)

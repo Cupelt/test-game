@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dseq2ygifh0cl"]
 
 [ext_resource type="Texture2D" uid="uid://bxdrb6krygkm8" path="res://assets/DG UI-HUD Exp/Mini map UI icons.png" id="1_0i8k2"]
+[ext_resource type="Script" uid="uid://h4d5dvtjfyyw" path="res://src/room/MinimapObject.gd" id="1_8xfdh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8xfdh"]
 atlas = ExtResource("1_0i8k2")
@@ -18,7 +19,7 @@ region = Rect2(83, 163, 10, 10)
 atlas = ExtResource("1_0i8k2")
 region = Rect2(100, 68, 8, 8)
 
-[node name="minimap_obejct" type="Control" unique_id=70336977]
+[node name="minimap_obejct" type="Control" unique_id=70336977 node_paths=PackedStringArray("blined_obejct", "visited_object")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -31,8 +32,12 @@ offset_right = 21.0
 offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8xfdh")
+blined_obejct = NodePath("blinded")
+visited_object = NodePath("bg")
 
 [node name="blinded" type="TextureRect" parent="." unique_id=2145045319]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

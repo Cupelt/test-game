@@ -1,4 +1,6 @@
 extends CharacterBody2D
+class_name Player
+
 @onready var animated_sprite_2d = $AnimatedSprite2D
 
 var SPEED = 70;
@@ -9,14 +11,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
-	MapManager.Instance.currentPlayerPos = MapManager.Instance.global_pos_to_room_pos(global_position)
-	
-#func _input(event: InputEvent) -> void:
-	## Debug
-	#if (Input.is_action_pressed("Debug")):
-		#SPEED -= 10
-		#print(SPEED)
-		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -1,11 +1,27 @@
-extends TextureRect
+extends Control
+class_name MinimapObject
 
+enum MinimapState {
+	BLINDED,
+	NO_VISIT,
+	VISITED
+}
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var state: MinimapState = MinimapState.BLINDED
+@export var blined_obejct: Control
+@export var visited_object: Control
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func update_room(state: MinimapState):
+	self.state = state
+	
+	match state:
+		MinimapState.BLINDED:
+			blined_obejct.hide()
+			visited_object.hide()
+		MinimapState.NO_VISIT:
+			blined_obejct.show()
+			visited_object.hide()
+		MinimapState.VISITED:
+			blined_obejct.hide()
+			visited_object.show()
+	
