@@ -16,6 +16,10 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/features=PackedStringArray("4.6")
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/cmd_console/plugin.cfg")
+
 [input]
 
 Up={

@@ -11,10 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://dj7u1x0myih5q" path="res://rooms/level_1/test_room/baseRoom.tscn" id="8_5lvw3"]
 [ext_resource type="Texture2D" uid="uid://ck2r51fxkrmh2" path="res://assets/DG UI-HUD Exp/Mini map system idk.png" id="9_ldvgu"]
 [ext_resource type="Script" uid="uid://dpxympa2e04rf" path="res://src/player/CameraManager.gd" id="10_exl2s"]
-[ext_resource type="Script" uid="uid://dvf3e81mn8uia" path="res://scene/MinimapManager.gd" id="11_jpwt2"]
-[ext_resource type="Script" uid="uid://b8qg0u0acnyck" path="res://src/MinimapHover.gd" id="11_rgneq"]
+[ext_resource type="Script" uid="uid://dvf3e81mn8uia" path="res://src/room/minimap/MinimapManager.gd" id="11_jpwt2"]
+[ext_resource type="Script" uid="uid://b8qg0u0acnyck" path="res://src/room/minimap/MinimapHover.gd" id="11_rgneq"]
 [ext_resource type="PackedScene" uid="uid://dseq2ygifh0cl" path="res://scene/minimap_object.tscn" id="13_7nq3w"]
-[ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://scene/MinimapPositioner.gd" id="15_5ayrf"]
+[ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -73,6 +73,7 @@ tile_set = SubResource("TileSet_r6y4n")
 [node name="EntiryLayer" type="Node2D" parent="." unique_id=1389108088]
 
 [node name="Player" parent="EntiryLayer" unique_id=155735826 instance=ExtResource("6_04oit")]
+SPEED = 300
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442]
 zoom = Vector2(2.15, 2.15)
@@ -90,7 +91,7 @@ offset_bottom = 190.0
 script = ExtResource("11_jpwt2")
 minimap = NodePath("MinimapLayout/MinimapArea/Minimap")
 roomPrefab = ExtResource("13_7nq3w")
-roomSize = Vector2(60, 60)
+roomSize = Vector2(48, 48)
 
 [node name="MinimapLayout" type="TextureRect" parent="CanvasLayer/MinimapManager" unique_id=2131168828]
 clip_children = 2

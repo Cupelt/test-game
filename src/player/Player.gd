@@ -2,8 +2,8 @@ extends CharacterBody2D
 class_name Player
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
-
-var SPEED = 70;
+@export var SPEED = 70;
+@export var ACCEL = 2500;
 
 # Called when the node enters the scene tree for the first time. 2.15
 func _ready() -> void:
@@ -18,7 +18,8 @@ func _process(delta: float) -> void:
 		.normalized()
 	
 	#region Player Movement
-	velocity = direction * SPEED
+	velocity = velocity.move_toward(direction * SPEED, delta * ACCEL)
+	# velocity = direction * SPEED
 	#endregion
 	
 	#region Player Animation
@@ -44,3 +45,6 @@ func _process(delta: float) -> void:
 	
 	animated_sprite_2d.play("_".join(beforeAnim))
 	#endregion
+
+func set_player_speed(speed: float):
+	SPEED = speed

@@ -29,11 +29,11 @@ signal on_change_room(from: Vector2i, to: Vector2i)
 func global_pos_to_room_pos(pos: Vector2) -> Vector2i:
 	var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
 	
-	return (pos / default_room_size).round() * Vector2(-1, -1)
+	return (pos / default_room_size).round()# * Vector2(1, -1)
 
 func room_pos_to_global_pos(pos: Vector2i) -> Vector2:
 	var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
-	return default_room_size * (pos as Vector2) * Vector2(-1, -1)
+	return default_room_size * (pos as Vector2)# * Vector2(1, -1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
