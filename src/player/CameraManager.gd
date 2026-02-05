@@ -1,21 +1,28 @@
 extends Camera2D
 
 var to: Vector2;
-@export var BLEND_SPEED = 150;
+var camera_tween: Tween;
 
-#func set_camera_position(pos: Vector2) -> void:
-	#to = pos
+@export var BLEND_SPEED = 150;
+@export var duration: float = 0.5;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# zoom = Vector2(0.5, 0.5);
-	# zoom = Vector2(2.15, 2.15);
-	to = global_position;
+	MapManager.Instance.on_change_room.connect(trasition)
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	to = MapManager.Instance.room_pos_to_global_pos(MapManager.Instance.currentPlayerPos)
-	global_position = global_position.lerp(to, pow(0.5, delta * BLEND_SPEED))
-	pass
+func trasition(from: Vector2i, to: Vector2i):
+	
+	if camera_tween:
+		camera_tween.kill()
+	
+	camera_tween = create_tween()
+	camera_tween.tween_property(self, 
+			"global_position", 
+			MapManager.Instance.room_pos_to_global_pos(to), 
+			duration)\
+		.set_trans(Tween.TRANS_CUBIC)\
+		.set_ease(Tween.EASE_OUT)
+	
+	
