@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://baje80lg3quet"]
+[gd_scene format=3 uid="uid://baje80lg3quet"]
 
 [ext_resource type="Script" uid="uid://dr2ph6p03fb5g" path="res://src/player/Player.gd" id="1_3igvs"]
 [ext_resource type="Texture2D" uid="uid://cikki53s3h3w3" path="res://assets/Eris Esra's Character Template 4.0/16x16/16x16 Idle-Sheet.png" id="2_6mvgr"]
@@ -208,13 +208,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=1407758319]
 script = ExtResource("1_3igvs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1316167438]
+visible = false
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_dx0e4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=597161113]
+visible = false
 sprite_frames = SubResource("SpriteFrames_c2etn")
 animation = &"Idle_Down"

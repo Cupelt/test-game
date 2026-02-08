@@ -9,13 +9,14 @@ var camera_tween: Tween;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	MapManager.Instance.on_change_room.connect(trasition)
-	pass # Replace with function body.
-
+	pass
 
 func trasition(from: Vector2i, to: Vector2i):
 	
 	if camera_tween:
 		camera_tween.kill()
+		
+	# MapManager.Instance.room_instances[to].visible = true
 	
 	camera_tween = create_tween()
 	camera_tween.tween_property(self, 
@@ -25,4 +26,11 @@ func trasition(from: Vector2i, to: Vector2i):
 		.set_trans(Tween.TRANS_CUBIC)\
 		.set_ease(Tween.EASE_OUT)
 	
+	return
 	
+	await camera_tween.finished
+	
+	var instance_list = MapManager.Instance.room_instances
+	for key in instance_list:
+		var instance = instance_list[key] as Node2D
+		instance.visible = key == to

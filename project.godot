@@ -18,7 +18,7 @@ config/features=PackedStringArray("4.6")
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/cmd_console/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

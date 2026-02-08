@@ -37,6 +37,8 @@ func render(layer: TileMapLayer, pos: Vector2i) -> void:
 	layer.update_internals()
 	
 	var room_instance: Node2D = layer.get_child(layer.get_child_count() - 1)
+	manager.room_instances[pos] = room_instance
+	
 	var AdjacentDirs: Array[Vector2i] = RoomUtils.getAdjacentRooms(MapManager.Instance.map, pos)
 	for dir in AdjacentDirs:
 		if dir == Vector2i.LEFT:
