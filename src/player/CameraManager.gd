@@ -1,15 +1,19 @@
 extends Camera2D
 
-var to: Vector2;
 var camera_tween: Tween;
 
+@export var player: Player;
 @export var BLEND_SPEED = 150;
 @export var duration: float = 0.5;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	MapManager.Instance.on_change_room.connect(trasition)
+	# MapManager.Instance.on_change_room.connect(trasition)
 	pass
+
+func _process(delta: float) -> void:
+	global_position = global_position.lerp(player.global_position, pow(0.5, delta * BLEND_SPEED))
+	
 
 func trasition(from: Vector2i, to: Vector2i):
 	

@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cghyamnf4h77i" path="res://src/room/logic/LargeRoom.gd" id="3_yow2r"]
 [ext_resource type="Script" uid="uid://f4nav2h7nlue" path="res://src/room/logic/TreasureRoom.gd" id="4_ldvgu"]
 [ext_resource type="PackedScene" uid="uid://dj7u1x0myih5q" path="res://rooms/level_1/test_room/baseRoom.tscn" id="8_5lvw3"]
+[ext_resource type="PackedScene" uid="uid://tdum3h4i7b01" path="res://rooms/level_1/test_room/baseCorridor.tscn" id="9_a0s00"]
 [ext_resource type="Texture2D" uid="uid://ck2r51fxkrmh2" path="res://assets/DG UI-HUD Exp/Mini map system idk.png" id="9_ldvgu"]
 [ext_resource type="Script" uid="uid://dr2ph6p03fb5g" path="res://src/player/Player.gd" id="9_pr1hq"]
 [ext_resource type="Script" uid="uid://dpxympa2e04rf" path="res://src/player/CameraManager.gd" id="10_exl2s"]
@@ -28,10 +29,11 @@ region = Rect2(100, 4, 8, 8)
 atlas = ExtResource("3_7nq3w")
 region = Rect2(100, 84, 8, 8)
 
-[sub_resource type="TileSet" id="TileSet_r6y4n"]
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_j0hnk"]
+parsed_geometry_type = 0
 agent_radius = 16.0
+
+[sub_resource type="TileSet" id="TileSet_r6y4n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0hnk"]
 size = Vector2(14, 13)
@@ -320,9 +322,10 @@ metadata/_edit_horizontal_guides_ = [-113.0]
 [node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("player", "tilemap", "minimap", "nav_region")]
 script = ExtResource("1_rgneq")
 player = NodePath("../EntiryLayer/Player")
-tilemap = NodePath("../GeneratedMapLayer")
+tilemap = NodePath("../NavigationRegion2D/GeneratedMapLayer")
 minimap = NodePath("../CanvasLayer/MinimapManager")
 nav_region = NodePath("../NavigationRegion2D")
+corridor_scene = ExtResource("9_a0s00")
 
 [node name="BossRoom" type="Node2D" parent="MapManager" unique_id=1069954702]
 script = ExtResource("2_jx7jm")
@@ -346,11 +349,12 @@ script = ExtResource("4_ldvgu")
 icon = SubResource("AtlasTexture_hie7p")
 presets = Array[PackedScene]([ExtResource("8_5lvw3")])
 
-[node name="GeneratedMapLayer" type="TileMapLayer" parent="." unique_id=787452056]
-tile_set = SubResource("TileSet_r6y4n")
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=206726118]
 navigation_polygon = SubResource("NavigationPolygon_j0hnk")
+navigation_layers = 2
+
+[node name="GeneratedMapLayer" type="TileMapLayer" parent="NavigationRegion2D" unique_id=787452056]
+tile_set = SubResource("TileSet_r6y4n")
 
 [node name="EntiryLayer" type="Node2D" parent="." unique_id=1389108088]
 
@@ -384,12 +388,14 @@ target = NodePath("../../Player")
 SPEED = 50
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="EntiryLayer/Slime/ChasingComponent" unique_id=1599117879]
+navigation_layers = 2
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442 node_paths=PackedStringArray("player")]
 zoom = Vector2(2.15, 2.15)
 script = ExtResource("10_exl2s")
+player = NodePath("../EntiryLayer/Player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207279906]
 

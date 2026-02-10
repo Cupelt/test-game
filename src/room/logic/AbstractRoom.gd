@@ -32,7 +32,7 @@ func get_map_type() -> MapType:
 func render(layer: TileMapLayer, pos: Vector2i) -> void:
 	var manager = MapManager.Instance
 	
-	var target_pos = pos * manager.roomSize
+	var target_pos = pos * (manager.roomSize + Vector2i.ONE * manager.corridorSize / 2)
 	layer.set_cell(target_pos, manager.sourceID, Vector2i(0, 0), manager.roomIDs[presets.pick_random()])
 	layer.update_internals()
 	
@@ -40,7 +40,11 @@ func render(layer: TileMapLayer, pos: Vector2i) -> void:
 	manager.room_instances[pos] = room_instance
 	
 	var AdjacentDirs: Array[Vector2i] = RoomUtils.getAdjacentRooms(MapManager.Instance.map, pos)
+	
 	for dir in AdjacentDirs:
+		var instance = manager.corridor_scene.instantiate()
+		manager.tilemap.add_child(instance)
+		
 		if dir == Vector2i.LEFT:
 			var left_node = room_instance.find_child("IsLeftBlocked")
 			if left_node: left_node.queue_free()
@@ -53,6 +57,8 @@ func render(layer: TileMapLayer, pos: Vector2i) -> void:
 		elif dir == Vector2i.DOWN:
 			var down_node = room_instance.find_child("IsDownBlocked")
 			if down_node: down_node.queue_free()
+			
+	layer.update_internals()
 
 #region Debug
 func _get_display_char():

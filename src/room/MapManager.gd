@@ -10,6 +10,7 @@ static var Instance: MapManager;
 @export var tilemap: TileMapLayer
 @export var minimap: MinimapManager
 @export var nav_region: NavigationRegion2D
+@export var corridor_scene: PackedScene
 @export_category("Generator Setting")
 var _generators: Array[AbstractRoom]
 
@@ -19,6 +20,7 @@ var roomIDs: Dictionary[PackedScene, int]
 @export var generateSeed: int = 0
 @export var maxRoom: int = 10
 @export var roomSize: Vector2i = Vector2i(33, 19)
+@export var corridorSize: int = 7
 @export_range(0, 0.2) var adjacentChance = 0.04
 
 var currentPlayerPos: Vector2i = Vector2i.MAX
@@ -87,7 +89,6 @@ func build() -> void:
 	for pos in map:
 		map[pos].render(tilemap, pos)
 	minimap.build_minimap(map)
-	print("pass")
 	nav_region.bake_navigation_polygon()
 	
 
