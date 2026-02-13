@@ -23,22 +23,20 @@ var roomIDs: Dictionary[PackedScene, int]
 @export var corridorSize: int = 7
 @export_range(0, 0.2) var adjacentChance = 0.04
 
-var currentPlayerPos: Vector2i = Vector2i.MAX
-
 var map: Dictionary[Vector2i, AbstractRoom]
 var visitedPos: Array[Vector2i]
 var room_instances: Dictionary[Vector2i, Node2D]
 
 signal on_change_room(from: Vector2i, to: Vector2i)
 
-func global_pos_to_room_pos(pos: Vector2) -> Vector2i:
-	var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
-	
-	return (pos / default_room_size).round()# * Vector2(1, -1)
-
-func room_pos_to_global_pos(pos: Vector2i) -> Vector2:
-	var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
-	return default_room_size * (pos as Vector2)# * Vector2(1, -1)
+#func global_pos_to_room_pos(pos: Vector2) -> Vector2i:
+	#var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
+	#
+	#return (pos / default_room_size).round()# * Vector2(1, -1)
+#
+#func room_pos_to_global_pos(pos: Vector2i) -> Vector2:
+	#var default_room_size: Vector2 = roomSize * tilemap.rendering_quadrant_size
+	#return default_room_size * (pos as Vector2)# * Vector2(1, -1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -77,13 +75,13 @@ func _ready() -> void:
 	generateMap()
 	build()
 
-func _process(delta: float) -> void:
-	var afterPos = global_pos_to_room_pos(player.global_position)
-	if (currentPlayerPos != afterPos):
-		on_change_room.emit(currentPlayerPos, afterPos)
-		
-		currentPlayerPos = afterPos
-		visitedPos.append(afterPos)
+#func _process(delta: float) -> void:
+	#var afterPos = global_pos_to_room_pos(player.global_position)
+	##if (currentPlayerPos != afterPos):
+		##on_change_room.emit(currentPlayerPos, afterPos)
+		##
+		##currentPlayerPos = afterPos
+		##visitedPos.append(afterPos)
 
 func build() -> void:
 	for pos in map:

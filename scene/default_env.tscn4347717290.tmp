@@ -326,6 +326,7 @@ tilemap = NodePath("../NavigationRegion2D/GeneratedMapLayer")
 minimap = NodePath("../CanvasLayer/MinimapManager")
 nav_region = NodePath("../NavigationRegion2D")
 corridor_scene = ExtResource("9_a0s00")
+maxRoom = 4
 roomSize = Vector2i(31, 17)
 
 [node name="BossRoom" type="Node2D" parent="MapManager" unique_id=1069954702]

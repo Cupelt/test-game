@@ -5,6 +5,8 @@ class_name Player
 @export var SPEED = 70;
 @export var ACCEL = 2500;
 
+var map_pos: Vector2i = Vector2i.MAX
+
 # Called when the node enters the scene tree for the first time. 2.15
 func _ready() -> void:
 	pass # Replace with function body.

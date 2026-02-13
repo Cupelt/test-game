@@ -326,7 +326,6 @@ tilemap = NodePath("../NavigationRegion2D/GeneratedMapLayer")
 minimap = NodePath("../CanvasLayer/MinimapManager")
 nav_region = NodePath("../NavigationRegion2D")
 corridor_scene = ExtResource("9_a0s00")
-roomSize = Vector2i(31, 17)
 
 [node name="BossRoom" type="Node2D" parent="MapManager" unique_id=1069954702]
 script = ExtResource("2_jx7jm")
@@ -355,7 +354,6 @@ navigation_polygon = SubResource("NavigationPolygon_j0hnk")
 navigation_layers = 2
 
 [node name="GeneratedMapLayer" type="TileMapLayer" parent="NavigationRegion2D" unique_id=787452056]
-position = Vector2(-8, -8)
 tile_set = SubResource("TileSet_r6y4n")
 
 [node name="EntiryLayer" type="Node2D" parent="." unique_id=1389108088]

@@ -27,11 +27,3 @@ func _process(delta: float) -> void:
 	$"..".move_and_slide()
 	
 	pass
-
-func bake():
-	$NavigationRegion2D.bake_navigation_polygon()
-	
-	
-	
-	
-	
