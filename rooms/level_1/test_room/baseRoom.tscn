@@ -2,13 +2,50 @@
 
 [ext_resource type="TileSet" uid="uid://prrr5rs4pp7x" path="res://tilemap/Level_1.tres" id="1_070d1"]
 [ext_resource type="Script" uid="uid://ckcik7yihwgep" path="res://src/room/RoomInfo.gd" id="1_auebe"]
-[ext_resource type="Shader" uid="uid://fjl1evlrdwxx" path="res://shader/fog.tres" id="3_aw78j"]
+[ext_resource type="Shader" uid="uid://cgbmkxewx6f1d" path="res://shader/fog.gdshader" id="3_aw78j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_070d1"]
 size = Vector2(462, 238)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4wnt"]
+[sub_resource type="Gradient" id="Gradient_p4wnt"]
+colors = PackedColorArray(0, 0, 0, 1, 0.18359044, 0.18359047, 0.18359032, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0x7r0"]
+noise_type = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yylbj"]
+noise = SubResource("FastNoiseLite_0x7r0")
+color_ramp = SubResource("Gradient_p4wnt")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_aw78j"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aw78j"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p4wnt"]
+noise = SubResource("FastNoiseLite_aw78j")
+color_ramp = SubResource("Gradient_aw78j")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aw78j"]
 shader = ExtResource("3_aw78j")
+shader_parameter/sensitivity = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_p4wnt")
+shader_parameter/fog_noise_texture = SubResource("NoiseTexture2D_yylbj")
+shader_parameter/noise_config_size = Vector2(512, 512)
+shader_parameter/sprite_size = Vector2(512, 512)
+shader_parameter/noise_seed = 0.0
+shader_parameter/edge_thickness = 0.0530000025175
+shader_parameter/smoothness = 0.05
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/edge_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/details_color = Color(1, 1, 1, 1)
+shader_parameter/details_opacity = 0.1
+shader_parameter/edge_bias_strength = 0.5
+shader_parameter/edge_remap_min = 0.0
+shader_parameter/edge_remap_max = 1.0
 
 [node name="BaseMap" type="Node2D" unique_id=1804450851]
 script = ExtResource("1_auebe")
@@ -40,5 +77,11 @@ position = Vector2(-7, -8)
 shape = SubResource("RectangleShape2D_070d1")
 debug_color = Color(0.651473, 0.5195062, 0, 0.41960785)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1714264227]
-material = SubResource("ShaderMaterial_p4wnt")
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=897711415]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1638609380]
+material = SubResource("ShaderMaterial_aw78j")
+offset_left = -261.0
+offset_top = -146.0
+offset_right = 240.0
+offset_bottom = 131.0
