@@ -15,8 +15,21 @@ func _enter_area(body: Node2D):
 	MapManager.Instance.on_change_room.emit(body.map_pos, room_position)
 	body.map_pos = room_position
 	
-	print(body.map_pos)
-
+	_left_fog(null, room_position)
+	
+func _left_fog(ignored, pos: Vector2):
+	var viewport_size = get_viewport().get_visible_rect().size
+	var screen_pos = get_viewport().get_canvas_transform() * pos
+	
+	$Fog.material.set_shader_parameter("player_pos", screen_pos)
+	
+	var camera_tween = create_tween()
+	camera_tween.tween_property($Fog.material, 
+			"shader_parameter/view_radius", 
+			1000, 1)\
+		.set_trans(Tween.TRANS_CUBIC)\
+		.set_ease(Tween.EASE_OUT)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

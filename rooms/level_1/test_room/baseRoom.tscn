@@ -2,50 +2,46 @@
 
 [ext_resource type="TileSet" uid="uid://prrr5rs4pp7x" path="res://tilemap/Level_1.tres" id="1_070d1"]
 [ext_resource type="Script" uid="uid://ckcik7yihwgep" path="res://src/room/RoomInfo.gd" id="1_auebe"]
-[ext_resource type="Shader" uid="uid://cgbmkxewx6f1d" path="res://shader/fog.gdshader" id="3_aw78j"]
+[ext_resource type="Shader" uid="uid://fjl1evlrdwxx" path="res://shader/fog.tres" id="3_aw78j"]
+[ext_resource type="Shader" uid="uid://dfymtvavxsdxm" path="res://fog_cutter.tres" id="4_p4wnt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_070d1"]
 size = Vector2(462, 238)
 
-[sub_resource type="Gradient" id="Gradient_p4wnt"]
-colors = PackedColorArray(0, 0, 0, 1, 0.18359044, 0.18359047, 0.18359032, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_0x7r0"]
-noise_type = 4
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yylbj"]
-noise = SubResource("FastNoiseLite_0x7r0")
-color_ramp = SubResource("Gradient_p4wnt")
-seamless = true
-
 [sub_resource type="Gradient" id="Gradient_aw78j"]
+colors = PackedColorArray(0, 0, 0, 1, 0.06469657, 0.06469652, 0.0646965, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_aw78j"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p4wnt"]
+metadata/_preview_in_3d_space_ = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p4wnt"]
-noise = SubResource("FastNoiseLite_aw78j")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0x7r0"]
+noise = SubResource("FastNoiseLite_p4wnt")
 color_ramp = SubResource("Gradient_aw78j")
 seamless = true
-seamless_blend_skirt = 1.0
+seamless_blend_skirt = 0.383
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aw78j"]
 shader = ExtResource("3_aw78j")
-shader_parameter/sensitivity = 1.0
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_p4wnt")
-shader_parameter/fog_noise_texture = SubResource("NoiseTexture2D_yylbj")
-shader_parameter/noise_config_size = Vector2(512, 512)
-shader_parameter/sprite_size = Vector2(512, 512)
-shader_parameter/noise_seed = 0.0
-shader_parameter/edge_thickness = 0.0530000025175
-shader_parameter/smoothness = 0.05
-shader_parameter/replace_color = Color(0, 0, 0, 1)
-shader_parameter/edge_color = Color(0.4, 0.4, 0.4, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/details_color = Color(1, 1, 1, 1)
-shader_parameter/details_opacity = 0.1
-shader_parameter/edge_bias_strength = 0.5
-shader_parameter/edge_remap_min = 0.0
-shader_parameter/edge_remap_max = 1.0
+shader_parameter/speed = 0.1
+shader_parameter/NoiseTexture = SubResource("NoiseTexture2D_0x7r0")
+shader_parameter/edge_thicknes = 0.0470000022325
+shader_parameter/view_radius = 0.0
+shader_parameter/soft_edge = 0.0
+
+[sub_resource type="Gradient" id="Gradient_p4wnt"]
+offsets = PackedFloat32Array(0.4178082, 0.6609589)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0x7r0"]
+gradient = SubResource("Gradient_p4wnt")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0x7r0"]
+shader = ExtResource("4_p4wnt")
+shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_0x7r0")
 
 [node name="BaseMap" type="Node2D" unique_id=1804450851]
 script = ExtResource("1_auebe")
@@ -77,11 +73,29 @@ position = Vector2(-7, -8)
 shape = SubResource("RectangleShape2D_070d1")
 debug_color = Color(0.651473, 0.5195062, 0, 0.41960785)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=897711415]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="." unique_id=1779878268]
+z_index = 100
+copy_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1638609380]
+[node name="Fog" type="ColorRect" parent="BackBufferCopy" unique_id=1638609380]
 material = SubResource("ShaderMaterial_aw78j")
 offset_left = -261.0
 offset_top = -146.0
 offset_right = 240.0
 offset_bottom = 131.0
+
+[node name="FogCutter" type="ColorRect" parent="BackBufferCopy" unique_id=1758348382]
+visible = false
+material = SubResource("ShaderMaterial_0x7r0")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)

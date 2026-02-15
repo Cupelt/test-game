@@ -28,6 +28,7 @@ func get_map_type() -> MapType:
 	return MapType.SPECIAL
 
 @abstract func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void
+	
 
 func render(layer: TileMapLayer, pos: Vector2i) -> void:
 	var manager = MapManager.Instance
