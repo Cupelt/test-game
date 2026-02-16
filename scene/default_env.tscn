@@ -317,6 +317,25 @@ region = Rect2(100, 68, 8, 8)
 [node name="DefaultEnv" type="Node2D" unique_id=294223548]
 metadata/_edit_horizontal_guides_ = [-113.0]
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442 node_paths=PackedStringArray("player")]
+zoom = Vector2(2.15, 2.15)
+script = ExtResource("10_exl2s")
+player = NodePath("../EntiryLayer/Player")
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D" unique_id=1294254321]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -164.0
+offset_right = 295.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.078431375, 0.14509805, 1)
+
 [node name="EnemySponer" type="Node2D" parent="." unique_id=1217171044]
 
 [node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("player", "tilemap", "minimap", "nav_region")]
@@ -393,11 +412,6 @@ SPEED = 50
 navigation_layers = 2
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442 node_paths=PackedStringArray("player")]
-zoom = Vector2(2.15, 2.15)
-script = ExtResource("10_exl2s")
-player = NodePath("../EntiryLayer/Player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207279906]
 

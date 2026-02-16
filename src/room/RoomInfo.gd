@@ -15,20 +15,22 @@ func _enter_area(body: Node2D):
 	MapManager.Instance.on_change_room.emit(body.map_pos, room_position)
 	body.map_pos = room_position
 	
-	_left_fog(null, room_position)
+	if !MapManager.Instance.visitedPos.has(room_position):
+		_left_fog(body.global_position)
+		MapManager.Instance.visitedPos.append(room_position)
 	
-func _left_fog(ignored, pos: Vector2):
-	var viewport_size = get_viewport().get_visible_rect().size
-	var screen_pos = get_viewport().get_canvas_transform() * pos
+func _left_fog(pos: Vector2):
+	$BackBufferCopy/FogCutter.global_position = pos
+	$BackBufferCopy/FogCutter.visible = true
 	
-	$Fog.material.set_shader_parameter("player_pos", screen_pos)
-	
-	var camera_tween = create_tween()
-	camera_tween.tween_property($Fog.material, 
-			"shader_parameter/view_radius", 
-			1000, 1)\
+	var cutter_tween = create_tween()
+	cutter_tween.tween_property($BackBufferCopy/FogCutter, 
+			"scale", Vector2(15, 15), 2)\
 		.set_trans(Tween.TRANS_CUBIC)\
 		.set_ease(Tween.EASE_OUT)
+	
+	await cutter_tween.finished
+	$BackBufferCopy.queue_free()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
