@@ -16,6 +16,10 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/features=PackedStringArray("4.6")
 
+[autoload]
+
+Event="*uid://clbdvc57e5gbx"
+
 [editor_plugins]
 
 enabled=PackedStringArray()

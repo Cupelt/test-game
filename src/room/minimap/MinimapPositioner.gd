@@ -6,7 +6,7 @@ extends Control
 var to: Vector2
 
 func _ready() -> void:
-	MapManager.Instance.on_change_room.connect(update_room)
+	Event.on_change_room.connect(update_room)
 
 func _process(delta: float) -> void:
 	position = position.lerp(-to, pow(0.5, delta * BLEND_SPEED))

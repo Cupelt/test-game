@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cxbuxhgfisf1k"]
 
-[ext_resource type="Script" uid="uid://cvt6g5kak4r4f" path="res://src/room/MapManager.gd" id="1_rgneq"]
 [ext_resource type="Script" uid="uid://fdo25n8tyv47" path="res://src/room/logic/BossRoom.gd" id="2_jx7jm"]
 [ext_resource type="Script" uid="uid://6d0do6ly12w7" path="res://src/room/logic/StartRoom.gd" id="2_ldvgu"]
 [ext_resource type="Texture2D" uid="uid://bxdrb6krygkm8" path="res://assets/DG UI-HUD Exp/Mini map UI icons.png" id="3_7nq3w"]
 [ext_resource type="Script" uid="uid://b78gg7krm0joq" path="res://src/room/logic/SingleRoom.gd" id="3_exl2s"]
 [ext_resource type="Script" uid="uid://cghyamnf4h77i" path="res://src/room/logic/LargeRoom.gd" id="3_yow2r"]
+[ext_resource type="Script" uid="uid://clrlh7u5ghu4" path="res://src/room/manager/RoomGenerator.gd" id="4_ja8bw"]
 [ext_resource type="Script" uid="uid://f4nav2h7nlue" path="res://src/room/logic/TreasureRoom.gd" id="4_ldvgu"]
 [ext_resource type="PackedScene" uid="uid://dj7u1x0myih5q" path="res://rooms/level_1/test_room/baseRoom.tscn" id="8_5lvw3"]
 [ext_resource type="PackedScene" uid="uid://tdum3h4i7b01" path="res://rooms/level_1/test_room/baseCorridor.tscn" id="9_a0s00"]
@@ -16,10 +16,144 @@
 [ext_resource type="Script" uid="uid://dvf3e81mn8uia" path="res://src/room/minimap/MinimapManager.gd" id="11_jpwt2"]
 [ext_resource type="Texture2D" uid="uid://bimjm3i83pfb2" path="res://assets/Eris Esra's Character Template 4.0/16x16/16x16 Walk-Sheet.png" id="11_pr1hq"]
 [ext_resource type="Script" uid="uid://b8qg0u0acnyck" path="res://src/room/minimap/MinimapHover.gd" id="11_rgneq"]
+[ext_resource type="Script" uid="uid://b3ykt3obpaifk" path="res://src/room/TilemapBuilder.gd" id="12_13kf1"]
 [ext_resource type="Texture2D" uid="uid://bxllf4iaveube" path="res://assets/Dungeon Gathering Full Ver. 1.1/Slime/Blue Slime.png" id="12_j0hnk"]
+[ext_resource type="Script" uid="uid://pyj8o2mw4e2n" path="res://src/room/manager/RoomRegistry.gd" id="12_pnaty"]
 [ext_resource type="PackedScene" uid="uid://dseq2ygifh0cl" path="res://scene/minimap_object.tscn" id="13_7nq3w"]
 [ext_resource type="Script" uid="uid://dof8p8u81r7sw" path="res://src/entity/ChasingComponent.gd" id="13_j0hnk"]
+[ext_resource type="Shader" uid="uid://dfymtvavxsdxm" path="res://fog_cutter.tres" id="14_f6etw"]
+[ext_resource type="Script" uid="uid://b5okll2hn6hd8" path="res://src/player/FogCutter.gd" id="14_hb2k2"]
 [ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
+
+[sub_resource type="GDScript" id="GDScript_ja8bw"]
+script/source = "extends Node2D
+class_name MapManager
+
+static var Instance: MapManager;
+
+@export_category(\"Default Setting\")
+@export var player: Player
+
+@export_category(\"Tilemap Setting\")
+@export var tilemap: TileMapLayer
+@export var minimap: MinimapManager
+@export var nav_region: NavigationRegion2D
+@export var corridor_scene: PackedScene
+@export_category(\"Generator Setting\")
+var _generators: Array[AbstractRoom]
+
+var sourceID: int;
+var roomIDs: Dictionary[PackedScene, int]
+
+@export var generateSeed: int = 0
+@export var maxRoom: int = 10
+@export var roomSize: Vector2i = Vector2i(33, 19)
+@export var corridorSize: int = 7
+@export_range(0, 0.2) var adjacentChance = 0.04
+
+var map: Dictionary[Vector2i, AbstractRoom]
+var visitedPos: Array[Vector2i]
+var room_instances: Dictionary[Vector2i, Node2D]
+
+signal on_change_room(from: Vector2i, to: Vector2i)
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	# 싱글톤 생성
+	if (Instance != null):
+		queue_free();
+		return
+	
+	Instance = self
+	
+	# generator 등록
+	for node in get_children():
+		_generators.append(node as AbstractRoom)
+	
+	_generators.sort_custom(
+		func (a: AbstractRoom, b: AbstractRoom): 
+			return a.get_priority() > b.get_priority()
+	)
+	
+	# Tileset 등록
+	var collection: TileSetScenesCollectionSource = TileSetScenesCollectionSource.new()
+	for gen in _generators:
+		for scene in gen.presets:
+			# 생성된 TileSetScenesCollectionSource 의 아이디에 대응 하는 RoomData를 저장
+			roomIDs[scene] = collection.create_scene_tile(scene)
+	
+	sourceID = tilemap.tile_set.add_source(collection)
+	
+	## 랜덤시드 재설정
+	randomize()
+	
+	## 시드가 지정되어 있다면 해당 시드로 생성
+	if (generateSeed != 0):
+		seed(generateSeed)
+		
+	generateMap()
+	build()
+
+#func _process(delta: float) -> void:
+	#var afterPos = global_pos_to_room_pos(player.global_position)
+	##if (currentPlayerPos != afterPos):
+		##on_change_room.emit(currentPlayerPos, afterPos)
+		##
+		##currentPlayerPos = afterPos
+		##visitedPos.append(afterPos)
+
+func build() -> void:
+	for pos in map:
+		map[pos].render(tilemap, pos)
+	minimap.build_minimap(map)
+	nav_region.bake_navigation_polygon()
+	
+
+func generateMap() -> void:
+	map.clear()
+	var walkHistory: Array[Vector2i] = [Vector2i(0, 0)]
+
+	## 시작방은 항상 존재
+	map[Vector2i(0, 0)] = StartRoom.new()
+	
+	var currentPos;
+	while map.size() < maxRoom:
+		currentPos = walkHistory.pick_random()
+		
+		var dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
+		dirs.shuffle()
+		
+		var placed = false
+		for d in dirs:
+			var targetPos = currentPos + d
+			
+			# 이미 그 자리에 방이 있다면 생성 불가.
+			if (map.has(targetPos)):
+				continue
+			
+			if (RoomUtils.countAdjacentCount(map, targetPos) > 1 and randf_range(0, 1) > adjacentChance):
+				continue
+			
+			walkHistory.append(targetPos)
+			map[targetPos] = null
+			
+			placed = true
+		
+		if not placed:
+			walkHistory.erase(currentPos)
+			
+		# 무한 루프 방지 (안전장치)
+		if walkHistory.is_empty():
+			break
+	
+	#for room in generators[AbstractRoom.ApplyPoint.ON_POST]:
+		#(room as AbstractRoom).apply(map)
+	
+	for room in _generators:
+		room.apply(map)
+
+	RoomUtils.printMapDebug(map)
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -239,6 +373,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_hb2k2"]
+offsets = PackedFloat32Array(0.4178082, 0.6609589)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0x7r0"]
+gradient = SubResource("Gradient_hb2k2")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ja8bw"]
+shader = ExtResource("14_f6etw")
+shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_0x7r0")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0hnk"]
 radius = 8.0
 
@@ -339,7 +488,7 @@ color = Color(0.09411765, 0.078431375, 0.14509805, 1)
 [node name="EnemySponer" type="Node2D" parent="." unique_id=1217171044]
 
 [node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("player", "tilemap", "minimap", "nav_region")]
-script = ExtResource("1_rgneq")
+script = SubResource("GDScript_ja8bw")
 player = NodePath("../EntiryLayer/Player")
 tilemap = NodePath("../NavigationRegion2D/GeneratedMapLayer")
 minimap = NodePath("../CanvasLayer/MinimapManager")
@@ -347,27 +496,43 @@ nav_region = NodePath("../NavigationRegion2D")
 corridor_scene = ExtResource("9_a0s00")
 roomSize = Vector2i(31, 17)
 
-[node name="BossRoom" type="Node2D" parent="MapManager" unique_id=1069954702]
+[node name="MapGenerator" type="Node2D" parent="MapManager" unique_id=1349805853]
+script = ExtResource("4_ja8bw")
+
+[node name="BossRoom" type="Node2D" parent="MapManager/MapGenerator" unique_id=1069954702]
 script = ExtResource("2_jx7jm")
 icon = SubResource("AtlasTexture_jpwt2")
 presets = Array[PackedScene]([ExtResource("8_5lvw3")])
 
-[node name="LargeRoom" type="Node2D" parent="MapManager" unique_id=68623536]
+[node name="LargeRoom" type="Node2D" parent="MapManager/MapGenerator" unique_id=68623536]
 script = ExtResource("3_yow2r")
 presets = Array[PackedScene]([ExtResource("8_5lvw3")])
 
-[node name="SingleRoom" type="Node2D" parent="MapManager" unique_id=359024537]
+[node name="SingleRoom" type="Node2D" parent="MapManager/MapGenerator" unique_id=359024537]
 script = ExtResource("3_exl2s")
 presets = Array[PackedScene]([ExtResource("8_5lvw3")])
 
-[node name="SrartRoom" type="Node2D" parent="MapManager" unique_id=1119811845]
+[node name="SrartRoom" type="Node2D" parent="MapManager/MapGenerator" unique_id=1119811845]
 script = ExtResource("2_ldvgu")
 presets = Array[PackedScene]([ExtResource("8_5lvw3")])
 
-[node name="TresureRoom" type="Node2D" parent="MapManager" unique_id=281161551]
+[node name="TresureRoom" type="Node2D" parent="MapManager/MapGenerator" unique_id=281161551]
 script = ExtResource("4_ldvgu")
 icon = SubResource("AtlasTexture_hie7p")
 presets = Array[PackedScene]([ExtResource("8_5lvw3")])
+
+[node name="RoomRegistry" type="Node2D" parent="MapManager" unique_id=500188539]
+script = ExtResource("12_pnaty")
+
+[node name="TilemapBuilder" type="Node2D" parent="MapManager" unique_id=1033468203 node_paths=PackedStringArray("tilemap", "minimap_manager", "nav_region")]
+script = ExtResource("12_13kf1")
+tilemap = NodePath("../../NavigationRegion2D/GeneratedMapLayer")
+minimap_manager = NodePath("../../CanvasLayer/MinimapManager")
+nav_region = NodePath("../../NavigationRegion2D")
+corridor_scene = ExtResource("9_a0s00")
+room_size = null
+corridor_size = null
+rendering_quadrant_size = null
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=206726118]
 navigation_polygon = SubResource("NavigationPolygon_j0hnk")
@@ -389,6 +554,26 @@ shape = SubResource("RectangleShape2D_j0hnk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EntiryLayer/Player" unique_id=506996724]
 sprite_frames = SubResource("SpriteFrames_a0s00")
 animation = &"Idle_Down"
+
+[node name="FogCutter" type="Node2D" parent="EntiryLayer/Player" unique_id=1689608535]
+z_index = 101
+script = ExtResource("14_hb2k2")
+
+[node name="FogCutter" type="ColorRect" parent="EntiryLayer/Player/FogCutter" unique_id=622006373]
+material = SubResource("ShaderMaterial_ja8bw")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+metadata/_edit_use_anchors_ = true
 
 [node name="Slime" type="CharacterBody2D" parent="EntiryLayer" unique_id=107499345]
 position = Vector2(147, 68)

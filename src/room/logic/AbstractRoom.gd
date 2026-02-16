@@ -28,49 +28,12 @@ func get_map_type() -> MapType:
 	return MapType.SPECIAL
 
 @abstract func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void
-	
 
-func render(layer: TileMapLayer, pos: Vector2i) -> void:
-	var manager = MapManager.Instance
-	
-	var target_pos = pos * (manager.roomSize + Vector2i.ONE * manager.corridorSize * 2)
-	layer.set_cell(target_pos, manager.sourceID, Vector2i(0, 0), manager.roomIDs[presets.pick_random()])
-	layer.update_internals()
-	
-	var room_instance: RoomInfo = layer.get_child(layer.get_child_count() - 1)
-	room_instance.room_position = pos
-	
-	manager.room_instances[pos] = room_instance
-	
-	var AdjacentDirs: Array[Vector2i] = RoomUtils.getAdjacentRooms(MapManager.Instance.map, pos)
-	
-	for dir in AdjacentDirs:
-		var instance: Node2D = manager.corridor_scene.instantiate()
-		manager.tilemap.add_child(instance)
-		
-		var offset: Vector2 = manager.roomSize * dir / 2.0
-		var corridor_offset: Vector2 = dir * manager.corridorSize / 2.0
+func sample_room() -> PackedScene:
+	return presets.pick_random()
 
-		instance.global_position = (target_pos as Vector2 + offset + corridor_offset + Vector2(-0.5, -0.5)) * 16
-		
-		if dir == Vector2i.LEFT:
-			var left_node = room_instance.find_child("IsLeftBlocked")
-			if left_node: left_node.queue_free()
-			instance.find_child("Vertical").queue_free()
-		elif dir == Vector2i.RIGHT:
-			var right_node = room_instance.find_child("IsRightBlocked")
-			if right_node: right_node.queue_free()
-			instance.find_child("Vertical").queue_free()
-		elif dir == Vector2i.UP:
-			var up_node = room_instance.find_child("IsTopBlocked")
-			if up_node: up_node.queue_free()
-			instance.find_child("Horizontal").queue_free()
-		elif dir == Vector2i.DOWN:
-			var down_node = room_instance.find_child("IsDownBlocked")
-			if down_node: down_node.queue_free()
-			instance.find_child("Horizontal").queue_free()
-			
-	layer.update_internals()
+func post_process(map_data: MapData, room_instance: RoomData):
+	pass
 
 #region Debug
 func _get_display_char():

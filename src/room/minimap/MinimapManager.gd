@@ -8,7 +8,7 @@ class_name MinimapManager
 var minimap_objects: Dictionary[Vector2i, MinimapObject]
 
 func _ready() -> void:
-	MapManager.Instance.on_change_room.connect(visit_map)
+	Event.on_change_room.connect(visit_map)
 
 func visit_map(from: Vector2i, to: Vector2i):
 	if (!minimap_objects.has(to)):

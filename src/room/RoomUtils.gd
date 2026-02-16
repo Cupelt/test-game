@@ -1,27 +1,5 @@
 class_name RoomUtils
 
-static func findFurthestRoomPos(map: Dictionary[Vector2i, AbstractRoom], include_special: bool) -> Vector2i:
-	var furthestPos: Vector2i = Vector2i(-1, -1)
-	var maxDistance: int = -1
-	
-	for pos in map:
-		# 조건 1: 특수 방을 허용하지 않을때 특수방이라면 제외
-		if include_special or map[pos] != null:
-			continue
-			
-		# 조건 2: 막다른 길인지 체크 (선택 사항: 보스방이 구석에 있게 하려면 유지)
-		if countAdjacentCount(map, pos) > 1:
-			continue
-			
-		# 맨해튼 거리 계산: |x1 - x2| + |y1 - y2|
-		var distance = abs(pos.x) + abs(pos.y)
-		
-		if distance > maxDistance:
-			maxDistance = distance
-			furthestPos = pos
-			
-	return furthestPos
-
 static func sampleOneAdjacentPos(map: Dictionary[Vector2i, AbstractRoom], include_special: bool):
 	var copy = map.keys().duplicate_deep()
 	copy.shuffle()
