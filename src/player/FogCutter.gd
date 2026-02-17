@@ -20,5 +20,5 @@ func _left_fog(from, to: Vector2i):
 	
 	await cutter_tween.finished
 	
-	var instance: RoomData = MapManager.Instance.room_instances[to]
-	instance.
+	# var instance: RoomData = MapManager.Instance.room_instances[to]
+	# instance.

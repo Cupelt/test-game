@@ -9,7 +9,7 @@ func is_special() -> bool:
 
 # 가장 먼 곳에 보스방 생성
 func apply(map: Dictionary[Vector2i, AbstractRoom]) -> void:
-	var furthestPos = RoomUtils.findFurthestRoomPos(map, false)
+	var furthestPos = RoomUtils.find_furthest_room_pos(map, false)
 	map[furthestPos] = self;
 	
 func _get_display_char() -> String:

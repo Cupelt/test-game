@@ -1,27 +1,53 @@
 class_name RoomUtils
 
-static func sampleOneAdjacentPos(map: Dictionary[Vector2i, AbstractRoom], include_special: bool):
+static func find_furthest_room_pos(map: Dictionary, include_special: bool) -> Vector2i:
+	var furthestPos: Vector2i = Vector2i(-1, -1)
+	var maxDistance: int = -1
+	
+	for pos in map:
+		if include_special or map[pos] != null:
+			continue
+			
+		if count_adjacent_count(map, pos) > 1:
+			continue
+			
+		var distance = abs(pos.x) + abs(pos.y)
+		
+		if distance > maxDistance:
+			maxDistance = distance
+			furthestPos = pos
+			
+	return furthestPos
+
+static func sample_one_adjacent_pos(map: Dictionary, include_special: bool):
 	var copy = map.keys().duplicate_deep()
 	copy.shuffle()
 	
 	for pos in copy:
-		if (countAdjacentCount(map, pos) <= 1 
+		if (count_adjacent_count(map, pos) <= 1 
 			and (include_special or map[pos] == null)):
 			return pos
 	
 	return null
 
-static func getAdjacentRooms(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> Array[Vector2i]:
+static func get_adjacent_directions(map: Dictionary, pos: Vector2i) -> Array[Vector2i]:
 	var dirs: Array[Vector2i] = []
 	for d in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
 		if map.has(pos + d):
 			dirs.append(d)
 	return dirs
 
-static func countAdjacentCount(map: Dictionary[Vector2i, AbstractRoom], pos: Vector2i) -> int:
-	return getAdjacentRooms(map, pos).size()
+static func get_adjacent_rooms(map: Dictionary, pos: Vector2i) -> Array[Vector2i]:
+	var dirs: Array[Vector2i] = []
+	for d in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
+		if map.has(pos + d):
+			dirs.append(pos + d)
+	return dirs
 
-static func printMapDebug(generated_room: Dictionary[Vector2i, AbstractRoom]):
+static func count_adjacent_count(map: Dictionary, pos: Vector2i) -> int:
+	return get_adjacent_rooms(map, pos).size()
+
+static func print_map_debug(generated_room: Dictionary[Vector2i, AbstractRoom]):
 	if generated_room.is_empty():
 		print("맵이 비어 있습니다.")
 		return

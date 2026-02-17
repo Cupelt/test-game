@@ -358,11 +358,8 @@ color = Color(0.09411765, 0.078431375, 0.14509805, 1)
 
 [node name="EnemySponer" type="Node2D" parent="." unique_id=1217171044]
 
-[node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("room_generator", "room_registry", "tilemap_builder")]
+[node name="MapManager" type="Node2D" parent="." unique_id=1544325821]
 script = ExtResource("2_13kf1")
-room_generator = NodePath("MapGenerator")
-room_registry = NodePath("RoomRegistry")
-tilemap_builder = NodePath("TilemapBuilder")
 
 [node name="MapGenerator" type="Node2D" parent="MapManager" unique_id=1349805853]
 script = ExtResource("4_ja8bw")
@@ -398,9 +395,6 @@ tilemap = NodePath("../../NavigationRegion2D/GeneratedMapLayer")
 minimap_manager = NodePath("../../CanvasLayer/MinimapManager")
 nav_region = NodePath("../../NavigationRegion2D")
 corridor_scene = ExtResource("9_a0s00")
-room_size = null
-corridor_size = null
-rendering_quadrant_size = null
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=206726118]
 navigation_polygon = SubResource("NavigationPolygon_j0hnk")

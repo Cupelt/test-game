@@ -13,47 +13,32 @@ class_name TilemapBuilder
 
 func build_map(map: Dictionary[Vector2i, AbstractRoom]) -> MapData:
 	var map_data = MapData.new()
-	map_data._map = map
 	
-	# for pos in map:
+	# register buleprint
+	for pos in map:
+		map_data._map_instances[pos] = null
+	
+	# instantiate map
+	for pos in map:
+		var instance: RoomData = _render(map_data, map[pos], pos)
+		map_data._map[pos] = instance
 		
-		# map[pos].render(tilemap, pos)
 	minimap_manager.build_minimap(map)
 	nav_region.bake_navigation_polygon()
 	
-	return MapData.new()
+	return map_data
 
-func _rander(map_data: MapData, pos: Vector2i, type: AbstractRoom) -> RoomData:
+func _render(map_data: MapData, type: AbstractRoom, pos: Vector2i) -> RoomData:
 	var target_pos = pos * (room_size + Vector2i.ONE * corridor_size * 2) * rendering_quadrant_size 
 	
 	var sampled_scene: PackedScene = type.sample_room()
 	var room_instance: RoomData = sampled_scene.instantiate()	
 	room_instance.room_position = pos
+	room_instance.global_position = target_pos
+	room_instance.init(pos, type, RoomUtils.get_adjacent_directions(map_data._map_instances, pos))
+	
 	tilemap.add_child(room_instance)
-	
-	var adjacent_dirs: Array[Vector2i] = map_data.getAdjacentRooms(pos)
-	
-	for dir in adjacent_dirs:
-		var instance: Node2D = corridor_scene.instantiate()
-		tilemap.add_child(instance)
-		
-		var offset: Vector2 = room_size * dir / 2.0
-		var corridor_offset: Vector2 = dir * corridor_size / 2.0
-
-		instance.global_position = (target_pos as Vector2 + offset + corridor_offset + Vector2(-0.5, -0.5)) * 16
-		
-		if dir == Vector2i.LEFT:
-			var left_node = room_instance.find_child("IsLeftBlocked")
-			if left_node: left_node.queue_free()
-		elif dir == Vector2i.RIGHT:
-			var right_node = room_instance.find_child("IsRightBlocked")
-			if right_node: right_node.queue_free()
-		elif dir == Vector2i.UP:
-			var up_node = room_instance.find_child("IsTopBlocked")
-			if up_node: up_node.queue_free()
-		elif dir == Vector2i.DOWN:
-			var down_node = room_instance.find_child("IsDownBlocked")
-			if down_node: down_node.queue_free()
+	type.post_process(map_data, room_instance)
 	
 	return room_instance
 	

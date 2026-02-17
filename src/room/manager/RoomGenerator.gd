@@ -7,7 +7,7 @@ var _generators: Array[AbstractRoom]
 @export_range(0, 0.2) var adjacentChance = 0.04
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _intialize() -> void:
 	for node in get_children():
 		_generators.append(node as AbstractRoom)
 	
@@ -20,8 +20,9 @@ func _ready() -> void:
 	else: 					seed(seed.to_upper().hash())
 
 func generate() -> Dictionary[Vector2i, AbstractRoom]:
-	var map: Dictionary[Vector2i, AbstractRoom]
+	_intialize()
 	
+	var map: Dictionary[Vector2i, AbstractRoom]
 	var walkHistory: Array[Vector2i] = [Vector2i(0, 0)]
 
 	## 시작방은 항상 존재
@@ -42,7 +43,7 @@ func generate() -> Dictionary[Vector2i, AbstractRoom]:
 			if (map.has(targetPos)):
 				continue
 			
-			if (RoomUtils.countAdjacentCount(map, targetPos) > 1 and randf_range(0, 1) > adjacentChance):
+			if (RoomUtils.count_adjacent_count(map, targetPos) > 1 and randf_range(0, 1) > adjacentChance):
 				continue
 			
 			walkHistory.append(targetPos)
@@ -63,5 +64,5 @@ func generate() -> Dictionary[Vector2i, AbstractRoom]:
 	for room in _generators:
 		room.apply(map)
 
-	RoomUtils.printMapDebug(map)
+	RoomUtils.print_map_debug(map)
 	return map
