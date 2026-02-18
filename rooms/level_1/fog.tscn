@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dulehyd7ea2xu"]
+
+[ext_resource type="Shader" uid="uid://fjl1evlrdwxx" path="res://shader/fog.tres" id="1_nelkl"]
+
+[sub_resource type="Gradient" id="Gradient_13kf1"]
+colors = PackedColorArray(0.09411765, 0.078431375, 0.14509805, 1, 0.13405323, 0.11425366, 0.19849002, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lknfy"]
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aw78j"]
+noise = SubResource("FastNoiseLite_lknfy")
+color_ramp = SubResource("Gradient_13kf1")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugglh"]
+shader = ExtResource("1_nelkl")
+shader_parameter/speed = 0.1
+shader_parameter/NoiseTexture = SubResource("NoiseTexture2D_aw78j")
+shader_parameter/edge_thicknes = 0.02700000128249999
+
+[node name="Fog" type="Node2D" unique_id=717248941]
+
+[node name="FogRect" type="ColorRect" parent="." unique_id=594240425]
+material = SubResource("ShaderMaterial_ugglh")
+offset_left = -254.0
+offset_top = -146.0
+offset_right = 240.0
+offset_bottom = 122.0
+metadata/_edit_use_anchors_ = true

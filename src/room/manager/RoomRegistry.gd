@@ -4,7 +4,7 @@ class_name RoomRegistry
 var source_id: int = -1;
 var _room_id: Dictionary[PackedScene, int]
 
-func initailize_tileset(tilemap: TileMapLayer, rooms: AbstractRoom):
+func initailize_tileset(tilemap: TileMapLayer, rooms: Array[AbstractRoom]):
 	var collection: TileSetScenesCollectionSource = TileSetScenesCollectionSource.new()
 	for gen in rooms:
 		for scene in gen.presets:

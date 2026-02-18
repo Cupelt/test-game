@@ -10,7 +10,7 @@ var minimap_objects: Dictionary[Vector2i, MinimapObject]
 func _ready() -> void:
 	Event.on_change_room.connect(visit_map)
 
-func visit_map(from: Vector2i, to: Vector2i):
+func visit_map(from: Vector2i, to: Vector2i, instance):
 	if (!minimap_objects.has(to)):
 		push_warning("cannot fount " + str(to) + " in minimap_objects")
 		return;

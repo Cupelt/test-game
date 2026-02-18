@@ -2,23 +2,19 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	Event.on_change_room.connect(_left_fog)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
-func _left_fog(from, to: Vector2i):
-	self.scale = Vector2.ONE	
-	self.visible = true
-	
+func _left_fog(from: Vector2i, to: Vector2i, instance: RoomData):	
 	var cutter_tween = create_tween()
-	cutter_tween.tween_property(self, "scale", Vector2(15, 15), 2)\
+	cutter_tween.tween_property(self, "scale", Vector2(15, 15), 1)\
 		.set_trans(Tween.TRANS_CUBIC)\
 		.set_ease(Tween.EASE_OUT)
 	
 	await cutter_tween.finished
 	
-	# var instance: RoomData = MapManager.Instance.room_instances[to]
-	# instance.
+	self.scale = Vector2.ONE
+	instance.fog_instnace.visible = false

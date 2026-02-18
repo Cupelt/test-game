@@ -1,6 +1,8 @@
 [gd_resource type="VisualShader" format=3 uid="uid://dfymtvavxsdxm"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ci2aa"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
 source = 1
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_wdoyp"]
@@ -13,6 +15,9 @@ parameter_name = "Texture2DParameter"
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_1h3dy"]
 input_name = "uv"
 
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ci2aa"]
+input_name = "screen_uv"
+
 [resource]
 mode = 1
 flags/light_only = false
@@ -24,4 +29,6 @@ nodes/fragment/4/node = SubResource("VisualShaderNodeTexture2DParameter_jqkhl")
 nodes/fragment/4/position = Vector2(-380, 520)
 nodes/fragment/5/node = SubResource("VisualShaderNodeInput_1h3dy")
 nodes/fragment/5/position = Vector2(-380, 420)
-nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 4, 0, 3, 2, 5, 0, 3, 0, 3, 1, 0, 1)
+nodes/fragment/6/node = SubResource("VisualShaderNodeInput_ci2aa")
+nodes/fragment/6/position = Vector2(-480, 0)
+nodes/fragment/connections = PackedInt32Array(4, 0, 3, 2, 3, 0, 0, 1, 6, 0, 2, 0, 2, 0, 0, 0)

@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://clrlh7u5ghu4" path="res://src/room/manager/RoomGenerator.gd" id="4_ja8bw"]
 [ext_resource type="Script" uid="uid://f4nav2h7nlue" path="res://src/room/logic/TreasureRoom.gd" id="4_ldvgu"]
 [ext_resource type="PackedScene" uid="uid://dj7u1x0myih5q" path="res://rooms/level_1/test_room/baseRoom.tscn" id="8_5lvw3"]
-[ext_resource type="PackedScene" uid="uid://tdum3h4i7b01" path="res://rooms/level_1/test_room/baseCorridor.tscn" id="9_a0s00"]
 [ext_resource type="Texture2D" uid="uid://ck2r51fxkrmh2" path="res://assets/DG UI-HUD Exp/Mini map system idk.png" id="9_ldvgu"]
 [ext_resource type="Script" uid="uid://dr2ph6p03fb5g" path="res://src/player/Player.gd" id="9_pr1hq"]
 [ext_resource type="Script" uid="uid://dpxympa2e04rf" path="res://src/player/CameraManager.gd" id="10_exl2s"]
@@ -337,31 +336,11 @@ region = Rect2(100, 68, 8, 8)
 [node name="DefaultEnv" type="Node2D" unique_id=294223548]
 metadata/_edit_horizontal_guides_ = [-113.0]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442 node_paths=PackedStringArray("player")]
-zoom = Vector2(2.15, 2.15)
-script = ExtResource("10_exl2s")
-player = NodePath("../EntiryLayer/Player")
-
-[node name="ColorRect" type="ColorRect" parent="Camera2D" unique_id=1294254321]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -295.0
-offset_top = -164.0
-offset_right = 295.0
-offset_bottom = 164.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.09411765, 0.078431375, 0.14509805, 1)
-
 [node name="EnemySponer" type="Node2D" parent="." unique_id=1217171044]
 
-[node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("room_generator", "room_registry", "tilemap_builder")]
+[node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("room_generator", "tilemap_builder")]
 script = ExtResource("2_13kf1")
 room_generator = NodePath("MapGenerator")
-room_registry = NodePath("RoomRegistry")
 tilemap_builder = NodePath("TilemapBuilder")
 
 [node name="MapGenerator" type="Node2D" parent="MapManager" unique_id=1349805853]
@@ -392,15 +371,32 @@ presets = Array[PackedScene]([ExtResource("8_5lvw3")])
 [node name="RoomRegistry" type="Node2D" parent="MapManager" unique_id=500188539]
 script = ExtResource("12_pnaty")
 
-[node name="TilemapBuilder" type="Node2D" parent="MapManager" unique_id=1033468203 node_paths=PackedStringArray("tilemap", "minimap_manager", "nav_region")]
+[node name="TilemapBuilder" type="Node2D" parent="MapManager" unique_id=1033468203 node_paths=PackedStringArray("tilemap", "minimap_manager", "nav_region", "fog_buffer")]
 script = ExtResource("12_13kf1")
 tilemap = NodePath("../../NavigationRegion2D/GeneratedMapLayer")
 minimap_manager = NodePath("../../CanvasLayer/MinimapManager")
 nav_region = NodePath("../../NavigationRegion2D")
-corridor_scene = ExtResource("9_a0s00")
-room_size = null
-corridor_size = null
-rendering_quadrant_size = null
+fog_buffer = NodePath("../../NavigationRegion2D/FogBuffer")
+room_size = Vector2i(39, 25)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442 node_paths=PackedStringArray("player")]
+zoom = Vector2(2.15, 2.15)
+script = ExtResource("10_exl2s")
+player = NodePath("../EntiryLayer/Player")
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D" unique_id=1294254321]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -164.0
+offset_right = 295.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.078431375, 0.14509805, 1)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=206726118]
 navigation_polygon = SubResource("NavigationPolygon_j0hnk")
@@ -409,6 +405,10 @@ navigation_layers = 2
 [node name="GeneratedMapLayer" type="TileMapLayer" parent="NavigationRegion2D" unique_id=787452056]
 position = Vector2(-8, -8)
 tile_set = SubResource("TileSet_r6y4n")
+
+[node name="FogBuffer" type="BackBufferCopy" parent="NavigationRegion2D" unique_id=1477064280]
+z_index = 100
+copy_mode = 2
 
 [node name="EntiryLayer" type="Node2D" parent="." unique_id=1389108088]
 
@@ -428,6 +428,7 @@ z_index = 101
 script = ExtResource("14_hb2k2")
 
 [node name="FogCutter" type="ColorRect" parent="EntiryLayer/Player/FogCutter" unique_id=622006373]
+z_index = 101
 material = SubResource("ShaderMaterial_ja8bw")
 anchors_preset = 8
 anchor_left = 0.5
@@ -444,6 +445,8 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 
 [node name="Slime" type="CharacterBody2D" parent="EntiryLayer" unique_id=107499345]
+process_mode = 4
+visible = false
 position = Vector2(147, 68)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntiryLayer/Slime" unique_id=2077761664]
