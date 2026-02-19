@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://rlk5f1jvtx4t"]
+
+[ext_resource type="Texture2D" uid="uid://bxllf4iaveube" path="res://assets/Dungeon Gathering Full Ver. 1.1/Slime/Blue Slime.png" id="1_038jq"]
+[ext_resource type="PackedScene" uid="uid://b743d5mleod1e" path="res://scene/components/chasing_component.tscn" id="2_038jq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j0hnk"]
+radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0s00"]
+atlas = ExtResource("1_038jq")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6etw"]
+atlas = ExtResource("1_038jq")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hb2k2"]
+atlas = ExtResource("1_038jq")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ja8bw"]
+atlas = ExtResource("1_038jq")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnaty"]
+atlas = ExtResource("1_038jq")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13kf1"]
+atlas = ExtResource("1_038jq")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lknfy"]
+atlas = ExtResource("1_038jq")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugglh"]
+atlas = ExtResource("1_038jq")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uks7h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0s00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6etw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hb2k2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ja8bw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnaty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13kf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lknfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugglh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="Slime" type="CharacterBody2D" unique_id=1588441702]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=721537449]
+position = Vector2(0, -0.5)
+shape = SubResource("CircleShape2D_j0hnk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1630499803]
+sprite_frames = SubResource("SpriteFrames_uks7h")
+animation = &"idle"
+frame = 2
+frame_progress = 0.83613914
+
+[node name="ChasingComponent" parent="." unique_id=1564992785 instance=ExtResource("2_038jq")]

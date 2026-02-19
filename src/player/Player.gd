@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var animation_tree = $Sprite2D/AnimationTree
 @export var SPEED = 70;
 @export var ACCEL = 2500;
 
@@ -25,27 +25,10 @@ func _process(delta: float) -> void:
 	#endregion
 	
 	#region Player Animation
-	var beforeAnim = String(animated_sprite_2d.animation).split("_")
 	 
-	if (direction.is_zero_approx()):
-		beforeAnim[0] = "Idle"
-		# animated_sprite_2d.speed_scale = 1
-	else:
-		beforeAnim[0] = "Walk"
-	
+	animation_tree["parameters/is_walk/blend_amount"] = float(!direction.is_zero_approx())
 	if (direction.x != 0):
-		beforeAnim[1] = "Left"
-		if direction.x < 0:
-			animated_sprite_2d.flip_h = true
-		elif direction.x > 0:
-			animated_sprite_2d.flip_h = false
-	
-	if (direction.y < 0):
-		beforeAnim[1] = "Up"
-	elif (direction.y > 0):
-		beforeAnim[1] = "Down"
-	
-	animated_sprite_2d.play("_".join(beforeAnim))
+		animation_tree["parameters/is_flip/blend_amount"] = float(direction.x < 0)
 	#endregion
 
 func set_player_speed(speed: float):
