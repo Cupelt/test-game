@@ -88,13 +88,10 @@ frame_progress = 0.83613914
 
 [node name="ChasingComponent" parent="." unique_id=1564992785 instance=ExtResource("2_038jq")]
 
-[node name="SmoothColisionComponent" type="Node2D" parent="." unique_id=1482119581 node_paths=PackedStringArray("collision")]
+[node name="SmoothColisionComponent" type="Node2D" parent="." unique_id=1482119581]
 script = ExtResource("1_gscq4")
-collision = NodePath("../CollisionShape2D")
 
 [node name="Area2D" type="Area2D" parent="SmoothColisionComponent" unique_id=869969086]
-collision_layer = 2
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmoothColisionComponent/Area2D" unique_id=1653955882]
 position = Vector2(0, -0.5)

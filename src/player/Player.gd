@@ -9,6 +9,7 @@ var map_pos: Vector2i = Vector2i.MAX
 
 # Called when the node enters the scene tree for the first time. 2.15
 func _ready() -> void:
+	GlobalContainer.player = self
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:

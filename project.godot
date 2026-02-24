@@ -20,6 +20,7 @@ config/features=PackedStringArray("4.6")
 [autoload]
 
 Event="*uid://clbdvc57e5gbx"
+GlobalContainer="*uid://yywbwoy0o8sg"
 
 [editor_plugins]
 

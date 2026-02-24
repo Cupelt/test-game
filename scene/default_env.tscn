@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cxbuxhgfisf1k"]
 
+[ext_resource type="Script" uid="uid://b3cgqyrir7flk" path="res://src/entity/DeafultSpawner.gd" id="1_hb2k2"]
 [ext_resource type="Script" uid="uid://cvt6g5kak4r4f" path="res://src/room/manager/MapManager.gd" id="2_13kf1"]
+[ext_resource type="PackedScene" uid="uid://rlk5f1jvtx4t" path="res://scene/enemy/slime.tscn" id="2_ja8bw"]
 [ext_resource type="Script" uid="uid://fdo25n8tyv47" path="res://src/room/logic/BossRoom.gd" id="2_jx7jm"]
 [ext_resource type="Script" uid="uid://6d0do6ly12w7" path="res://src/room/logic/StartRoom.gd" id="2_ldvgu"]
 [ext_resource type="Texture2D" uid="uid://bxdrb6krygkm8" path="res://assets/DG UI-HUD Exp/Mini map UI icons.png" id="3_7nq3w"]
@@ -17,7 +19,7 @@
 [ext_resource type="Script" uid="uid://b3ykt3obpaifk" path="res://src/room/TilemapBuilder.gd" id="12_13kf1"]
 [ext_resource type="Script" uid="uid://pyj8o2mw4e2n" path="res://src/room/manager/RoomRegistry.gd" id="12_pnaty"]
 [ext_resource type="PackedScene" uid="uid://dseq2ygifh0cl" path="res://scene/minimap_object.tscn" id="13_7nq3w"]
-[ext_resource type="Shader" uid="uid://dfymtvavxsdxm" path="res://fog_cutter.tres" id="14_f6etw"]
+[ext_resource type="Shader" uid="uid://dfymtvavxsdxm" path="res://shader/fog_cutter.tres" id="14_f6etw"]
 [ext_resource type="Script" uid="uid://b5okll2hn6hd8" path="res://src/player/FogCutter.gd" id="14_hb2k2"]
 [ext_resource type="Texture2D" uid="uid://dsr4rojkvxhv2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="14_ja8bw"]
 [ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
@@ -37,7 +39,7 @@ agent_radius = 16.0
 [sub_resource type="TileSet" id="TileSet_r6y4n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0hnk"]
-size = Vector2(14, 13)
+size = Vector2(16, 14)
 
 [sub_resource type="Animation" id="Animation_pnaty"]
 resource_name = "Idle"
@@ -204,7 +206,18 @@ region = Rect2(100, 68, 8, 8)
 [node name="DefaultEnv" type="Node2D" unique_id=294223548]
 metadata/_edit_horizontal_guides_ = [-113.0]
 
-[node name="EnemySponer" type="Node2D" parent="." unique_id=1217171044]
+[node name="EnemySponers" type="Node2D" parent="." unique_id=1217171044]
+
+[node name="DeafultSpawner" type="Timer" parent="EnemySponers" unique_id=190355749 node_paths=PackedStringArray("player", "nav_map", "entity_layer")]
+autostart = true
+script = ExtResource("1_hb2k2")
+player = NodePath("../../EntiryLayer/Player")
+nav_map = NodePath("../../NavigationRegion2D")
+entity_layer = NodePath("../../EntiryLayer")
+enemy_scene = ExtResource("2_ja8bw")
+spawn_radius = 250.0
+spawn_interval_factor = 5.0
+min_spawn_interval = 1.0
 
 [node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("room_generator", "tilemap_builder")]
 script = ExtResource("2_13kf1")
@@ -279,12 +292,16 @@ z_index = 100
 copy_mode = 2
 
 [node name="EntiryLayer" type="Node2D" parent="." unique_id=1389108088]
+z_index = 1
 
 [node name="Player" type="CharacterBody2D" parent="EntiryLayer" unique_id=1659814010]
+z_index = 5
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("9_pr1hq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntiryLayer/Player" unique_id=190133596]
-position = Vector2(0, 2.5)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_j0hnk")
 
 [node name="Sprite2D" type="Sprite2D" parent="EntiryLayer/Player" unique_id=1626346482]
@@ -308,13 +325,20 @@ parameters/is_walk/blend_amount = 0.0
 z_index = 101
 script = ExtResource("14_hb2k2")
 
-[node name="FogCutter" type="ColorRect" parent="EntiryLayer/Player/FogCutter" unique_id=622006373]
+[node name="FogCutterRect" type="ColorRect" parent="EntiryLayer/Player/FogCutter" unique_id=622006373]
 z_index = 101
 material = SubResource("ShaderMaterial_ja8bw")
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 

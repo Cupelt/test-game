@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var target: Node2D
+var target: Node2D
 @export var SPEED = 70;
 @export var ACCEL = 2500;
 
@@ -9,6 +9,7 @@ var nav_agent_node: NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	nav_agent_node = $NavigationAgent2D
+	target = GlobalContainer.player
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
