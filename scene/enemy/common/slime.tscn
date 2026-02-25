@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://rlk5f1jvtx4t"]
 
 [ext_resource type="Texture2D" uid="uid://bxllf4iaveube" path="res://assets/Dungeon Gathering Full Ver. 1.1/Slime/Blue Slime.png" id="1_038jq"]
-[ext_resource type="Script" uid="uid://dsgmff1mmew3h" path="res://src/entity/SmoothColision.gd" id="1_gscq4"]
+[ext_resource type="Script" uid="uid://boun7uss2nf0l" path="res://src/entity/actors/enemy/Slime.gd" id="1_fcoq0"]
+[ext_resource type="Script" uid="uid://dsgmff1mmew3h" path="res://src/entity/components/SmoothColision.gd" id="1_gscq4"]
 [ext_resource type="PackedScene" uid="uid://b743d5mleod1e" path="res://scene/components/chasing_component.tscn" id="2_038jq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0hnk"]
@@ -72,9 +73,9 @@ animations = [{
 }]
 
 [node name="Slime" type="CharacterBody2D" unique_id=1588441702]
-visible = false
 collision_layer = 2
 collision_mask = 5
+script = ExtResource("1_fcoq0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=721537449]
 position = Vector2(0, -0.5)

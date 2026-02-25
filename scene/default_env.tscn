@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cxbuxhgfisf1k"]
 
-[ext_resource type="Script" uid="uid://b3cgqyrir7flk" path="res://src/entity/DeafultSpawner.gd" id="1_hb2k2"]
+[ext_resource type="Script" uid="uid://b3cgqyrir7flk" path="res://src/entity/spawner/DeafultSpawner.gd" id="1_hb2k2"]
 [ext_resource type="Script" uid="uid://cvt6g5kak4r4f" path="res://src/room/manager/MapManager.gd" id="2_13kf1"]
-[ext_resource type="PackedScene" uid="uid://rlk5f1jvtx4t" path="res://scene/enemy/slime.tscn" id="2_ja8bw"]
+[ext_resource type="PackedScene" uid="uid://rlk5f1jvtx4t" path="res://scene/enemy/common/slime.tscn" id="2_ja8bw"]
 [ext_resource type="Script" uid="uid://fdo25n8tyv47" path="res://src/room/logic/BossRoom.gd" id="2_jx7jm"]
 [ext_resource type="Script" uid="uid://6d0do6ly12w7" path="res://src/room/logic/StartRoom.gd" id="2_ldvgu"]
 [ext_resource type="Texture2D" uid="uid://bxdrb6krygkm8" path="res://assets/DG UI-HUD Exp/Mini map UI icons.png" id="3_7nq3w"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://b5okll2hn6hd8" path="res://src/player/FogCutter.gd" id="14_hb2k2"]
 [ext_resource type="Texture2D" uid="uid://dsr4rojkvxhv2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="14_ja8bw"]
 [ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
+[ext_resource type="Script" uid="uid://d24nbxgblbw7l" path="res://src/manager/EntityManager.gd" id="15_pnaty"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -211,13 +212,12 @@ metadata/_edit_horizontal_guides_ = [-113.0]
 [node name="DeafultSpawner" type="Timer" parent="EnemySponers" unique_id=190355749 node_paths=PackedStringArray("player", "nav_map", "entity_layer")]
 autostart = true
 script = ExtResource("1_hb2k2")
-player = NodePath("../../EntiryLayer/Player")
+player = NodePath("../../EntityManager/Player")
 nav_map = NodePath("../../NavigationRegion2D")
-entity_layer = NodePath("../../EntiryLayer")
+entity_layer = NodePath("../../EntityManager")
 enemy_scene = ExtResource("2_ja8bw")
 spawn_radius = 250.0
 spawn_interval_factor = 5.0
-min_spawn_interval = 1.0
 
 [node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("room_generator", "tilemap_builder")]
 script = ExtResource("2_13kf1")
@@ -263,7 +263,7 @@ room_size = Vector2i(39, 25)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442 node_paths=PackedStringArray("player")]
 zoom = Vector2(2.15, 2.15)
 script = ExtResource("10_exl2s")
-player = NodePath("../EntiryLayer/Player")
+player = NodePath("../EntityManager/Player")
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D" unique_id=1294254321]
 anchors_preset = 8
@@ -291,29 +291,30 @@ tile_set = SubResource("TileSet_r6y4n")
 z_index = 100
 copy_mode = 2
 
-[node name="EntiryLayer" type="Node2D" parent="." unique_id=1389108088]
+[node name="EntityManager" type="Node2D" parent="." unique_id=1389108088]
 z_index = 1
+script = ExtResource("15_pnaty")
 
-[node name="Player" type="CharacterBody2D" parent="EntiryLayer" unique_id=1659814010]
+[node name="Player" type="CharacterBody2D" parent="EntityManager" unique_id=1659814010]
 z_index = 5
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("9_pr1hq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntiryLayer/Player" unique_id=190133596]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManager/Player" unique_id=190133596]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_j0hnk")
 
-[node name="Sprite2D" type="Sprite2D" parent="EntiryLayer/Player" unique_id=1626346482]
+[node name="Sprite2D" type="Sprite2D" parent="EntityManager/Player" unique_id=1626346482]
 texture = ExtResource("14_ja8bw")
 hframes = 9
 vframes = 7
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EntiryLayer/Player/Sprite2D" unique_id=495277403]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EntityManager/Player/Sprite2D" unique_id=495277403]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_lknfy")
 
-[node name="AnimationTree" type="AnimationTree" parent="EntiryLayer/Player/Sprite2D" unique_id=2126008491]
+[node name="AnimationTree" type="AnimationTree" parent="EntityManager/Player/Sprite2D" unique_id=2126008491]
 root_node = NodePath("../..")
 tree_root = SubResource("AnimationNodeBlendTree_ugglh")
 anim_player = NodePath("../AnimationPlayer")
@@ -321,11 +322,11 @@ parameters/Flip/add_amount = 1.0
 parameters/is_flip/blend_amount = 1.0
 parameters/is_walk/blend_amount = 0.0
 
-[node name="FogCutter" type="Node2D" parent="EntiryLayer/Player" unique_id=1689608535]
+[node name="FogCutter" type="Node2D" parent="EntityManager/Player" unique_id=1689608535]
 z_index = 101
 script = ExtResource("14_hb2k2")
 
-[node name="FogCutterRect" type="ColorRect" parent="EntiryLayer/Player/FogCutter" unique_id=622006373]
+[node name="FogCutterRect" type="ColorRect" parent="EntityManager/Player/FogCutter" unique_id=622006373]
 z_index = 101
 material = SubResource("ShaderMaterial_ja8bw")
 anchors_preset = 8
@@ -410,4 +411,5 @@ offset_right = 11.999954
 offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("AtlasTexture_5ayrf")

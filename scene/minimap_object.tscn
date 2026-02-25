@@ -25,6 +25,7 @@ offset_right = 21.0
 offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_8xfdh")
 blined_obejct = NodePath("blinded")
 visited_object = NodePath("bg")
@@ -43,6 +44,7 @@ offset_right = 21.0
 offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("AtlasTexture_8xfdh")
 
 [node name="bg" type="TextureRect" parent="." unique_id=1303063660]
@@ -58,6 +60,7 @@ offset_right = 21.0
 offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("AtlasTexture_4psj1")
 
 [node name="icon" type="TextureRect" parent="." unique_id=196067765]
@@ -73,3 +76,4 @@ offset_right = 11.999939
 offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2

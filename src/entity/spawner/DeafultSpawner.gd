@@ -13,7 +13,6 @@ extends Timer
 
 var minutes: float = 0
 var spawn_accumulator: float = 0.0
-var enemy_pool: Array[Node2D]
 
 func _process(delta: float) -> void:
 	spawn_accumulator += delta
@@ -23,30 +22,16 @@ func _process(delta: float) -> void:
 	var interval = max(min_spawn_interval, max_spawn_interval - (minutes * spawn_interval_factor))
 	
 	while spawn_accumulator >= interval:
-		spawn_enemy()
+		var random_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))
+		var spawn_pos = player.global_position + (random_direction * spawn_radius)
+		spawn_pos = get_safe_spawn_pos(spawn_pos)
+		
+		Entity.spawn_entity(enemy_scene, entity_layer, {
+			"position": spawn_pos, 
+		})
+		
 		spawn_accumulator -= interval
-	
-func spawn_enemy() -> void:
-	var random_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))
-	var spawn_pos = player.global_position + (random_direction * spawn_radius)
-	spawn_pos = get_safe_spawn_pos(spawn_pos)
-	
-	var enemy: Node2D
-	if enemy_pool.is_empty():
-		enemy = enemy_scene.instantiate()
-		entity_layer.add_child(enemy)
-		enemy.visible = true
-		enemy.set_process(false)
-		enemy.set_physics_process(false)
-	else:
-		enemy = enemy_pool.pop_front()
 
-	enemy.global_position = spawn_pos
-	enemy.visible = true
-	enemy.set_process(true)
-	enemy.set_physics_process(true)
-	
-	print("enemy spawned")
 
 func get_safe_spawn_pos(target_pos: Vector2) -> Vector2:
 	var safe_pos = NavigationServer2D.map_get_closest_point(nav_map.get_navigation_map(), target_pos)

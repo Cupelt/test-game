@@ -26,7 +26,7 @@ func generate() -> Dictionary[Vector2i, AbstractRoom]:
 	var walkHistory: Array[Vector2i] = [Vector2i(0, 0)]
 
 	## 시작방은 항상 존재
-	map[Vector2i(0, 0)] = StartRoom.new()
+	map[Vector2i(0, 0)] = null
 	
 	var currentPos;
 	while map.size() < maxRoom:
@@ -50,6 +50,7 @@ func generate() -> Dictionary[Vector2i, AbstractRoom]:
 			map[targetPos] = null
 			
 			placed = true
+			break;
 		
 		if not placed:
 			walkHistory.erase(currentPos)
