@@ -30,6 +30,12 @@ naming/script_name_casing=1
 
 enabled=PackedStringArray()
 
+[global_group]
+
+Enemy=""
+Entity=""
+Projectile=""
+
 [input]
 
 Up={

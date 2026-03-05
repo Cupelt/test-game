@@ -24,6 +24,9 @@
 [ext_resource type="Texture2D" uid="uid://dsr4rojkvxhv2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="14_ja8bw"]
 [ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
 [ext_resource type="Script" uid="uid://d24nbxgblbw7l" path="res://src/manager/EntityManager.gd" id="15_pnaty"]
+[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/Stats.gd" id="20_13kf1"]
+[ext_resource type="Script" uid="uid://b3wnxuobaavxm" path="res://src/weapons/Bow.gd" id="21_lknfy"]
+[ext_resource type="PackedScene" uid="uid://dndb8rbuxdhub" path="res://scene/projectile/arrow.tscn" id="22_ugglh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -196,6 +199,9 @@ fill_from = Vector2(0.5, 0.5)
 shader = ExtResource("14_f6etw")
 shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_0x7r0")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_13kf1"]
+radius = 100.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nq3w"]
 atlas = ExtResource("9_ldvgu")
 region = Rect2(192, 96, 52, 40)
@@ -216,7 +222,6 @@ player = NodePath("../../EntityManager/Player")
 nav_map = NodePath("../../NavigationRegion2D")
 entity_layer = NodePath("../../EntityManager")
 enemy_scene = ExtResource("2_ja8bw")
-spawn_radius = 250.0
 spawn_interval_factor = 5.0
 
 [node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("room_generator", "tilemap_builder")]
@@ -295,7 +300,7 @@ copy_mode = 2
 z_index = 1
 script = ExtResource("15_pnaty")
 
-[node name="Player" type="CharacterBody2D" parent="EntityManager" unique_id=1659814010]
+[node name="Player" type="CharacterBody2D" parent="EntityManager" unique_id=1659814010 groups=["Entity"]]
 z_index = 5
 collision_layer = 4
 collision_mask = 4
@@ -322,6 +327,10 @@ parameters/Flip/add_amount = 1.0
 parameters/is_flip/blend_amount = 1.0
 parameters/is_walk/blend_amount = 0.0
 
+[node name="StatsContainer" type="Node2D" parent="EntityManager/Player" unique_id=659176008]
+script = ExtResource("20_13kf1")
+accel = 2500.0
+
 [node name="FogCutter" type="Node2D" parent="EntityManager/Player" unique_id=1689608535]
 z_index = 101
 script = ExtResource("14_hb2k2")
@@ -342,6 +351,20 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
+
+[node name="Weapons" type="Node2D" parent="EntityManager/Player" unique_id=1427293497]
+
+[node name="Bow" type="Node2D" parent="EntityManager/Player/Weapons" unique_id=384020411 node_paths=PackedStringArray("stats")]
+script = ExtResource("21_lknfy")
+stats = NodePath("../../StatsContainer")
+arrow = ExtResource("22_ugglh")
+
+[node name="FireRange" type="Area2D" parent="EntityManager/Player/Weapons/Bow" unique_id=380763456]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManager/Player/Weapons/Bow/FireRange" unique_id=902533878]
+shape = SubResource("CircleShape2D_13kf1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207279906]
 

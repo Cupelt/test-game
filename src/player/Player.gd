@@ -2,8 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 @onready var animation_tree = $Sprite2D/AnimationTree
-@export var SPEED = 70;
-@export var ACCEL = 2500;
+@onready var stats: EntityStats = $StatsContainer
 
 var map_pos: Vector2i = Vector2i.MAX
 
@@ -21,7 +20,7 @@ func _process(delta: float) -> void:
 		.normalized()
 	
 	#region Player Movement
-	velocity = velocity.move_toward(direction * SPEED, delta * ACCEL)
+	velocity = velocity.move_toward(direction * stats.speed, delta * stats.accel)
 	# velocity = direction * SPEED
 	#endregion
 	
@@ -31,6 +30,3 @@ func _process(delta: float) -> void:
 	if (direction.x != 0):
 		animation_tree["parameters/is_flip/blend_amount"] = float(direction.x < 0)
 	#endregion
-
-func set_player_speed(speed: float):
-	SPEED = speed

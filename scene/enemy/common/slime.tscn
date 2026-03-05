@@ -4,9 +4,31 @@
 [ext_resource type="Script" uid="uid://boun7uss2nf0l" path="res://src/entity/actors/enemy/Slime.gd" id="1_fcoq0"]
 [ext_resource type="Script" uid="uid://dsgmff1mmew3h" path="res://src/entity/components/SmoothColision.gd" id="1_gscq4"]
 [ext_resource type="PackedScene" uid="uid://b743d5mleod1e" path="res://scene/components/chasing_component.tscn" id="2_038jq"]
+[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/Stats.gd" id="5_jqhro"]
+[ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="6_ctytu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0hnk"]
 radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctytu"]
+atlas = ExtResource("1_038jq")
+region = Rect2(0, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ulis"]
+atlas = ExtResource("1_038jq")
+region = Rect2(48, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m048v"]
+atlas = ExtResource("1_038jq")
+region = Rect2(96, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0aba"]
+atlas = ExtResource("1_038jq")
+region = Rect2(144, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v862c"]
+atlas = ExtResource("1_038jq")
+region = Rect2(192, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0s00"]
 atlas = ExtResource("1_038jq")
@@ -44,6 +66,26 @@ region = Rect2(336, 0, 48, 48)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ctytu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ulis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m048v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0aba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v862c")
+}],
+"loop": true,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_a0s00")
 }, {
 "duration": 1.0,
@@ -72,10 +114,28 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Slime" type="CharacterBody2D" unique_id=1588441702]
+[sub_resource type="Gradient" id="Gradient_jqhro"]
+colors = PackedColorArray(1, 1, 1, 0.11764706, 1, 1, 1, 0.11764706)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ctytu"]
+gradient = SubResource("Gradient_jqhro")
+width = 32
+height = 4
+
+[sub_resource type="Gradient" id="Gradient_7ulis"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m048v"]
+gradient = SubResource("Gradient_7ulis")
+width = 32
+height = 4
+
+[node name="Slime" type="CharacterBody2D" unique_id=1588441702 node_paths=PackedStringArray("stats") groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_fcoq0")
+stats = NodePath("StatsContainer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=721537449]
 position = Vector2(0, -0.5)
@@ -84,10 +144,9 @@ shape = SubResource("CircleShape2D_j0hnk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1630499803]
 sprite_frames = SubResource("SpriteFrames_uks7h")
 animation = &"idle"
-frame = 2
-frame_progress = 0.83613914
 
-[node name="ChasingComponent" parent="." unique_id=1564992785 instance=ExtResource("2_038jq")]
+[node name="ChasingComponent" parent="." unique_id=1564992785 node_paths=PackedStringArray("stats") instance=ExtResource("2_038jq")]
+stats = NodePath("../StatsContainer")
 
 [node name="SmoothColisionComponent" type="Node2D" parent="." unique_id=1482119581 node_paths=PackedStringArray("collision")]
 script = ExtResource("1_gscq4")
@@ -99,3 +158,24 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmoothColisionComponent/Area2D" unique_id=1653955882]
 position = Vector2(0, -0.5)
+
+[node name="StatsContainer" type="Node2D" parent="." unique_id=60052736]
+script = ExtResource("5_jqhro")
+max_hp = 25.0
+attack_speed = 0.0
+speed = 50.0
+accel = 2500.0
+
+[node name="HpViewComponent" type="TextureProgressBar" parent="." unique_id=1379688553 node_paths=PackedStringArray("stats")]
+visible = false
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = -12.0
+max_value = 1.0
+step = 0.001
+value = 1.0
+texture_under = SubResource("GradientTexture2D_ctytu")
+texture_progress = SubResource("GradientTexture2D_m048v")
+script = ExtResource("6_ctytu")
+stats = NodePath("../StatsContainer")

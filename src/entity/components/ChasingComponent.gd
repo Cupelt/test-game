@@ -1,8 +1,7 @@
 extends Node2D
 
 var target: Node2D
-@export var SPEED = 70;
-@export var ACCEL = 2500;
+@export var stats: EntityStats
 
 var nav_agent_node: NavigationAgent2D
 
@@ -24,7 +23,7 @@ func _process(delta: float) -> void:
 		return
 	
 	var direction = (next_position - global_position).normalized()
-	$"..".velocity = $"..".velocity.move_toward(direction * SPEED, delta * ACCEL)
+	$"..".velocity = $"..".velocity.move_toward(direction * stats.speed, delta * stats.accel)
 	$"..".move_and_slide()
 	
 	pass
