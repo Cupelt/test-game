@@ -21,7 +21,7 @@ func fire_arrow() -> bool:
 	if target == null:
 		return false
 	
-	Entity.spawn_entity(arrow, {
+	ObjectPool.spawn_object(arrow, {
 		"target": target,
 		"damage": stats.attack * 3,
 		
@@ -40,6 +40,9 @@ func get_closest_target() -> Entity:
 
 	for target in targets:
 		if not target.is_in_group("Enemy"):
+			continue
+			
+		if target.is_die == true:
 			continue
 		
 		var dist = global_position.distance_squared_to(target.global_position)

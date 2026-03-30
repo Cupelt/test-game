@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 		if spawn_pos == Vector2.INF:
 			continue
 		
-		Entity.spawn_entity(enemy_scene, {
+		ObjectPool.spawn_object(enemy_scene, {
 			"position": spawn_pos, 
 		})
 

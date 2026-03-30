@@ -7,12 +7,20 @@ func init(data: Dictionary) -> void:
 	self.position = data["position"]
 	time = 0;
 	stats.hp = stats.max_hp
-	$HpViewComponent.visible = false
-	$AnimatedSprite2D.play("idle")
+	$HpViewComponent.init()
+	$ChasingComponent.is_chasing = true
 	pass
 
 func _process(delta: float) -> void:
-	time += delta
+	pass
+	#time += delta
+	#
+	#if time > 5:
+		#destroy_object()
+
+func _on_stats_container_hp_updated(before: float, after: float) -> void:
+	if after > 0:
+		return
 	
-	if time > 5:
-		destroy_entity()
+	$ChasingComponent.is_chasing = false
+	die()

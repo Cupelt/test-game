@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	global_position += direction * stats.speed
 	
 	if (timer > life_time):
-		call_deferred("destroy_entity")
+		call_deferred("destroy_object")
 
 func hit(body: Node2D):
 	if not body.is_in_group("Enemy"):
@@ -38,4 +38,4 @@ func hit(body: Node2D):
 	if body.stats != null:
 		body.stats.hp -= damage
 		
-	call_deferred("destroy_entity")
+	call_deferred("destroy_object")
