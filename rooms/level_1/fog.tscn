@@ -3,7 +3,8 @@
 [ext_resource type="Shader" uid="uid://fjl1evlrdwxx" path="res://shader/fog.tres" id="1_nelkl"]
 
 [sub_resource type="Gradient" id="Gradient_13kf1"]
-colors = PackedColorArray(0.09411765, 0.078431375, 0.14509805, 1, 0.13405323, 0.11425366, 0.19849002, 1)
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.09411765, 0.078431375, 0.14509805, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lknfy"]
 metadata/_preview_in_3d_space_ = true
@@ -20,6 +21,7 @@ shader_parameter/NoiseTexture = SubResource("NoiseTexture2D_aw78j")
 shader_parameter/edge_thicknes = 0.02700000128249999
 
 [node name="Fog" type="Node2D" unique_id=717248941]
+visible = false
 
 [node name="FogRect" type="ColorRect" parent="." unique_id=594240425]
 material = SubResource("ShaderMaterial_ugglh")

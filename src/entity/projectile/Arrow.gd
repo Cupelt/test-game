@@ -35,6 +35,9 @@ func hit(body: Node2D):
 	if not body.is_in_group("Enemy"):
 		return
 	
+	if body.is_die:
+		return
+	
 	if body.stats != null:
 		body.stats.hp -= damage
 		

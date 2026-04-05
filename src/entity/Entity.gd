@@ -10,6 +10,9 @@ var is_die: bool = false
 func _ready() -> void:
 	stats.hp_updated.connect(hurt)
 	components.assign(get_children().filter(func (node): node is Entity))
+	
+func reset() -> void:
+	is_die = false
 
 func die():
 	animTree["parameters/is_die/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE

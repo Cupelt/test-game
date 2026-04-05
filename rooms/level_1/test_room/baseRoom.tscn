@@ -8,6 +8,7 @@
 size = Vector2(462, 238)
 
 [node name="BaseMap" type="Node2D" unique_id=1804450851 node_paths=PackedStringArray("road_colider")]
+show_behind_parent = true
 script = ExtResource("1_auebe")
 road_colider = {
 Vector2i(-1, 0): NodePath("IsLeftBlocked"),

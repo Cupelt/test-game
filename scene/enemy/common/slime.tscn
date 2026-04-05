@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://boun7uss2nf0l" path="res://src/entity/actors/enemy/Slime.gd" id="1_fcoq0"]
 [ext_resource type="Script" uid="uid://dsgmff1mmew3h" path="res://src/entity/components/SmoothColision.gd" id="1_gscq4"]
 [ext_resource type="PackedScene" uid="uid://b743d5mleod1e" path="res://scene/components/chasing_component.tscn" id="2_038jq"]
-[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/Stats.gd" id="5_jqhro"]
+[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/EntityStats.gd" id="5_jqhro"]
 [ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="6_ctytu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0hnk"]
@@ -192,7 +192,6 @@ position = Vector2(0, -0.5)
 [node name="StatsContainer" type="Node2D" parent="." unique_id=60052736]
 script = ExtResource("5_jqhro")
 max_hp = 25.0
-attack_speed = 0.0
 speed = 50.0
 accel = 2500.0
 

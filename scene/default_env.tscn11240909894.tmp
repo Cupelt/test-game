@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://b821cbyje3kqp" path="res://src/entity/PlayerStats.gd" id="18_ugglh"]
 [ext_resource type="Script" uid="uid://b3wnxuobaavxm" path="res://src/items/weapon/Bow.gd" id="21_lknfy"]
 [ext_resource type="PackedScene" uid="uid://dndb8rbuxdhub" path="res://scene/projectile/arrow.tscn" id="22_ugglh"]
+[ext_resource type="Script" uid="uid://dlyjvwne1atup" path="res://src/utils/PriorityQueue.gd" id="28_uks7h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -456,3 +457,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_5ayrf")
+
+[node name="test" type="Node2D" parent="." unique_id=83828706]
+script = ExtResource("28_uks7h")

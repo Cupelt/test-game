@@ -9,6 +9,8 @@ func init(data: Dictionary) -> void:
 	stats.hp = stats.max_hp
 	$HpViewComponent.init()
 	$ChasingComponent.is_chasing = true
+	
+	reset()
 	pass
 
 func _process(delta: float) -> void:

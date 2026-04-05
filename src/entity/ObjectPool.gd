@@ -14,14 +14,17 @@ func destroy_object() -> void:
 		return
 		
 	is_enabled = false
-	self.visible = false
-	self.set_process(false)
-	self.set_physics_process(false)
+	global_position = Vector2.INF
+	await get_tree().process_frame
 	
 	get_parent().remove_child(self)
 	destroied.emit()
-	for connection in destroied.get_connections():
-		destroied.disconnect(connection["callable"])
+	
+	self.visible = false
+	self.set_process(false)
+	self.set_physics_process(false)
+	#for connection in destroied.get_connections():
+		#destroied.disconnect(connection["callable"])
 	
 	pool[_scene_path].append(self)
 
