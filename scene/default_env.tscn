@@ -283,6 +283,7 @@ script = ExtResource("10_exl2s")
 player = NodePath("../EntityManager/Player")
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D" unique_id=1294254321]
+light_mask = 0
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -347,6 +348,7 @@ accel = 2500.0
 [node name="PointLight2D" type="PointLight2D" parent="EntityManager/Player" unique_id=1673780821]
 color = Color(0.8039216, 1, 1, 1)
 energy = 2.0
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_uks7h")
 
 [node name="FogCutter" type="Node2D" parent="EntityManager/Player" unique_id=1689608535]
@@ -402,6 +404,7 @@ roomSize = Vector2(48, 48)
 
 [node name="MinimapLayout" type="TextureRect" parent="CanvasLayer/MinimapManager" unique_id=2131168828]
 clip_children = 2
+light_mask = 0
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 2.417
@@ -456,3 +459,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_5ayrf")
+
+[node name="StatsView" type="Tree" parent="CanvasLayer" unique_id=1046457152]
+offset_right = 134.0
+offset_bottom = 94.0
+hide_root = true
+
+[connection signal="mouse_entered" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_exited"]

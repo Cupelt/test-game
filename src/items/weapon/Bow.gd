@@ -36,7 +36,7 @@ func fire_arrow() -> bool:
 	
 	ObjectPool.spawn_object(arrow, {
 		"target": target,
-		"damage": stats.attack * 3,
+		"damage": stats.get_stat() * 3,
 		
 		"position": global_position
 	})
@@ -58,7 +58,5 @@ func get_closest_target() -> Entity:
 		if (min_dist > dist):
 			min_dist = dist
 			closest_node = target
-	
-	print(min_dist)
 
 	return closest_node

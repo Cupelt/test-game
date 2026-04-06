@@ -19,9 +19,9 @@ func init(room_position: Vector2i, type: AbstractRoom, adjacent_dirs: Array[Vect
 	self.room_position = room_position
 	self.type = type
 	
-	for dir in adjacent_dirs:
-		# road[dir].set_process(true)
-		road_colider[dir].enabled = false
+	#for dir in adjacent_dirs:
+		## road[dir].set_process(true)
+		#road_colider[dir].enabled = false
 		
 
 func _enter_area(body: Node2D):

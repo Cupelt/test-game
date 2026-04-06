@@ -3,10 +3,13 @@ class_name Slime
 
 var time: float = 0.0
 
+func _ready() -> void:
+	stats.on_hp_changed.connect(on_hurt)
+
 func init(data: Dictionary) -> void:
 	self.position = data["position"]
 	time = 0;
-	stats.hp = stats.max_hp
+	stats.reset()
 	$HpViewComponent.init()
 	$ChasingComponent.is_chasing = true
 	
@@ -20,7 +23,7 @@ func _process(delta: float) -> void:
 	#if time > 5:
 		#destroy_object()
 
-func _on_stats_container_hp_updated(before: float, after: float) -> void:
+func on_hurt(before: float, after: float) -> void:
 	if after > 0:
 		return
 	

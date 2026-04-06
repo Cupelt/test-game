@@ -8,7 +8,7 @@ var components: Array[Component]
 var is_die: bool = false
 
 func _ready() -> void:
-	stats.hp_updated.connect(hurt)
+	stats.on_hp_changed.connect(hurt)
 	components.assign(get_children().filter(func (node): node is Entity))
 	
 func reset() -> void:

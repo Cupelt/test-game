@@ -39,6 +39,6 @@ func hit(body: Node2D):
 		return
 	
 	if body.stats != null:
-		body.stats.hp -= damage
+		(body as Entity).stats.add_stats({EntityStats.StatType.HP: -damage})
 		
 	call_deferred("destroy_object")
