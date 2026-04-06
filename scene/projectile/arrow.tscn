@@ -25,7 +25,6 @@ shape = SubResource("CircleShape2D_ugglh")
 
 [node name="StatsContainer" type="Node2D" parent="." unique_id=817391861]
 script = ExtResource("3_aycig")
-max_hp = 0.0
-attack = 0.0
-attack_speed = 0.0
-speed = 5.0
+base_stats = Dictionary[int, float]({
+3: 5.0
+})

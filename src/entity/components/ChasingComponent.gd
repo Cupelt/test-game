@@ -35,8 +35,8 @@ func _physics_process(delta: float) -> void:
 	var direction = (next_position - parent.global_position).normalized()
 	
 	parent.velocity = parent.velocity.move_toward(
-		direction * stats.speed, 
-		stats.accel * delta
+		direction * stats.get_stat(EntityStats.StatType.SPEED), 
+		stats.get_stat(EntityStats.StatType.ACCEL) * delta
 	)
 	
 	parent.move_and_slide()

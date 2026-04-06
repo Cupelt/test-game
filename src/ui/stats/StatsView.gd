@@ -1,6 +1,11 @@
-extends Tree
+extends ItemList
+
+@export var stats: EntityStats
 
 func _ready() -> void:
-	atk = create_item()
+	
+	for key in EntityStats.StatType.values():
+		set_item_text(key, str(stats.get_stat(key)))
+	
 	
 	

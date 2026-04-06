@@ -191,9 +191,12 @@ position = Vector2(0, -0.5)
 
 [node name="StatsContainer" type="Node2D" parent="." unique_id=60052736]
 script = ExtResource("5_jqhro")
-max_hp = 25.0
-speed = 50.0
-accel = 2500.0
+base_stats = Dictionary[int, float]({
+0: 25.0,
+1: 1.0,
+3: 50.0,
+4: 2500.0
+})
 
 [node name="HpViewComponent" type="TextureProgressBar" parent="." unique_id=1379688553 node_paths=PackedStringArray("stats")]
 visible = false
@@ -208,5 +211,3 @@ texture_under = SubResource("GradientTexture2D_ctytu")
 texture_progress = SubResource("GradientTexture2D_m048v")
 script = ExtResource("6_ctytu")
 stats = NodePath("../StatsContainer")
-
-[connection signal="hp_updated" from="StatsContainer" to="." method="_on_stats_container_hp_updated"]

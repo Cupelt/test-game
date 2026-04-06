@@ -4,15 +4,33 @@ class_name EntityStats
 signal on_hp_changed(before: float, after: float)
 signal on_stats_changed(before: Dictionary[StatType, float], after: Dictionary[StatType, float])
 
+enum StatType {
+	MAX_HP,
+	ATTACK,
+	ATTACK_SPEED,
+	SPEED,
+	ACCEL
+}
+@onready var body = $".."
 @export var base_stats: Dictionary[StatType, float]
 var _stats: Dictionary[StatType, float]
 
+var hp: float = base_stats.get(StatType.MAX_HP, 0):
+	set(after_hp):
+		on_hp_changed.emit(hp, after_hp)
+		Event.on_hp_changed.emit(body, hp, after_hp)
+		hp = after_hp
+
+func _ready() -> void:
+	reset()
+
 func reset():
 	_stats = base_stats.duplicate_deep()
+	hp = get_stat(StatType.MAX_HP)
 
 func set_stats(stats: Dictionary[StatType, float]):
-	_stats.assign(stats)
 	on_stats_changed.emit(_stats.duplicate_deep(), stats.duplicate_deep())
+	_stats.assign(stats)
 
 func add_stats(stats: Dictionary[StatType, float]):
 	var final_stats = _stats.duplicate_deep()
@@ -23,12 +41,3 @@ func add_stats(stats: Dictionary[StatType, float]):
 
 func get_stat(type: StatType) -> float:
 	return _stats.get(type, 0)
-
-func _on_hurt(before: Dictionary[StatType, float], after: Dictionary[StatType, float]):
-	if after.has(StatType.HP) and before[StatType.HP] != after[StatType.]:
-		on_hp_changed.emit(before[StatType.HP], after[StatType.HP])
-	
-@export var attack: float = 3.5
-
-@export var speed: float = 70
-@export var accel: float = 0

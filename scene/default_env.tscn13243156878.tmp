@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://dr2ph6p03fb5g" path="res://src/player/Player.gd" id="9_pr1hq"]
 [ext_resource type="Script" uid="uid://dpxympa2e04rf" path="res://src/player/CameraManager.gd" id="10_exl2s"]
 [ext_resource type="Script" uid="uid://dvf3e81mn8uia" path="res://src/room/minimap/MinimapManager.gd" id="11_jpwt2"]
-[ext_resource type="Script" uid="uid://b8qg0u0acnyck" path="res://src/utils/godot/MouseHover.gd" id="11_rgneq"]
+[ext_resource type="Script" uid="uid://b8qg0u0acnyck" path="res://src/room/minimap/MinimapHover.gd" id="11_rgneq"]
 [ext_resource type="Script" uid="uid://b3ykt3obpaifk" path="res://src/room/TilemapBuilder.gd" id="12_13kf1"]
 [ext_resource type="Script" uid="uid://pyj8o2mw4e2n" path="res://src/room/manager/RoomRegistry.gd" id="12_pnaty"]
 [ext_resource type="PackedScene" uid="uid://dseq2ygifh0cl" path="res://scene/minimap_object.tscn" id="13_7nq3w"]
@@ -24,13 +24,9 @@
 [ext_resource type="Texture2D" uid="uid://dsr4rojkvxhv2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="14_ja8bw"]
 [ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
 [ext_resource type="Script" uid="uid://d24nbxgblbw7l" path="res://src/manager/EntityManager.gd" id="15_pnaty"]
-[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/EntityStats.gd" id="18_crugv"]
+[ext_resource type="Script" uid="uid://b821cbyje3kqp" path="res://src/entity/PlayerStats.gd" id="18_ugglh"]
 [ext_resource type="Script" uid="uid://b3wnxuobaavxm" path="res://src/items/weapon/Bow.gd" id="21_lknfy"]
 [ext_resource type="PackedScene" uid="uid://dndb8rbuxdhub" path="res://scene/projectile/arrow.tscn" id="22_ugglh"]
-[ext_resource type="Script" uid="uid://dbg3mygguo2j8" path="res://src/ui/damage_counter/DamageUI.gd" id="24_4pk16"]
-[ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
-[ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
-[ext_resource type="Texture2D" uid="uid://cql6trghu6ch" path="res://assets/DG UI-HUD Exp/Skill level sistem.png" id="29_crugv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -218,67 +214,6 @@ shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_0x7r0")
 [sub_resource type="CircleShape2D" id="CircleShape2D_13kf1"]
 radius = 100.0
 
-[sub_resource type="Animation" id="Animation_4pk16"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_lb1tb"]
-resource_name = "play"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, 5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.10000001, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1.5, 1.5), Vector2(1e-05, 1e-05)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_e10wd"]
-_data = {
-&"RESET": SubResource("Animation_4pk16"),
-&"play": SubResource("Animation_lb1tb")
-}
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nq3w"]
 atlas = ExtResource("9_ldvgu")
 region = Rect2(192, 96, 52, 40)
@@ -286,33 +221,6 @@ region = Rect2(192, 96, 52, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ayrf"]
 atlas = ExtResource("3_7nq3w")
 region = Rect2(100, 68, 8, 8)
-
-[sub_resource type="FontVariation" id="FontVariation_4pk16"]
-base_font = ExtResource("28_ljfyf")
-spacing_bottom = -6
-baseline_offset = -0.35
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lb1tb"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e10wd"]
-atlas = ExtResource("29_crugv")
-region = Rect2(48, 32, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r3cm4"]
-atlas = ExtResource("29_crugv")
-region = Rect2(48, 64, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rfk2u"]
-atlas = ExtResource("29_crugv")
-region = Rect2(48, 64, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b7cw7"]
-atlas = ExtResource("29_crugv")
-region = Rect2(48, 64, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1hvmv"]
-atlas = ExtResource("29_crugv")
-region = Rect2(48, 80, 7, 7)
 
 [node name="DefaultEnv" type="Node2D" unique_id=294223548]
 modulate = Color(0.44291076, 0.44291076, 0.44291073, 1)
@@ -434,14 +342,7 @@ parameters/is_flip/blend_amount = 1.0
 parameters/is_walk/blend_amount = 0.0
 
 [node name="StatsContainer" type="Node2D" parent="EntityManager/Player" unique_id=659176008]
-script = ExtResource("18_crugv")
-base_stats = Dictionary[int, float]({
-0: 100.0,
-1: 3.5,
-2: 1.0,
-3: 70.0,
-4: 2500.0
-})
+script = ExtResource("18_ugglh")
 
 [node name="PointLight2D" type="PointLight2D" parent="EntityManager/Player" unique_id=1673780821]
 color = Color(0.8039216, 1, 1, 1)
@@ -485,29 +386,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManager/Player/Weapons/Bow/FireRange" unique_id=902533878]
 shape = SubResource("CircleShape2D_13kf1")
-
-[node name="DamageUI" type="Node2D" parent="EntityManager" unique_id=1895020736]
-script = ExtResource("24_4pk16")
-
-[node name="Damage" type="Label" parent="EntityManager/DamageUI" unique_id=1009898357]
-z_index = 10
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -6.0
-offset_right = 4.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("28_ljfyf")
-text = "10"
-horizontal_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EntityManager/DamageUI" unique_id=2119491207]
-libraries/ = SubResource("AnimationLibrary_e10wd")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207279906]
 
@@ -581,56 +459,10 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_5ayrf")
 
-[node name="StatViewController" type="Control" parent="CanvasLayer" unique_id=308539265]
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 21.0
-offset_top = -147.0
-offset_right = 186.0
-offset_bottom = -21.0
-grow_vertical = 0
-script = ExtResource("11_rgneq")
-
-[node name="StatView" type="ItemList" parent="CanvasLayer/StatViewController" unique_id=1451483712 node_paths=PackedStringArray("stats")]
-clip_contents = false
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -126.0
-offset_right = 97.0
-offset_bottom = 4.0
-grow_vertical = 0
-mouse_filter = 2
-theme_override_colors/guide_color = Color(0.69803923, 0.69803923, 0.69803923, 0)
-theme_override_fonts/font = SubResource("FontVariation_4pk16")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/panel = SubResource("StyleBoxEmpty_lb1tb")
-wraparound_items = false
-item_count = 5
-icon_scale = 1.5
-item_0/text = " "
-item_0/icon = SubResource("AtlasTexture_e10wd")
-item_0/selectable = false
-item_1/text = " "
-item_1/icon = SubResource("AtlasTexture_r3cm4")
-item_1/selectable = false
-item_2/text = " "
-item_2/icon = SubResource("AtlasTexture_rfk2u")
-item_2/selectable = false
-item_3/text = " "
-item_3/icon = SubResource("AtlasTexture_b7cw7")
-item_3/selectable = false
-item_4/text = " "
-item_4/icon = SubResource("AtlasTexture_1hvmv")
-item_4/selectable = false
-script = ExtResource("28_uks7h")
-stats = NodePath("../../../EntityManager/Player/StatsContainer")
+[node name="StatsView" type="Tree" parent="CanvasLayer" unique_id=1046457152]
+offset_right = 134.0
+offset_bottom = 94.0
+hide_root = true
 
 [connection signal="mouse_entered" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="CanvasLayer/StatViewController" to="CanvasLayer/StatViewController" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/StatViewController" to="CanvasLayer/StatViewController" method="_on_mouse_exited"]

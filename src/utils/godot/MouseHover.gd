@@ -1,5 +1,5 @@
 extends HoverOpacity
-class_name MinimapHover
+class_name MouseHover
 
 func _on_mouse_entered() -> void:
 	is_showed = true

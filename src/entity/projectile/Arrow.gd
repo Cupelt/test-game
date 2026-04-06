@@ -26,7 +26,7 @@ func init(data: Dictionary) -> void:
 
 func _process(delta: float) -> void:
 	timer += delta
-	global_position += direction * stats.speed
+	global_position += direction * stats.get_stat(EntityStats.StatType.SPEED)
 	
 	if (timer > life_time):
 		call_deferred("destroy_object")
@@ -39,6 +39,6 @@ func hit(body: Node2D):
 		return
 	
 	if body.stats != null:
-		(body as Entity).stats.add_stats({EntityStats.StatType.HP: -damage})
+		body.stats.hp -= damage
 		
 	call_deferred("destroy_object")

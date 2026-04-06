@@ -23,7 +23,7 @@ func target_exited(body: Node2D):
 func _physics_process(delta: float) -> void:
 	timer += delta
 	
-	var atk_rate = attack_rate / stats.attack_speed
+	var atk_rate = attack_rate / stats.get_stat(EntityStats.StatType.ATTACK_SPEED)
 	if timer > atk_rate:
 		# 발사를 해야 시간 초기화
 		if fire_arrow():
@@ -36,7 +36,7 @@ func fire_arrow() -> bool:
 	
 	ObjectPool.spawn_object(arrow, {
 		"target": target,
-		"damage": stats.get_stat() * 3,
+		"damage": stats.get_stat(EntityStats.StatType.ATTACK) * 3,
 		
 		"position": global_position
 	})

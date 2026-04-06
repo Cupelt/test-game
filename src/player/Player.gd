@@ -20,7 +20,10 @@ func _process(delta: float) -> void:
 		.normalized()
 	
 	#region Player Movement
-	velocity = velocity.move_toward(direction * stats.speed, delta * stats.accel)
+	velocity = velocity.move_toward(
+		direction * stats.get_stat(EntityStats.StatType.SPEED), 
+		delta * stats.get_stat(EntityStats.StatType.ACCEL)
+		)
 	# velocity = direction * SPEED
 	#endregion
 	
