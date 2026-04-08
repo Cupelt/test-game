@@ -15,18 +15,21 @@ enum StatType {
 @export var base_stats: Dictionary[StatType, float]
 var _stats: Dictionary[StatType, float]
 
-var hp: float = base_stats.get(StatType.MAX_HP, 0):
-	set(after_hp):
-		on_hp_changed.emit(hp, after_hp)
-		Event.on_hp_changed.emit(body, hp, after_hp)
-		hp = after_hp
+var _hp: float = 0
+var hp: float:
+	get:
+		return _hp
+	set(value):
+		on_hp_changed.emit(_hp, value)
+		Event.on_hp_changed.emit(body, _hp, value)
+		_hp = value
 
 func _ready() -> void:
 	reset()
 
 func reset():
 	_stats = base_stats.duplicate_deep()
-	hp = get_stat(StatType.MAX_HP)
+	_hp = get_stat(StatType.MAX_HP)
 
 func set_stats(stats: Dictionary[StatType, float]):
 	on_stats_changed.emit(_stats.duplicate_deep(), stats.duplicate_deep())

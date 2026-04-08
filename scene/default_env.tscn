@@ -27,7 +27,6 @@
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/EntityStats.gd" id="18_crugv"]
 [ext_resource type="Script" uid="uid://b3wnxuobaavxm" path="res://src/items/weapon/Bow.gd" id="21_lknfy"]
 [ext_resource type="PackedScene" uid="uid://dndb8rbuxdhub" path="res://scene/projectile/arrow.tscn" id="22_ugglh"]
-[ext_resource type="Script" uid="uid://dbg3mygguo2j8" path="res://src/ui/damage_counter/DamageUI.gd" id="24_4pk16"]
 [ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
 [ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
 [ext_resource type="Texture2D" uid="uid://cql6trghu6ch" path="res://assets/DG UI-HUD Exp/Skill level sistem.png" id="29_crugv"]
@@ -217,67 +216,6 @@ shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_0x7r0")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_13kf1"]
 radius = 100.0
-
-[sub_resource type="Animation" id="Animation_4pk16"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_lb1tb"]
-resource_name = "play"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, 5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.10000001, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1.5, 1.5), Vector2(1e-05, 1e-05)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_e10wd"]
-_data = {
-&"RESET": SubResource("Animation_4pk16"),
-&"play": SubResource("Animation_lb1tb")
-}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nq3w"]
 atlas = ExtResource("9_ldvgu")
@@ -485,29 +423,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManager/Player/Weapons/Bow/FireRange" unique_id=902533878]
 shape = SubResource("CircleShape2D_13kf1")
-
-[node name="DamageUI" type="Node2D" parent="EntityManager" unique_id=1895020736]
-script = ExtResource("24_4pk16")
-
-[node name="Damage" type="Label" parent="EntityManager/DamageUI" unique_id=1009898357]
-z_index = 10
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -6.0
-offset_right = 4.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("28_ljfyf")
-text = "10"
-horizontal_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EntityManager/DamageUI" unique_id=2119491207]
-libraries/ = SubResource("AnimationLibrary_e10wd")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207279906]
 
