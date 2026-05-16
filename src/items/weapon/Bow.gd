@@ -36,7 +36,7 @@ func fire_arrow() -> bool:
 	
 	ObjectPool.spawn_object(arrow, {
 		"target": target,
-		"damage": stats.get_stat(EntityStats.StatType.ATTACK) * 3,
+		"damage": stats.get_stat(EntityStats.StatType.ATTACK) * 3 * MathHelper.randomize_damage_factor(),
 		
 		"position": global_position
 	})

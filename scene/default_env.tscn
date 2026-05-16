@@ -217,6 +217,9 @@ shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_0x7r0")
 [sub_resource type="CircleShape2D" id="CircleShape2D_13kf1"]
 radius = 100.0
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_crugv"]
+blend_mode = 1
+
 [sub_resource type="Curve" id="Curve_e10wd"]
 _data = [Vector2(0, 0), 0.0, 5.949141, 0, 0, Vector2(0.49882355, 1), 0.040875785, 0.040875785, 0, 0, Vector2(0.97882354, 0.025583386), -5.904292, 0.0, 0, 0]
 point_count = 3
@@ -416,7 +419,8 @@ texture = SubResource("GradientTexture2D_uks7h")
 [node name="PointLight2D" type="PointLight2D" parent="EntityManager/Player/PointLight2D" unique_id=372097036]
 light_mask = 524288
 visibility_layer = 524288
-energy = 2.0
+scale = Vector2(0.56640625, 0.56640625)
+energy = 3.14
 blend_mode = 1
 range_item_cull_mask = 512
 shadow_enabled = true
@@ -460,8 +464,8 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_13kf1")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EntityManager/Player" unique_id=1363778018]
-top_level = true
 light_mask = 512
+material = SubResource("CanvasItemMaterial_crugv")
 amount = 100
 lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_rfk2u")
