@@ -1,11 +1,10 @@
 extends ItemList
 
 @export var stats: EntityStats
+@export var allow_stats: Array[EntityStats.StatType]
 
 func _ready() -> void:
-	
-	for key in EntityStats.StatType.values():
-		set_item_text(key, str(stats.get_stat(key)))
-	
-	
-	
+	var index = 0
+	for key in allow_stats:
+		set_item_text(index, str(stats.get_stat(key)))
+		index += 1
