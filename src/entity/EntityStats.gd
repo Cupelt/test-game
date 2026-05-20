@@ -22,7 +22,7 @@ var hp: float:
 	set(value):
 		on_hp_changed.emit(_hp, value)
 		Event.on_hp_changed.emit(body, _hp, value)
-		print(_hp - value)
+		# print(_hp - value)
 		_hp = value
 
 func _ready() -> void:

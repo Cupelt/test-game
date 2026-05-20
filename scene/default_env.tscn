@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://dsr4rojkvxhv2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="14_ja8bw"]
 [ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
 [ext_resource type="Script" uid="uid://d24nbxgblbw7l" path="res://src/manager/EntityManager.gd" id="15_pnaty"]
+[ext_resource type="Script" uid="uid://q15mwrnt5vpc" path="res://src/ui/damage_counter/HurtEffect.gd" id="17_lb1tb"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/EntityStats.gd" id="18_crugv"]
 [ext_resource type="Script" uid="uid://b3wnxuobaavxm" path="res://src/items/weapon/Bow.gd" id="21_lknfy"]
 [ext_resource type="PackedScene" uid="uid://dndb8rbuxdhub" path="res://scene/projectile/arrow.tscn" id="22_ugglh"]
@@ -48,6 +49,19 @@ agent_radius = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0hnk"]
 size = Vector2(16, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lb1tb"]
+size = Vector2(16.02, 14)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4pk16"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector3(0, -20, 0)
+initial_velocity_max = 40.0
+gravity = Vector3(0, 65.333, 0)
+scale_max = 2.0
+color = Color(0.99999887, 0.274014, 0.21306065, 1)
 
 [sub_resource type="Animation" id="Animation_pnaty"]
 resource_name = "Idle"
@@ -302,7 +316,6 @@ player = NodePath("../../EntityManager/Player")
 nav_map = NodePath("../../NavigationRegion2D")
 entity_layer = NodePath("../../EntityManager")
 enemy_scene = ExtResource("2_ja8bw")
-spawn_interval_factor = 5.0
 min_spawn_interval = 0.25
 
 [node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("room_generator", "tilemap_builder")]
@@ -393,6 +406,24 @@ script = ExtResource("9_pr1hq")
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_j0hnk")
 
+[node name="HurtArea" type="Area2D" parent="EntityManager/Player" unique_id=1704545259]
+position = Vector2(0, 3)
+collision_layer = 2
+collision_mask = 2
+input_pickable = false
+script = ExtResource("17_lb1tb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManager/Player/HurtArea" unique_id=1230023753]
+shape = SubResource("RectangleShape2D_lb1tb")
+
+[node name="HitParticle" type="GPUParticles2D" parent="EntityManager/Player/HurtArea" unique_id=2005618228]
+z_index = 1
+position = Vector2(0, -3)
+emitting = false
+amount = 100
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_4pk16")
+
 [node name="Sprite2D" type="Sprite2D" parent="EntityManager/Player" unique_id=1626346482]
 texture = ExtResource("14_ja8bw")
 hframes = 9
@@ -473,6 +504,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_13kf1")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EntityManager/Player" unique_id=1363778018]
+visible = false
 light_mask = 512
 material = SubResource("CanvasItemMaterial_crugv")
 amount = 100

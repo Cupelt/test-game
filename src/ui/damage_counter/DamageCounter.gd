@@ -7,6 +7,9 @@ func _ready() -> void:
 	Event.on_hp_changed.connect(_on_hp_changed)
 
 func _on_hp_changed(body: Node2D, before: float, after: float):
+	if body is Player:
+		return
+	
 	ObjectPool.spawn_object(ui, {
 		"position" : body.global_position,
 		"damage" : roundi(before - after)

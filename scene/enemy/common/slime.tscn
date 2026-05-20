@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="6_ctytu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0hnk"]
-radius = 9.0
+radius = 8.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m048v"]
 animation = &"die"
@@ -127,6 +127,9 @@ _data = {
 &"walk": SubResource("Animation_y0aba")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ulis"]
+radius = 11.0
+
 [sub_resource type="Gradient" id="Gradient_7ulis"]
 colors = PackedColorArray(1, 1, 1, 0.11764706, 1, 1, 1, 0.11764706)
 
@@ -181,7 +184,8 @@ stats = NodePath("../StatsContainer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NearAttackComponent" unique_id=471017977]
 position = Vector2(0, -0.5)
-shape = SubResource("CircleShape2D_j0hnk")
+shape = SubResource("CircleShape2D_7ulis")
+debug_color = Color(0.94420815, 6.4495207e-06, 0.60038, 0.41960785)
 
 [node name="ChasingComponent" parent="." unique_id=1564992785 node_paths=PackedStringArray("stats") instance=ExtResource("2_038jq")]
 stats = NodePath("../StatsContainer")
