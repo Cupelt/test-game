@@ -316,6 +316,7 @@ player = NodePath("../../EntityManager/Player")
 nav_map = NodePath("../../NavigationRegion2D")
 entity_layer = NodePath("../../EntityManager")
 enemy_scene = ExtResource("2_ja8bw")
+spawn_interval_factor = 2.0
 min_spawn_interval = 0.25
 
 [node name="MapManager" type="Node2D" parent="." unique_id=1544325821 node_paths=PackedStringArray("room_generator", "tilemap_builder")]

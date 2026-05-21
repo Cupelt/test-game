@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://62d262n8gca5"]
+
+[ext_resource type="Script" uid="uid://dsgmff1mmew3h" path="res://src/entity/components/SmoothColision.gd" id="1_8dwk8"]
+
+[node name="SmoothCollisionCompoennt" type="Node2D" unique_id=178064422]
+script = ExtResource("1_8dwk8")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2107226074]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=874552747]
+position = Vector2(0, -0.5)

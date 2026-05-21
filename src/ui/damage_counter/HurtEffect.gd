@@ -6,8 +6,6 @@ extends Area2D
 func _physics_process(delta: float) -> void:
 	var is_hurt = false
 	
-	print(get_overlapping_areas())
-	
 	for area in get_overlapping_areas():
 		var body = area.get_parent()
 		
