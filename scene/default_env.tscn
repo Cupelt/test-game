@@ -32,6 +32,7 @@
 [ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
 [ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
 [ext_resource type="Texture2D" uid="uid://cql6trghu6ch" path="res://assets/DG UI-HUD Exp/Skill level sistem.png" id="29_crugv"]
+[ext_resource type="Texture2D" uid="uid://bcg2jhk3fgq4d" path="res://icon.svg" id="33_e10wd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -302,6 +303,29 @@ region = Rect2(48, 64, 7, 7)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1hvmv"]
 atlas = ExtResource("29_crugv")
 region = Rect2(48, 80, 7, 7)
+
+[sub_resource type="FontVariation" id="FontVariation_r3cm4"]
+base_font = ExtResource("28_ljfyf")
+spacing_bottom = -2
+baseline_offset = -0.765
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rfk2u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e10wd"]
+bg_color = Color(1, 0, 0, 0.6117647)
+corner_radius_top_left = 11
+corner_radius_top_right = 11
+corner_radius_bottom_right = 11
+corner_radius_bottom_left = 11
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b7cw7"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1hvmv"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cud0j"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
 
 [node name="DefaultEnv" type="Node2D" unique_id=294223548]
 modulate = Color(0.2921899, 0.29219007, 0.29219002, 1)
@@ -641,6 +665,56 @@ item_2/selectable = false
 script = ExtResource("28_uks7h")
 stats = NodePath("../../../EntityManager/Player/StatsContainer")
 allow_stats = Array[int]([1, 2, 3])
+
+[node name="WeaponHotbar" type="Control" parent="CanvasLayer" unique_id=347296526]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="HotbarIcon" type="ItemList" parent="CanvasLayer/WeaponHotbar" unique_id=1029540248]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -209.0
+offset_right = -42.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/scroll_hint_color = Color(0, 0, 0, 0)
+theme_override_constants/line_separation = -10
+theme_override_fonts/font = SubResource("FontVariation_r3cm4")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rfk2u")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_e10wd")
+theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_e10wd")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_e10wd")
+theme_override_styles/selected = SubResource("StyleBoxFlat_e10wd")
+allow_search = false
+auto_width = true
+auto_height = true
+item_count = 4
+same_column_width = true
+icon_mode = 0
+fixed_icon_size = Vector2i(128, 24)
+item_0/text = "HandGun"
+item_0/icon = ExtResource("33_e10wd")
+item_1/text = "FlameThrower"
+item_1/icon = SubResource("CompressedTexture2D_b7cw7")
+item_2/text = "Mini-Gun"
+item_2/icon = SubResource("CompressedTexture2D_1hvmv")
+item_3/text = "Rocket"
+item_3/icon = SubResource("CompressedTexture2D_cud0j")
 
 [connection signal="mouse_entered" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_exited"]
