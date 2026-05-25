@@ -673,12 +673,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
+offset_left = -295.0
+offset_top = -276.0
+offset_right = -23.0
+offset_bottom = -30.0
 grow_horizontal = 0
 grow_vertical = 0
 
 [node name="HotbarIcon" type="ItemList" parent="CanvasLayer/WeaponHotbar" unique_id=1029540248]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -687,7 +690,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -182.0
 offset_top = -209.0
-offset_right = -42.0
+offset_right = -50.0
 offset_bottom = -25.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -715,6 +718,62 @@ item_2/text = "Mini-Gun"
 item_2/icon = SubResource("CompressedTexture2D_1hvmv")
 item_3/text = "Rocket"
 item_3/icon = SubResource("CompressedTexture2D_cud0j")
+
+[node name="Hotbar1" type="Button" parent="CanvasLayer/WeaponHotbar" unique_id=1554598310]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.5
+offset_top = -71.0
+offset_right = 125.5
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hotbar2" type="Button" parent="CanvasLayer/WeaponHotbar" unique_id=1012363211]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.5
+offset_top = -211.0
+offset_right = 125.5
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hotbar3" type="Button" parent="CanvasLayer/WeaponHotbar" unique_id=491354076]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.5
+offset_top = -141.0
+offset_right = 125.5
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hotbar4" type="Button" parent="CanvasLayer/WeaponHotbar" unique_id=297936070]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.5
+offset_top = -281.0
+offset_right = 125.5
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [connection signal="mouse_entered" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_exited"]
