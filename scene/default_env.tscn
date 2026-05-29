@@ -32,9 +32,6 @@
 [ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
 [ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
 [ext_resource type="Texture2D" uid="uid://cql6trghu6ch" path="res://assets/DG UI-HUD Exp/Skill level sistem.png" id="29_crugv"]
-[ext_resource type="Texture2D" uid="uid://bcg2jhk3fgq4d" path="res://icon.svg" id="33_e10wd"]
-[ext_resource type="Texture2D" uid="uid://ch4rcp133y5kk" path="res://assets/Dungeon Gathering Full Ver. 1.1/16x16 Items v1.png" id="34_r3cm4"]
-[ext_resource type="FontVariation" uid="uid://o8otqegbc78l" path="res://style/Hotbar_Font.res" id="34_rfk2u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -305,73 +302,6 @@ region = Rect2(48, 64, 7, 7)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1hvmv"]
 atlas = ExtResource("29_crugv")
 region = Rect2(48, 80, 7, 7)
-
-[sub_resource type="FontVariation" id="FontVariation_r3cm4"]
-base_font = ExtResource("28_ljfyf")
-spacing_bottom = -2
-baseline_offset = -0.765
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rfk2u"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e10wd"]
-bg_color = Color(1, 0, 0, 0.6117647)
-corner_radius_top_left = 11
-corner_radius_top_right = 11
-corner_radius_bottom_right = 11
-corner_radius_bottom_left = 11
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b7cw7"]
-load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1hvmv"]
-load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cud0j"]
-load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m84y0"]
-bg_color = Color(0.2958664, 0.29586655, 0.2958665, 0.60784316)
-border_color = Color(0.101960786, 0.09803922, 0.19607843, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjt5o"]
-bg_color = Color(0.11372549, 0.11372549, 0.11372549, 0.60784316)
-border_color = Color(0.101960786, 0.09803922, 0.19607843, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ftq8"]
-bg_color = Color(0.27022207, 0.27022186, 0.2702219, 0.60784316)
-border_color = Color(0.101960786, 0.09803922, 0.19607843, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdkla"]
-bg_color = Color(0.11372549, 0.11372549, 0.11372549, 0.60784316)
-border_color = Color(0.101960786, 0.09803922, 0.19607843, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_56tfv"]
-atlas = ExtResource("34_r3cm4")
-region = Rect2(9, 9, 14, 14)
 
 [node name="DefaultEnv" type="Node2D" unique_id=294223548]
 modulate = Color(0.2921899, 0.29219007, 0.29219002, 1)
@@ -713,7 +643,6 @@ stats = NodePath("../../../EntityManager/Player/StatsContainer")
 allow_stats = Array[int]([1, 2, 3])
 
 [node name="WeaponHotbar" type="Control" parent="CanvasLayer" unique_id=347296526]
-visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -726,149 +655,6 @@ offset_right = -23.0
 offset_bottom = -30.0
 grow_horizontal = 0
 grow_vertical = 0
-
-[node name="HotbarIcon" type="ItemList" parent="CanvasLayer/WeaponHotbar" unique_id=1029540248]
-visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -182.0
-offset_top = -209.0
-offset_right = -50.0
-offset_bottom = -25.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/scroll_hint_color = Color(0, 0, 0, 0)
-theme_override_constants/line_separation = -10
-theme_override_fonts/font = SubResource("FontVariation_r3cm4")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/panel = SubResource("StyleBoxEmpty_rfk2u")
-theme_override_styles/hovered = SubResource("StyleBoxFlat_e10wd")
-theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_e10wd")
-theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_e10wd")
-theme_override_styles/selected = SubResource("StyleBoxFlat_e10wd")
-allow_search = false
-auto_width = true
-auto_height = true
-item_count = 4
-same_column_width = true
-icon_mode = 0
-fixed_icon_size = Vector2i(128, 24)
-item_0/text = "HandGun"
-item_0/icon = ExtResource("33_e10wd")
-item_1/text = "FlameThrower"
-item_1/icon = SubResource("CompressedTexture2D_b7cw7")
-item_2/text = "Mini-Gun"
-item_2/icon = SubResource("CompressedTexture2D_1hvmv")
-item_3/text = "Rocket"
-item_3/icon = SubResource("CompressedTexture2D_cud0j")
-
-[node name="Hotbar1" type="Button" parent="CanvasLayer/WeaponHotbar" unique_id=1554598310]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -97.0
-offset_top = -39.0
-offset_right = 97.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("34_rfk2u")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_m84y0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sjt5o")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7ftq8")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gdkla")
-toggle_mode = true
-button_pressed = true
-text = "Hand Gun"
-icon = SubResource("AtlasTexture_56tfv")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-
-[node name="Hotbar2" type="Button" parent="CanvasLayer/WeaponHotbar" unique_id=683612233]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -97.0
-offset_top = -99.0
-offset_right = 97.0
-offset_bottom = -60.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("34_rfk2u")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_m84y0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sjt5o")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7ftq8")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gdkla")
-toggle_mode = true
-text = "Shotgun"
-icon = SubResource("AtlasTexture_56tfv")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-
-[node name="Hotbar3" type="Button" parent="CanvasLayer/WeaponHotbar" unique_id=263572014]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -97.0
-offset_top = -159.0
-offset_right = 97.0
-offset_bottom = -120.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("34_rfk2u")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_m84y0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sjt5o")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7ftq8")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gdkla")
-toggle_mode = true
-text = "Plazma"
-icon = SubResource("AtlasTexture_56tfv")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-
-[node name="Hotbar4" type="Button" parent="CanvasLayer/WeaponHotbar" unique_id=577899635]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -97.0
-offset_top = -219.0
-offset_right = 97.0
-offset_bottom = -180.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("34_rfk2u")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_m84y0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sjt5o")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7ftq8")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gdkla")
-toggle_mode = true
-text = "FireThrower"
-icon = SubResource("AtlasTexture_56tfv")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
 
 [connection signal="mouse_entered" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_exited"]
