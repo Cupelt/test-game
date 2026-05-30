@@ -1,6 +1,5 @@
 extends Entity
 
-var target: Entity
 var direction: Vector2
 
 var damage: float
@@ -14,11 +13,9 @@ func _ready() -> void:
 
 func init(data: Dictionary) -> void:
 	timer = 0
-	target = data["target"]
-	target.destroied.connect(func (): target = null)
 	global_position = data["position"]
 	
-	direction = (target.global_position - global_position).normalized()
+	direction = data["direction"]
 	rotation = direction.angle()
 	
 	damage = data["damage"]

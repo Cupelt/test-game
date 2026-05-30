@@ -12,5 +12,5 @@ var reload_cooldown: float
 @export var attack_rate: float
 var attack_cooldown: float
 
-func attack():
+func attack(player: Player, direction: Vector2):
 	pass

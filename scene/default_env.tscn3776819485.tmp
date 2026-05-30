@@ -239,14 +239,6 @@ attack_rate = 0.25
 name = "Bow"
 metadata/_custom_type_script = "uid://secqim2hgqqu"
 
-[sub_resource type="Resource" id="Resource_r3cm4"]
-script = ExtResource("24_b7cw7")
-max_ammo = 150
-reload_delay = 10.0
-attack_rate = 0.05
-name = "Minigun Bow"
-metadata/_custom_type_script = "uid://secqim2hgqqu"
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_crugv"]
 blend_mode = 1
 
@@ -509,8 +501,7 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("22_e10wd")
 player = NodePath("..")
 weapons = Dictionary[int, ExtResource("23_rfk2u")]({
-0: SubResource("Resource_b7cw7"),
-1: SubResource("Resource_r3cm4")
+0: SubResource("Resource_b7cw7")
 })
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EntityManager/Player" unique_id=1363778018]

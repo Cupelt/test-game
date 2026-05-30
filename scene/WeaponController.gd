@@ -1,6 +1,8 @@
 extends Node2D
 class_name WeaponController
 
+@export var player: Player
+
 var _current_weapon_index: int = 0
 var current_weapon: Weapon:
 	get:
@@ -17,6 +19,20 @@ func _ready() -> void:
 		target.current_ammo = target.max_ammo
 	pass # Replace with function body.
 
+func _input(event: InputEvent) -> void:
+	if !(event is InputEventKey) or not event.pressed:
+		return
+		
+	var hotbar_range = range(4)
+	for i in hotbar_range:
+		if Input.is_action_pressed("Hotbar_" + str(i)):
+			# TODO: weapon change event (못바꿀때도 포함.)
+			if not weapons.has(i) or weapons[i] == null:
+				print("cannot equip the weapon in slot %d" % i)
+				continue
+			
+			_current_weapon_index = i
+			break
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,7 +41,9 @@ func _process(delta: float) -> void:
 			and current_weapon.attack_cooldown <= 0 \
 			and (current_weapon.is_infinity_ammo or current_weapon.current_ammo > 0):
 		
-		current_weapon.attack()
+		
+		var direction = get_global_mouse_position() - player.global_position
+		current_weapon.attack(player, direction.normalized())
 		
 		if (not current_weapon.is_infinity_ammo):
 			current_weapon.current_ammo -= 1
