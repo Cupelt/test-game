@@ -27,11 +27,15 @@
 [ext_resource type="Script" uid="uid://q15mwrnt5vpc" path="res://src/ui/damage_counter/HurtEffect.gd" id="17_lb1tb"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/EntityStats.gd" id="18_crugv"]
 [ext_resource type="Script" uid="uid://b3wnxuobaavxm" path="res://src/items/weapon/Bow.gd" id="21_lknfy"]
+[ext_resource type="Script" uid="uid://buqf30dx1sgty" path="res://scene/WeaponController.gd" id="22_e10wd"]
 [ext_resource type="PackedScene" uid="uid://dndb8rbuxdhub" path="res://scene/projectile/arrow.tscn" id="22_ugglh"]
 [ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="23_4pk16"]
+[ext_resource type="Script" uid="uid://cyl2ni8stewp7" path="res://src/items/Weapon.gd" id="23_rfk2u"]
+[ext_resource type="Script" uid="uid://secqim2hgqqu" path="res://src/items/weapon/HandGun.gd" id="24_b7cw7"]
 [ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
 [ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
 [ext_resource type="Texture2D" uid="uid://cql6trghu6ch" path="res://assets/DG UI-HUD Exp/Skill level sistem.png" id="29_crugv"]
+[ext_resource type="Script" uid="uid://oc3jpmlogxi7" path="res://src/manager/DebugLabel.gd" id="36_b7cw7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
 atlas = ExtResource("3_7nq3w")
@@ -228,6 +232,14 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ja8bw"]
 shader = ExtResource("14_f6etw")
 shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_0x7r0")
+
+[sub_resource type="Resource" id="Resource_b7cw7"]
+script = ExtResource("24_b7cw7")
+max_ammo = 15
+reload_delay = 2.0
+attack_rate = 0.25
+name = "HandGun"
+metadata/_custom_type_script = "uid://secqim2hgqqu"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_13kf1"]
 radius = 100.0
@@ -491,8 +503,13 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 
 [node name="Weapons" type="Node2D" parent="EntityManager/Player" unique_id=1427293497]
+script = ExtResource("22_e10wd")
+weapons = Dictionary[int, ExtResource("23_rfk2u")]({
+0: SubResource("Resource_b7cw7")
+})
 
 [node name="Bow" type="Node2D" parent="EntityManager/Player/Weapons" unique_id=384020411 node_paths=PackedStringArray("stats")]
+visible = false
 script = ExtResource("21_lknfy")
 stats = NodePath("../../StatsContainer")
 arrow = ExtResource("22_ugglh")
@@ -655,6 +672,25 @@ offset_right = -23.0
 offset_bottom = -30.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="DebugLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=1456919194 node_paths=PackedStringArray("data")]
+offset_right = 250.0
+offset_bottom = 214.0
+bbcode_enabled = true
+text = "Weapon Info
+name: [color=yellow]%s[/color]
+
+atttack_rate: [color=red]%s[/color]
+attack_cooldown: [color=red]%.2f[/color]
+
+max_ammo: [color=green]%s[/color]
+ammo: [color=green]%s[/color]
+reload_delay: [color=green]%s[/color]
+reload_cooldown: [color=green]%.2f[/color]"
+fit_content = true
+scroll_active = false
+script = ExtResource("36_b7cw7")
+data = NodePath("../../EntityManager/Player/Weapons")
 
 [connection signal="mouse_entered" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_exited"]

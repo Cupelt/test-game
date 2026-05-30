@@ -11,7 +11,7 @@ func _ready() -> void:
 	# MapManager.Instance.on_change_room.connect(trasition)
 	pass
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	global_position = global_position.lerp(player.global_position, pow(0.5, delta * BLEND_SPEED))
 	
 
