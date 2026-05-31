@@ -15,8 +15,9 @@ var current_weapon: Weapon:
 
 func _ready() -> void:
 	for i in weapons:
-		var target = weapons[i]
-		target.current_ammo = target.max_ammo
+		if weapons[i]:
+			var target = weapons[i]
+			target.current_ammo = target.max_ammo
 	pass # Replace with function body.
 
 func _input(event: InputEvent) -> void:
