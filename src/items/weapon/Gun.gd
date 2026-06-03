@@ -30,3 +30,5 @@ func attack(player: Player, direction: Vector2):
 			hit_collider.stats.hp -= player.stats.get_stat(EntityStats.StatType.ATTACK) * 10 * MathHelper.randomize_damage_factor()
 		
 		print("히트스캔 적중!: ", hit_collider.name, " 위치: ", hit_position)
+	
+	super(player, direction)

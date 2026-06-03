@@ -18,11 +18,17 @@ func _ready() -> void:
 		if weapons[i]:
 			var target = weapons[i]
 			target.current_ammo = target.max_ammo
+			
+			if i == _current_weapon_index:
+				target.set_equip(true)
 	pass # Replace with function body.
 
 func _input(event: InputEvent) -> void:
 	if !(event is InputEventKey) or not event.pressed:
 		return
+	
+	if Input.is_action_pressed("Reload"):
+		current_weapon.reload()
 		
 	var hotbar_range = range(4)
 	for i in hotbar_range:
@@ -32,29 +38,15 @@ func _input(event: InputEvent) -> void:
 				print("cannot equip the weapon in slot %d" % i)
 				continue
 			
-			_current_weapon_index = i
+			switch_weapon(i)
 			break
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	# attack
-	if Input.is_action_pressed("Attack") \
-			and current_weapon.attack_cooldown <= 0 \
-			and (current_weapon.is_infinity_ammo or current_weapon.current_ammo > 0):
-		
-		
+	if Input.is_action_pressed("Attack") and current_weapon.can_attack():
 		var direction = get_global_mouse_position() - player.global_position
 		current_weapon.attack(player, direction.normalized())
-		
-		if (not current_weapon.is_infinity_ammo):
-			current_weapon.current_ammo -= 1
-		
-		if (current_weapon.current_ammo <= 0 \
-				and not current_weapon.is_infinity_ammo):
-			current_weapon.reload_cooldown = current_weapon.reload_delay
-		else:
-			current_weapon.attack_cooldown = current_weapon.attack_rate
-		
 	
 	# cooldowns
 	for i in weapons:
@@ -62,13 +54,19 @@ func _process(delta: float) -> void:
 		if not target: continue
 		
 		# reload_cooldown
-		if target.reload_cooldown > 0:
-			target.reload_cooldown -= delta
-			if target.reload_cooldown <= 0:
-				target.current_ammo = target.max_ammo
-		
-		# attack cooldown
-		if (target.attack_cooldown > 0):
-			target.attack_cooldown -= delta
+		target.update_cooldowns(delta)
 	
 	pass
+
+func switch_weapon(index: int) -> void:
+	if not weapons.has(index) or weapons[index] == null:
+		print("%d 슬롯에는 무기가 없습니다." % index)
+		return
+		
+	if _current_weapon_index == index:
+		return
+	
+	current_weapon.set_equip(false)
+	
+	_current_weapon_index = index
+	current_weapon.set_equip(true)

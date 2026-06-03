@@ -11,3 +11,5 @@ func attack(player: Player, direction: Vector2):
 		"direction": direction,
 		"damage": stats.get_stat(EntityStats.StatType.ATTACK) * 3 * MathHelper.randomize_damage_factor(),
 	})
+	
+	super(player, direction)

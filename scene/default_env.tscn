@@ -699,7 +699,13 @@ attack_cooldown: [color=red]%.2f[/color]
 max_ammo: [color=green]%s[/color]
 ammo: [color=green]%s[/color]
 reload_delay: [color=green]%s[/color]
-reload_cooldown: [color=green]%.2f[/color]"
+reload_cooldown: [color=green]%.2f[/color]
+
+Reload Info
+slot1: [color=violet]%.2f[/color]
+slot2: [color=violet]%.2f[/color]
+slot3: [color=violet]%.2f[/color]
+slot4: [color=violet]%.2f[/color]"
 fit_content = true
 scroll_active = false
 script = ExtResource("36_b7cw7")
