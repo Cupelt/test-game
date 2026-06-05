@@ -416,8 +416,9 @@ parameters/Flip/add_amount = 1.0
 parameters/is_flip/blend_amount = 1.0
 parameters/is_walk/blend_amount = 0.0
 
-[node name="StatsContainer" type="Node2D" parent="EntityManager/Player" unique_id=659176008]
+[node name="StatsContainer" type="Node2D" parent="EntityManager/Player" unique_id=659176008 node_paths=PackedStringArray("parent")]
 script = ExtResource("18_crugv")
+parent = NodePath("..")
 base_stats = Dictionary[int, float]({
 0: 100.0,
 1: 3.5,

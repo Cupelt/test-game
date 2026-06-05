@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	# TODO 넉백추가
 	velocity = velocity.move_toward(
 		direction * stats.get_stat(EntityStats.StatType.SPEED), 
-		delta * stats.get_stat(EntityStats.StatType.ACCEL)
+		delta * 2500
 		)
 	# velocity = direction * SPEED
 	#endregion

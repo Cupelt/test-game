@@ -9,6 +9,8 @@ var target: Node2D
 @onready var nav_agent_node: NavigationAgent2D = $NavigationAgent2D
 var is_chasing = true
 
+# 단순한 position 연산으로 바꿔야겠다.
+
 # Called when the node enters the scene tree for the first time.	
 func _ready():
 	# 타이머 연결 (타겟 위치 갱신 전용)
