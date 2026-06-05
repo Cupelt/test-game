@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://orq57j08114m"]
+
+[ext_resource type="Script" uid="uid://cvt6g5kak4r4f" path="res://src/room/manager/MapManager.gd" id="1_adk27"]
+[ext_resource type="Script" uid="uid://clrlh7u5ghu4" path="res://src/room/manager/RoomGenerator.gd" id="2_nfn6g"]
+[ext_resource type="Script" uid="uid://fdo25n8tyv47" path="res://src/room/logic/BossRoom.gd" id="3_y4ab6"]
+[ext_resource type="Texture2D" uid="uid://bxdrb6krygkm8" path="res://assets/DG UI-HUD Exp/Mini map UI icons.png" id="4_bi3rt"]
+[ext_resource type="PackedScene" uid="uid://dj7u1x0myih5q" path="res://rooms/level_1/test_room/baseRoom.tscn" id="5_mwgkq"]
+[ext_resource type="Script" uid="uid://cghyamnf4h77i" path="res://src/room/logic/LargeRoom.gd" id="6_rkbuv"]
+[ext_resource type="Script" uid="uid://b78gg7krm0joq" path="res://src/room/logic/SingleRoom.gd" id="7_hy1jc"]
+[ext_resource type="Script" uid="uid://6d0do6ly12w7" path="res://src/room/logic/StartRoom.gd" id="8_p22fx"]
+[ext_resource type="Script" uid="uid://f4nav2h7nlue" path="res://src/room/logic/TreasureRoom.gd" id="9_wiqfd"]
+[ext_resource type="Script" uid="uid://pyj8o2mw4e2n" path="res://src/room/manager/RoomRegistry.gd" id="10_tfc4c"]
+[ext_resource type="Script" uid="uid://b3ykt3obpaifk" path="res://src/room/TilemapBuilder.gd" id="11_hgdi4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpwt2"]
+atlas = ExtResource("4_bi3rt")
+region = Rect2(100, 4, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hie7p"]
+atlas = ExtResource("4_bi3rt")
+region = Rect2(100, 84, 8, 8)
+
+[node name="MapManager" type="Node2D" unique_id=776636009 node_paths=PackedStringArray("room_generator", "tilemap_builder")]
+script = ExtResource("1_adk27")
+room_generator = NodePath("MapGenerator")
+tilemap_builder = NodePath("TilemapBuilder")
+
+[node name="MapGenerator" type="Node2D" parent="." unique_id=2121335915]
+script = ExtResource("2_nfn6g")
+
+[node name="BossRoom" type="Node2D" parent="MapGenerator" unique_id=675789608]
+script = ExtResource("3_y4ab6")
+icon = SubResource("AtlasTexture_jpwt2")
+presets = Array[PackedScene]([ExtResource("5_mwgkq")])
+
+[node name="LargeRoom" type="Node2D" parent="MapGenerator" unique_id=1221747752]
+script = ExtResource("6_rkbuv")
+presets = Array[PackedScene]([ExtResource("5_mwgkq")])
+
+[node name="SingleRoom" type="Node2D" parent="MapGenerator" unique_id=1580034949]
+script = ExtResource("7_hy1jc")
+presets = Array[PackedScene]([ExtResource("5_mwgkq")])
+
+[node name="SrartRoom" type="Node2D" parent="MapGenerator" unique_id=372099083]
+script = ExtResource("8_p22fx")
+presets = Array[PackedScene]([ExtResource("5_mwgkq")])
+
+[node name="TresureRoom" type="Node2D" parent="MapGenerator" unique_id=1917495557]
+script = ExtResource("9_wiqfd")
+icon = SubResource("AtlasTexture_hie7p")
+presets = Array[PackedScene]([ExtResource("5_mwgkq")])
+
+[node name="RoomRegistry" type="Node2D" parent="." unique_id=262798979]
+script = ExtResource("10_tfc4c")
+
+[node name="TilemapBuilder" type="Node2D" parent="." unique_id=71125650 node_paths=PackedStringArray("tilemap", "minimap_manager", "nav_region", "fog_buffer")]
+script = ExtResource("11_hgdi4")
+tilemap = NodePath("")
+minimap_manager = NodePath("")
+nav_region = NodePath("")
+fog_buffer = NodePath("")
+room_size = Vector2i(39, 25)
