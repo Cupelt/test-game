@@ -9,33 +9,43 @@ enum StatType {
 	SPEED
 }
 
+enum EffectType {
+	PYRO,
+	ICE,
+	ELECTRIC,
+	VOID,
+}
+
 @export var parent: Node2D
 @export var base_stats: Dictionary[StatType, float]
 var _stats: Dictionary[StatType, float]
 
-var flat_bonuses: Dictionary[StatType, float]
-var mul_bonuses: Dictionary[StatType, float]
+var status_effects: Array[EffectType]
 
 func _ready() -> void:
 	reset()
 
 func reset():
 	_stats = base_stats.duplicate_deep()
+	if _stats.has(StatType.MAX_HP) and (not _stats.has(StatType.HP) or base_stats[StatType.HP] <= 0):
+		_stats[StatType.HP] = _stats[StatType.MAX_HP]
 
 func set_stats(type: StatType, value: float):
-	var old_value = _stats[type]
+	var old_value = get_stat(type)
 	_stats[type] = value
 	on_stats_changed.emit(type, old_value, value)
+	Event.on_stats_changed.emit(parent, type, old_value, value)
 
+func add_stats(type: StatType, value: float):
+	set_stats(type, get_stat(type) + value)
+	
 func set_stats_list(stats: Dictionary[StatType, float]):
 	var old_stats = _stats.duplicate_deep()
 	_stats.assign(stats)
 	
 	for k in stats:
 		on_stats_changed.emit(k, old_stats[k], stats[k])
-
-func add_stats(type: StatType, value: float):
-	set_stats(type, _stats[type] + value)
+		Event.on_stats_changed.emit(parent, k, old_stats[k], stats[k])
 	
 func add_stats_list(stats: Dictionary[StatType, float]):
 	var final_stats = _stats.duplicate_deep()

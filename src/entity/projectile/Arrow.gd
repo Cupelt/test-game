@@ -28,14 +28,14 @@ func _process(delta: float) -> void:
 	if (timer > life_time):
 		call_deferred("destroy_object")
 
-func hit(body: Node2D):
+func hit(body: Entity):
 	if not body.is_in_group("Enemy"):
 		return
 	
 	if body.is_die:
 		return
 	
-	if body.stats != null:
-		body.stats.hp -= damage
+	if body.stats != null and body.stats :
+		body.stats.add_stats(EntityStats.StatType.HP, -damage)
 		
 	call_deferred("destroy_object")

@@ -4,13 +4,16 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Event.on_hp_changed.connect(_on_hp_changed)
+	Event.on_stats_changed.connect(_on_hp_changed)
 
-func _on_hp_changed(body: Node2D, before: float, after: float):
+func _on_hp_changed(body: Node2D, type: EntityStats.StatType, old_value: float, new_value: float):
 	if body is Player:
+		return
+	
+	if type != EntityStats.StatType.HP:
 		return
 	
 	ObjectPool.spawn_object(ui, {
 		"position" : body.global_position,
-		"damage" : roundi(before - after)
+		"damage" : roundi(old_value - new_value)
 		}, body)

@@ -13,5 +13,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	for body in area.get_overlapping_bodies():
 		if body is Player:
-			body.stats.hp -= stats.get_stat(EntityStats.StatType.ATTACK) * delta * 100
+			var damage = stats.get_stat(EntityStats.StatType.ATTACK) * delta * 100
+			body.stats.add_stats(EntityStats.StatType.HP, -damage)
 	pass

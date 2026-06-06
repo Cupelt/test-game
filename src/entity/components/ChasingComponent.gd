@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	
 	parent.velocity = parent.velocity.move_toward(
 		direction * stats.get_stat(EntityStats.StatType.SPEED), 
-		stats.get_stat(EntityStats.StatType.ACCEL) * delta
+		2500 * delta
 	)
 	
 	parent.move_and_slide()

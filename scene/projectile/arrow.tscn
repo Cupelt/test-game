@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d0y4xcew7bbvs" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Arrow(Projectile)/Arrow01(32x32).png" id="1_ge5gq"]
 [ext_resource type="Script" uid="uid://cihy4ijyalyjl" path="res://src/entity/projectile/Arrow.gd" id="2_aycig"]
-[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/EntityStats.gd" id="3_aycig"]
+[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="3_aycig"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uks7h"]
 atlas = ExtResource("1_ge5gq")
@@ -23,8 +23,9 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=899610320]
 shape = SubResource("CircleShape2D_ugglh")
 
-[node name="StatsContainer" type="Node2D" parent="." unique_id=817391861]
+[node name="StatsContainer" type="Node2D" parent="." unique_id=817391861 node_paths=PackedStringArray("parent")]
 script = ExtResource("3_aycig")
+parent = NodePath("..")
 base_stats = Dictionary[int, float]({
-3: 5.0
+5: 5.0
 })

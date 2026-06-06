@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b743d5mleod1e" path="res://scene/components/chasing_component.tscn" id="2_038jq"]
 [ext_resource type="PackedScene" uid="uid://bvyclavyfar6s" path="res://scene/components/near_attack_component.tscn" id="3_7ulis"]
 [ext_resource type="PackedScene" uid="uid://62d262n8gca5" path="res://scene/components/smooth_collision_compoennt.tscn" id="4_m048v"]
-[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/EntityStats.gd" id="5_jqhro"]
+[ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="5_jqhro"]
 [ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="6_ctytu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0hnk"]
@@ -211,13 +211,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmoothColisionComponent/Area2D" unique_id=1653955882]
 position = Vector2(0, -0.5)
 
-[node name="StatsContainer" type="Node2D" parent="." unique_id=60052736]
+[node name="StatsContainer" type="Node2D" parent="." unique_id=60052736 node_paths=PackedStringArray("parent")]
+position = Vector2(-1, 0)
 script = ExtResource("5_jqhro")
+parent = NodePath("..")
 base_stats = Dictionary[int, float]({
-0: 25.0,
-1: 1.0,
-3: 50.0,
-4: 2500.0
+0: 10000000.0,
+3: 1.0,
+5: 50.0
 })
 
 [node name="HpViewComponent" type="TextureProgressBar" parent="." unique_id=1379688553 node_paths=PackedStringArray("stats")]
