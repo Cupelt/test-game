@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MultiplyReaction" format=3 uid="uid://v6m21pdbsumx"]
+
+[ext_resource type="Script" uid="uid://xpresin71bc1" path="res://src/entity/effects/reactions/MultiplyReaction.gd" id="1_htkvp"]
+
+[resource]
+script = ExtResource("1_htkvp")
+multiply_fector = 2.0
+id = &"vaporize"
+is_two_way = true
+source = 1000
+metadata/_custom_type_script = "uid://xpresin71bc1"

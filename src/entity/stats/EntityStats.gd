@@ -9,18 +9,11 @@ enum StatType {
 	SPEED
 }
 
-enum EffectType {
-	PYRO,
-	ICE,
-	ELECTRIC,
-	VOID,
-}
-
 @export var parent: Node2D
 @export var base_stats: Dictionary[StatType, float]
 var _stats: Dictionary[StatType, float]
 
-var status_effects: Array[EffectType]
+var status_effects: Array[Reaction.AttackType]
 
 func _ready() -> void:
 	reset()

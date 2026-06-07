@@ -320,6 +320,8 @@ region = Rect2(48, 80, 7, 7)
 [node name="DefaultEnv" type="Node2D" unique_id=294223548]
 metadata/_edit_horizontal_guides_ = [-113.0]
 
+[node name="Managers" type="Node2D" parent="." unique_id=1337478864]
+
 [node name="EnemySponers" type="Node2D" parent="." unique_id=1217171044]
 
 [node name="DeafultSpawner" type="Timer" parent="EnemySponers" unique_id=190355749 node_paths=PackedStringArray("player", "nav_map", "entity_layer")]
