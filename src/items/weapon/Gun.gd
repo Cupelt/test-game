@@ -27,8 +27,12 @@ func attack(player: Player, direction: Vector2):
 			return
 		
 		if hit_collider.stats != null:
-			var damage = player.stats.get_stat(EntityStats.StatType.ATTACK) * 10 * MathHelper.randomize_damage_factor()
-			hit_collider.stats.add_stats(EntityStats.StatType.HP, -damage)
+			var damage = player.stats.get_stat(EntityStats.StatType.ATTACK) * 10
+			hit_collider.stats.get_damage(AttackInfo.new(
+				player, 
+				Reaction.AttackType.PYRO, 
+				damage
+			))
 		
 		print("히트스캔 적중!: ", hit_collider.name, " 위치: ", hit_position)
 	

@@ -372,12 +372,14 @@ copy_mode = 2
 z_index = 1
 script = ExtResource("15_pnaty")
 
-[node name="Player" type="CharacterBody2D" parent="EntityManager" unique_id=1659814010 groups=["Entity"]]
+[node name="Player" type="CharacterBody2D" parent="EntityManager" unique_id=1659814010 node_paths=PackedStringArray("stats", "animTree") groups=["Entity"]]
 light_mask = 3
 z_index = 5
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("9_pr1hq")
+stats = NodePath("StatsContainer")
+animTree = NodePath("Sprite2D/AnimationTree")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManager/Player" unique_id=190133596]
 position = Vector2(0, 3)

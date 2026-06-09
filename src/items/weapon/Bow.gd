@@ -9,7 +9,12 @@ func attack(player: Player, direction: Vector2):
 		"position": player.global_position,
 		
 		"direction": direction,
-		"damage": stats.get_stat(EntityStats.StatType.ATTACK) * 3 * MathHelper.randomize_damage_factor(),
+		"attacker": player,
+		"attack_info": AttackInfo.new(
+			player, 
+			Reaction.AttackType.PYRO, 
+			stats.get_stat(EntityStats.StatType.ATTACK) * 3
+		),
 	})
 	
 	super(player, direction)

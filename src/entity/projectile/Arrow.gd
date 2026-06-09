@@ -1,8 +1,9 @@
 extends Entity
 
 var direction: Vector2
+@onready var sprite: Sprite2D = $Sprite2D
 
-var damage: float
+var attack_info: AttackInfo
 @export_range(1, 10, 0.1) var life_time: float = 5;
 var timer: float = 0;
 
@@ -18,7 +19,7 @@ func init(data: Dictionary) -> void:
 	direction = data["direction"]
 	rotation = direction.angle()
 	
-	damage = data["damage"]
+	attack_info = data["attack_info"]
 	pass
 
 func _process(delta: float) -> void:
@@ -26,16 +27,11 @@ func _process(delta: float) -> void:
 	global_position += direction * stats.get_stat(EntityStats.StatType.SPEED)
 	
 	if (timer > life_time):
-		call_deferred("destroy_object")
+		ObjectPool.safe_destroy_object(self)
 
 func hit(body: Entity):
 	if not body.is_in_group("Enemy"):
 		return
-	
-	if body.is_die:
-		return
-	
-	if body.stats != null and body.stats :
-		body.stats.add_stats(EntityStats.StatType.HP, -damage)
 		
-	call_deferred("destroy_object")
+	body.stats.give_damage(attack_info)
+	ObjectPool.safe_destroy_object(self)

@@ -4,7 +4,7 @@ class_name Slime
 var time: float = 0.0
 
 func _ready() -> void:
-	stats.on_stats_changed.connect(on_hurt)
+	stats.on_attacked.connect(on_die)
 
 func init(data: Dictionary) -> void:
 	self.position = data["position"]
@@ -23,8 +23,8 @@ func _process(delta: float) -> void:
 	#if time > 5:
 		#destroy_object()
 
-func on_hurt(type: EntityStats.StatType, old_value: float, new_value: float) -> void:
-	if type != EntityStats.StatType.HP or new_value > 0:
+func on_die(data: AttackInfo) -> void:
+	if stats.get_stat(EntityStats.StatType.HP) - data.damage > 0:
 		return
 	
 	$ChasingComponent.is_chasing = false

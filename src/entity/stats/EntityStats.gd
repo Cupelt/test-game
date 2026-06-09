@@ -2,6 +2,7 @@ extends Node
 class_name EntityStats
 
 signal on_stats_changed(type: StatType, old_value: float, new_value: float)
+signal on_attacked(data: AttackInfo)
 
 enum StatType {
 	MAX_HP, HP, HP_GENERATION,
@@ -9,7 +10,7 @@ enum StatType {
 	SPEED
 }
 
-@export var parent: Node2D
+@export var parent: Entity
 @export var base_stats: Dictionary[StatType, float]
 var _stats: Dictionary[StatType, float]
 
@@ -22,6 +23,17 @@ func reset():
 	_stats = base_stats.duplicate_deep()
 	if _stats.has(StatType.MAX_HP) and (not _stats.has(StatType.HP) or base_stats[StatType.HP] <= 0):
 		_stats[StatType.HP] = _stats[StatType.MAX_HP]
+
+func give_damage(data: AttackInfo):
+	if parent.is_die:
+		return
+	
+	data.target = parent
+	
+	on_attacked.emit(data)
+	Event.on_attacked.emit(data)
+	add_stats(EntityStats.StatType.HP, -data.damage)
+
 
 func set_stats(type: StatType, value: float):
 	var old_value = get_stat(type)

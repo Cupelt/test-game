@@ -9,11 +9,18 @@ class_name DamageUI
 @export var wiggle_fector: float = 10
 @export var duration: float = 0.5;
 
+@export_category("details")
+@export var element_colors: Dictionary[Reaction.AttackType, Color]
+
 var completion_count = 0
 
 func init(data: Dictionary):
 	global_position = data["position"]
-	label.text = format_with_commas(data["damage"])
+	
+	var info = data["attack_info"]
+	label.text = format_with_commas(roundi(info.damage))
+	label.add_theme_color_override("font_color", element_colors.get(info.type, Color.AQUA))
+	
 	completion_count = 0
 	pass
 	
@@ -35,7 +42,7 @@ func _enter_tree() -> void: # after loaded
 func check_complete():
 	completion_count += 1
 	if completion_count >= 2:
-		destroy_object()
+		ObjectPool.safe_destroy_object(self)
 
 func format_with_commas(value: int) -> String:
 	var num_str = str(value)

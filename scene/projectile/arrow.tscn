@@ -1,31 +1,34 @@
 [gd_scene format=3 uid="uid://dndb8rbuxdhub"]
 
-[ext_resource type="Texture2D" uid="uid://d0y4xcew7bbvs" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Arrow(Projectile)/Arrow01(32x32).png" id="1_ge5gq"]
 [ext_resource type="Script" uid="uid://cihy4ijyalyjl" path="res://src/entity/projectile/Arrow.gd" id="2_aycig"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="3_aycig"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uks7h"]
-atlas = ExtResource("1_ge5gq")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1b6dv"]
+load_path = "res://.godot/imported/Arrow01(32x32).png-80972438e07f62a3c060ca4294eeb925.ctex"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ugglh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge5gq"]
+atlas = SubResource("CompressedTexture2D_1b6dv")
 
-[node name="Arrow" type="Sprite2D" unique_id=1509293756 node_paths=PackedStringArray("area", "stats") groups=["Projectile"]]
-texture = SubResource("AtlasTexture_uks7h")
+[sub_resource type="CircleShape2D" id="CircleShape2D_aycig"]
+
+[node name="Arrow" type="CharacterBody2D" unique_id=2034252202 node_paths=PackedStringArray("area", "stats")]
 script = ExtResource("2_aycig")
 life_time = 1.0
 area = NodePath("Area2D")
 stats = NodePath("StatsContainer")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1301128271]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=657485388]
+texture = SubResource("AtlasTexture_ge5gq")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=142473623]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=899610320]
-shape = SubResource("CircleShape2D_ugglh")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1447797469]
+shape = SubResource("CircleShape2D_aycig")
 
-[node name="StatsContainer" type="Node2D" parent="." unique_id=817391861 node_paths=PackedStringArray("parent")]
+[node name="StatsContainer" type="Node2D" parent="." unique_id=686357663]
 script = ExtResource("3_aycig")
-parent = NodePath("..")
 base_stats = Dictionary[int, float]({
 5: 5.0
 })

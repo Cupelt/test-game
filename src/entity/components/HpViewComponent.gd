@@ -3,14 +3,14 @@ extends TextureProgressBar
 @export var stats: EntityStats
 
 func _ready() -> void:
-	stats.on_stats_changed.connect(update)
+	stats.on_attacked.connect(update)
 	
 func init() -> void:
 	self.visible = false
 	
-func update(type: EntityStats.StatType, old_value: float, new_value: float) -> void:
-	if type != EntityStats.StatType.HP:
-		return
+func update(data: AttackInfo) -> void:
+	var max_hp = stats.get_stat(EntityStats.StatType.MAX_HP)
+	var new_value = stats.get_stat(EntityStats.StatType.HP) - data.damage
 	
-	visible = true
-	value = new_value / stats.get_stat(EntityStats.StatType.MAX_HP)
+	visible = max_hp > new_value
+	value = new_value / max_hp

@@ -20,7 +20,7 @@ enum AttackType {
 @export var source: AttackType
 @export var trigger: AttackType
 
-@abstract func apply_effect(caster:Node2D, target: Node2D, base_damage: float) -> float
+@abstract func apply_effect(attacker: Node2D, target: Node2D, base_damage: float) -> float
 
 func can_reaction(_source: AttackType, _trigger: AttackType) -> bool:
 	return (_source == source and _trigger == trigger) or \
