@@ -28,9 +28,9 @@ func attack(player: Player, direction: Vector2):
 		
 		if hit_collider.stats != null:
 			var damage = player.stats.get_stat(EntityStats.StatType.ATTACK) * 10
-			hit_collider.stats.get_damage(AttackInfo.new(
+			hit_collider.stats.give_damage(AttackInfo.new(
 				player, 
-				Reaction.AttackType.PYRO, 
+				Reaction.AttackType.VOID, 
 				damage
 			))
 		

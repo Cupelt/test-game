@@ -19,7 +19,10 @@ func init(data: Dictionary):
 	
 	var info = data["attack_info"]
 	label.text = format_with_commas(roundi(info.damage))
-	label.add_theme_color_override("font_color", element_colors.get(info.type, Color.AQUA))
+	
+	var color = element_colors.get(info.type, Color.WHITE)
+	label.label_settings.shadow_color = color
+
 	
 	completion_count = 0
 	pass

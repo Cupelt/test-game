@@ -15,7 +15,7 @@ static func destroy_object(obj: Node) -> void:
 		
 	obj.set_meta("is_enabled", false)
 	obj.global_position = Vector2.INF
-	await obj.get_tree().process_frame
+	# await obj.get_tree().process_frame
 	
 	obj.get_parent().remove_child(obj)
 	

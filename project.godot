@@ -21,6 +21,7 @@ config/features=PackedStringArray("4.6")
 
 Event="*uid://clbdvc57e5gbx"
 GlobalContainer="*uid://yywbwoy0o8sg"
+ReactionManager="*uid://7nkxvhlw155k"
 DamageCounter="*uid://d16huqgrw3l1s"
 
 [editor]

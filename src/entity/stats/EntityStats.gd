@@ -14,7 +14,7 @@ enum StatType {
 @export var base_stats: Dictionary[StatType, float]
 var _stats: Dictionary[StatType, float]
 
-var status_effects: Array[Reaction.AttackType]
+var status_effect: Reaction.AttackType
 
 func _ready() -> void:
 	reset()
@@ -32,6 +32,13 @@ func give_damage(data: AttackInfo):
 	
 	on_attacked.emit(data)
 	Event.on_attacked.emit(data)
+	
+	if status_effect == 0:
+		status_effect = data.type
+	else:
+		var reaction: Reaction = ReactionManager.reaction_map[status_effect][data.type]
+		reaction.apply_effect(data)
+	
 	add_stats(EntityStats.StatType.HP, -data.damage)
 
 
