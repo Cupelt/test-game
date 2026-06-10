@@ -13,10 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://dsr4rojkvxhv2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="14_ja8bw"]
 [ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
 [ext_resource type="Script" uid="uid://d24nbxgblbw7l" path="res://src/manager/EntityManager.gd" id="15_pnaty"]
+[ext_resource type="PackedScene" uid="uid://cgma8ivmvl6tr" path="res://scene/components/status_component.tscn" id="16_13kf1"]
 [ext_resource type="Script" uid="uid://q15mwrnt5vpc" path="res://src/ui/damage_counter/HurtEffect.gd" id="17_lb1tb"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="18_crugv"]
 [ext_resource type="Script" uid="uid://buqf30dx1sgty" path="res://scene/WeaponController.gd" id="22_e10wd"]
-[ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="23_4pk16"]
 [ext_resource type="Script" uid="uid://cyl2ni8stewp7" path="res://src/items/Weapon.gd" id="23_rfk2u"]
 [ext_resource type="Script" uid="uid://secqim2hgqqu" path="res://src/items/weapon/Bow.gd" id="24_b7cw7"]
 [ext_resource type="Script" uid="uid://dk3tdc4bgfpuf" path="res://src/items/weapon/Bow_shotgun.gd" id="25_rfk2u"]
@@ -270,23 +270,6 @@ linear_accel_min = -2.2351742e-06
 linear_accel_max = -2.2351742e-06
 alpha_curve = SubResource("CurveTexture_r3cm4")
 
-[sub_resource type="Gradient" id="Gradient_jqhro"]
-colors = PackedColorArray(1, 1, 1, 0.11764706, 1, 1, 1, 0.11764706)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lb1tb"]
-gradient = SubResource("Gradient_jqhro")
-width = 32
-height = 4
-
-[sub_resource type="Gradient" id="Gradient_7ulis"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_e10wd"]
-gradient = SubResource("Gradient_7ulis")
-width = 32
-height = 4
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nq3w"]
 atlas = ExtResource("9_ldvgu")
 region = Rect2(192, 96, 52, 40)
@@ -487,18 +470,7 @@ amount = 100
 lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_rfk2u")
 
-[node name="HpViewComponent" type="TextureProgressBar" parent="EntityManager/Player" unique_id=256002319 node_paths=PackedStringArray("stats")]
-visible = false
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = -12.0
-max_value = 1.0
-step = 0.001
-value = 1.0
-texture_under = SubResource("GradientTexture2D_lb1tb")
-texture_progress = SubResource("GradientTexture2D_e10wd")
-script = ExtResource("23_4pk16")
+[node name="StatusComponent" parent="EntityManager/Player" unique_id=829077794 node_paths=PackedStringArray("stats") instance=ExtResource("16_13kf1")]
 stats = NodePath("../StatsContainer")
 
 [node name="Slime" parent="EntityManager" unique_id=1588441702 instance=ExtResource("2_ja8bw")]

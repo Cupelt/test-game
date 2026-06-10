@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bvyclavyfar6s" path="res://scene/components/near_attack_component.tscn" id="3_7ulis"]
 [ext_resource type="PackedScene" uid="uid://62d262n8gca5" path="res://scene/components/smooth_collision_compoennt.tscn" id="4_m048v"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="5_jqhro"]
-[ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="6_ctytu"]
+[ext_resource type="PackedScene" uid="uid://cgma8ivmvl6tr" path="res://scene/components/status_component.tscn" id="8_m048v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0hnk"]
 radius = 8.0
@@ -134,23 +134,6 @@ radius = 11.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_y0aba"]
 radius = 8.0
 
-[sub_resource type="Gradient" id="Gradient_m048v"]
-colors = PackedColorArray(1, 1, 1, 0.11764706, 1, 1, 1, 0.11764706)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ctytu"]
-gradient = SubResource("Gradient_m048v")
-width = 32
-height = 4
-
-[sub_resource type="Gradient" id="Gradient_y0aba"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m048v"]
-gradient = SubResource("Gradient_y0aba")
-width = 32
-height = 4
-
 [node name="Slime" type="CharacterBody2D" unique_id=1588441702 node_paths=PackedStringArray("stats", "animTree") groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 5
@@ -221,16 +204,5 @@ base_stats = Dictionary[int, float]({
 5: 50.0
 })
 
-[node name="HpViewComponent" type="TextureProgressBar" parent="." unique_id=1379688553 node_paths=PackedStringArray("stats")]
-visible = false
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = -12.0
-max_value = 1.0
-step = 0.001
-value = 1.0
-texture_under = SubResource("GradientTexture2D_ctytu")
-texture_progress = SubResource("GradientTexture2D_m048v")
-script = ExtResource("6_ctytu")
+[node name="StatusComponent" parent="." unique_id=829077794 node_paths=PackedStringArray("stats") instance=ExtResource("8_m048v")]
 stats = NodePath("../StatsContainer")
