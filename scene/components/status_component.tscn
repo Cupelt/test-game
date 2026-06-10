@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://cgma8ivmvl6tr"]
+
+[ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="1_ibvpa"]
+[ext_resource type="Texture2D" uid="uid://bcg2jhk3fgq4d" path="res://icon.svg" id="2_xi7ok"]
+
+[sub_resource type="Gradient" id="Gradient_7ulis"]
+colors = PackedColorArray(1, 1, 1, 0.11764706, 1, 1, 1, 0.11764706)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x6d2m"]
+gradient = SubResource("Gradient_7ulis")
+width = 32
+height = 4
+
+[sub_resource type="Gradient" id="Gradient_m048v"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_03cju"]
+gradient = SubResource("Gradient_m048v")
+width = 32
+height = 4
+
+[node name="StatusComponent" type="Node2D" unique_id=829077794]
+
+[node name="HpViewComponent" type="TextureProgressBar" parent="." unique_id=563405001 node_paths=PackedStringArray("stats")]
+offset_left = -16.0
+offset_top = -24.0
+offset_right = 16.0
+offset_bottom = -20.0
+max_value = 1.0
+step = 0.001
+value = 1.0
+texture_under = SubResource("GradientTexture2D_x6d2m")
+texture_progress = SubResource("GradientTexture2D_03cju")
+script = ExtResource("1_ibvpa")
+stats = NodePath("")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=584484472]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="GridContainer" unique_id=285179854]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer/CenterContainer" unique_id=1510299069]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/CenterContainer/HBoxContainer" unique_id=924205622]
+layout_mode = 2
+texture = ExtResource("2_xi7ok")
+expand_mode = 4
