@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="MultiplyReaction" format=3 uid="uid://v6m21pdbsumx"]
 
 [ext_resource type="Script" uid="uid://xpresin71bc1" path="res://src/entity/effects/reactions/MultiplyReaction.gd" id="1_x1hwu"]
+[ext_resource type="Resource" uid="uid://dh7e3wyfk3rtd" path="res://settings/effects/attack_types/element/Pyro.tres" id="2_rew5o"]
+[ext_resource type="Resource" uid="uid://c7mgr3s7tp2j0" path="res://settings/effects/attack_types/element/Water.tres" id="3_reb3w"]
 
 [resource]
 script = ExtResource("1_x1hwu")
 multiply_fector = 2.0
 id = &"vaporize"
 is_two_way = true
-source = 1000
-trigger = 1001
+source = ExtResource("2_rew5o")
+trigger = ExtResource("3_reb3w")
 metadata/_custom_type_script = "uid://xpresin71bc1"

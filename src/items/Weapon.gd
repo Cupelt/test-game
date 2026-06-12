@@ -3,6 +3,15 @@ class_name Weapon
 
 @export_category("General Setting")
 @export var ingame_sprite: Texture2D
+@export var attack_element: AttackType:
+	set(value):
+		if !value.is_weapon:
+			attack_element = value
+@export var weapon_type: AttackType:
+	set(value):
+		if value.is_weapon:
+			weapon_type = value
+
 @export var is_disable = false
 var _is_equipped: bool = false
 

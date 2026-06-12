@@ -17,10 +17,6 @@
 [ext_resource type="Script" uid="uid://q15mwrnt5vpc" path="res://src/ui/damage_counter/HurtEffect.gd" id="17_lb1tb"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="18_crugv"]
 [ext_resource type="Script" uid="uid://buqf30dx1sgty" path="res://scene/WeaponController.gd" id="22_e10wd"]
-[ext_resource type="Script" uid="uid://cyl2ni8stewp7" path="res://src/items/Weapon.gd" id="23_rfk2u"]
-[ext_resource type="Script" uid="uid://secqim2hgqqu" path="res://src/items/weapon/Bow.gd" id="24_b7cw7"]
-[ext_resource type="Script" uid="uid://dk3tdc4bgfpuf" path="res://src/items/weapon/Bow_shotgun.gd" id="25_rfk2u"]
-[ext_resource type="Script" uid="uid://bip1lpoamnmtg" path="res://src/items/weapon/Gun.gd" id="26_b7cw7"]
 [ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
 [ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
 [ext_resource type="Texture2D" uid="uid://cql6trghu6ch" path="res://assets/DG UI-HUD Exp/Skill level sistem.png" id="29_crugv"]
@@ -455,12 +451,6 @@ metadata/_edit_use_anchors_ = true
 [node name="Weapons" type="Node2D" parent="EntityManager/Player" unique_id=1427293497 node_paths=PackedStringArray("player")]
 script = ExtResource("22_e10wd")
 player = NodePath("..")
-weapons = Dictionary[int, ExtResource("23_rfk2u")]({
-0: SubResource("Resource_b7cw7"),
-1: SubResource("Resource_r3cm4"),
-2: SubResource("Resource_1hvmv"),
-3: SubResource("Resource_cud0j")
-})
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EntityManager/Player" unique_id=1363778018]
 visible = false

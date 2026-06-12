@@ -1,0 +1,2 @@
+extends AttackType
+class_name WeaponType

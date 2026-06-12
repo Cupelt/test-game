@@ -16,7 +16,8 @@ class_name StatusManager
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hp_prograss.stats = stats
-	stats.on_reaction_triggered.connect(status_update)
+	stats.on_status_changed.connect(status_update)
+	stats.on_reaction_triggered.connect(react_update)
 	init()
 
 func init():
@@ -31,11 +32,9 @@ func status_update(old_status: AttackType, new_status: AttackType):
 func react_update(source: AttackType, trigger: AttackType, reaction: Reaction):
 	if reaction:
 		if source:
-			_status_objects[0].visible = true
 			_status_objects[0].texture = source.icon
 		
 		if trigger:
-			_status_objects[1].visible = true
 			_status_objects[1].texture = trigger.icon
 		
 		# TODO: Reaction Animation

@@ -3,6 +3,7 @@ class_name Bow
 
 var arrow_scene = preload("res://scene/projectile/arrow.tscn")
 
+
 func attack(player: Player, direction: Vector2):
 	var stats = player.stats
 	ObjectPool.spawn_object(arrow_scene, {
@@ -12,7 +13,7 @@ func attack(player: Player, direction: Vector2):
 		"attacker": player,
 		"attack_info": AttackInfo.new(
 			player, 
-			Reaction.AttackType.PYRO, 
+			attack_element, 
 			stats.get_stat(EntityStats.StatType.ATTACK) * 3
 		),
 	})

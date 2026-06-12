@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="AttackType" format=3 uid="uid://dh7e3wyfk3rtd"]
+[gd_resource type="Resource" script_class="ElementType" format=3 uid="uid://dh7e3wyfk3rtd"]
 
-[ext_resource type="Script" uid="uid://rgd4yq2feb7u" path="res://src/entity/stats/AttackType.gd" id="1_uvnuf"]
+[ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/ElementType.gd" id="1_uvnuf"]
 
 [resource]
 script = ExtResource("1_uvnuf")
-id = &"ice"
 color = Color(1, 0.07058824, 0, 1)
+color = Color(0.9411765, 0.26666668, 0.21960784, 1)
+id = &"pyro"
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"

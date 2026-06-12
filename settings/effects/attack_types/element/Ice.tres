@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="AttackType" format=3 uid="uid://bhbc5fnpymi13"]
+[gd_resource type="Resource" script_class="ElementType" format=3 uid="uid://bhbc5fnpymi13"]
 
-[ext_resource type="Script" uid="uid://rgd4yq2feb7u" path="res://src/entity/stats/AttackType.gd" id="1_wxptt"]
+[ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/ElementType.gd" id="1_eudgv"]
 
 [resource]
-script = ExtResource("1_wxptt")
-id = &"pyro"
-color = Color(0.79607844, 0.96862745, 1, 1)
+color = Color(0.5647059, 0.8784314, 0.9372549, 1)
+id = &"ice"
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="AttackType" format=3 uid="uid://c7mgr3s7tp2j0"]
+[gd_resource type="Resource" script_class="ElementType" format=3 uid="uid://c7mgr3s7tp2j0"]
 
-[ext_resource type="Script" uid="uid://rgd4yq2feb7u" path="res://src/entity/stats/AttackType.gd" id="1_s047r"]
+[ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/ElementType.gd" id="1_ih120"]
 
 [resource]
-script = ExtResource("1_s047r")
-id = &"pyro"
-color = Color(0, 0.3254902, 1, 1)
+script = ExtResource("1_ih120")
+color = Color(0, 0.7058824, 0.84705883, 1)
+id = &"water"
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"
