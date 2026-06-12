@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/ElementType.gd" id="1_dykp7"]
 
 [resource]
-color = Color(0.45490196, 0.2901961, 0.74509805, 1)
 script = ExtResource("1_dykp7")
 color = Color(0.6156863, 0.30588236, 0.8666667, 1)
 id = &"void"

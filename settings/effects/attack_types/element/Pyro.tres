@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_uvnuf")
-color = Color(1, 0.07058824, 0, 1)
 color = Color(0.9411765, 0.26666668, 0.21960784, 1)
 id = &"pyro"
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"

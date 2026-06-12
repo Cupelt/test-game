@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/ElementType.gd" id="1_eudgv"]
 
 [resource]
+script = ExtResource("1_eudgv")
 color = Color(0.5647059, 0.8784314, 0.9372549, 1)
 id = &"ice"
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"

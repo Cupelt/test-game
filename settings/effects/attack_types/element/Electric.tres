@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_s8vwy")
-id = &"projectile"
 color = Color(1, 0.8392157, 0.039215688, 1)
 id = &"electric"
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"
