@@ -2,7 +2,6 @@ extends Node2D
 class_name StatusManager
 
 @export var stats: EntityStats
-@export var status_icons: Dictionary[Reaction.AttackType, Texture2D] 
 @export var default_status_icon: Texture2D
 
 @onready var hp_prograss = $HpPrograssComponent
@@ -17,25 +16,27 @@ class_name StatusManager
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hp_prograss.stats = stats
-	stats.on_reacted.connect(status_update)
+	stats.on_reaction_triggered.connect(status_update)
 	init()
 
 func init():
 	hp_prograss.init()
 	
-func status_update(old_status: Reaction.AttackType, new_status: Reaction.AttackType):
-	_status_objects[0].visible = new_status != Reaction.AttackType.NONE
+func status_update(old_status: AttackType, new_status: AttackType):
+	_status_objects[0].visible = new_status != null
 	
 	if _status_objects[0].visible:
-		_status_objects[0].texture = status_icons.get(new_status, default_status_icon)
+		_status_objects[0].texture = new_status.icon
 
-func react_update(source: Reaction.AttackType, trigger: Reaction.AttackType, reaction: Reaction):
+func react_update(source: AttackType, trigger: AttackType, reaction: Reaction):
 	if reaction:
-		_status_objects[0].visible = true
-		_status_objects[0].texture = status_icons.get(source, default_status_icon)
+		if source:
+			_status_objects[0].visible = true
+			_status_objects[0].texture = source.icon
 		
-		_status_objects[1].visible = true
-		_status_objects[1].texture = status_icons.get(trigger, default_status_icon)
+		if trigger:
+			_status_objects[1].visible = true
+			_status_objects[1].texture = trigger.icon
 		
 		# TODO: Reaction Animation
 	

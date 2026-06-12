@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AttackType" format=3 uid="uid://bhbc5fnpymi13"]
+
+[ext_resource type="Script" uid="uid://rgd4yq2feb7u" path="res://src/entity/stats/AttackType.gd" id="1_wxptt"]
+
+[resource]
+script = ExtResource("1_wxptt")
+id = &"pyro"
+color = Color(0.79607844, 0.96862745, 1, 1)
+metadata/_custom_type_script = "uid://rgd4yq2feb7u"

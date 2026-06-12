@@ -4,12 +4,12 @@ extends Node
 	load("res://settings/effects/reactions/Vaporize.tres")
 ]
 
-var _reaction_map: Dictionary[Reaction.AttackType, Dictionary]
+var _reaction_map: Dictionary[StringName, Dictionary]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for effect in reactions:
-		_reaction_map.get_or_add(effect.source, {})[effect.trigger] = effect
+		_reaction_map.get_or_add(effect.source.id, {})[effect.trigger.id] = effect
 
-func get_reaction(source: Reaction.AttackType, trigger: Reaction.AttackType) -> Reaction:
-	return _reaction_map.get(source, {}).get(trigger, null)
+func get_reaction(source: AttackType, trigger: AttackType) -> Reaction:
+	return _reaction_map.get(source.id, {}).get(source.id, null)

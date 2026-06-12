@@ -156,13 +156,6 @@ anim = NodePath("AnimationPlayer")
 label = NodePath("Wiggle/Label")
 wiggle_body = NodePath("Wiggle")
 wiggle_fector = Vector2(10, -20)
-element_colors = Dictionary[int, Color]({
-1000: Color(1, 0.07058824, 0, 1),
-1001: Color(0, 0.3254902, 1, 1),
-1002: Color(0.79607844, 0.96862745, 1, 1),
-1003: Color(0.91764706, 1, 0.40392157, 1),
-1099: Color(0.45490196, 0.2901961, 0.74509805, 1)
-})
 
 [node name="Wiggle" type="Node2D" parent="." unique_id=1650882799]
 scale = Vector2(1.5, 1.5)

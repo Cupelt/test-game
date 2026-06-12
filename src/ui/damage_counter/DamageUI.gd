@@ -8,9 +8,6 @@ class_name DamageUI
 
 @export var wiggle_fector: Vector2 = Vector2(10, 20)
 
-@export_category("details")
-@export var element_colors: Dictionary[Reaction.AttackType, Color]
-
 var completion_count = 0
 
 func init(data: Dictionary):
@@ -19,9 +16,8 @@ func init(data: Dictionary):
 	var info = data["attack_info"]
 	label.text = format_with_commas(roundi(info.damage))
 	
-	var color = element_colors.get(info.type, Color.WHITE)
+	var color = info.type.color
 	label.label_settings.shadow_color = color
-
 	
 	completion_count = 0
 	pass
