@@ -101,20 +101,61 @@ tracks/3/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_gfyqg"]
+resource_name = "play_2"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, -20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Wiggle:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.5, 1.5), Vector2(1.5, 1.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(0.6, 0.6, 0.6, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e10wd"]
 _data = {
 &"RESET": SubResource("Animation_4pk16"),
-&"play": SubResource("Animation_lb1tb")
+&"play": SubResource("Animation_lb1tb"),
+&"play_2": SubResource("Animation_gfyqg")
 }
 
 [node name="DamageUI" type="Node2D" unique_id=1479113069 node_paths=PackedStringArray("anim", "label", "wiggle_body")]
+top_level = true
 visibility_layer = 513
 script = ExtResource("1_gfyqg")
 anim = NodePath("AnimationPlayer")
 label = NodePath("Wiggle/Label")
 wiggle_body = NodePath("Wiggle")
-wiggle_fector = 20.0
-duration = 0.0
+wiggle_fector = Vector2(10, -20)
 element_colors = Dictionary[int, Color]({
 1000: Color(1, 0.07058824, 0, 1),
 1001: Color(0, 0.3254902, 1, 1),
@@ -124,7 +165,7 @@ element_colors = Dictionary[int, Color]({
 })
 
 [node name="Wiggle" type="Node2D" parent="." unique_id=1650882799]
-scale = Vector2(1.4124662, 1.4124662)
+scale = Vector2(1.5, 1.5)
 
 [node name="Label" type="Label" parent="Wiggle" unique_id=731436978]
 z_index = 10
@@ -147,4 +188,3 @@ horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1349205248]
 libraries/ = SubResource("AnimationLibrary_e10wd")
-speed_scale = 0.5

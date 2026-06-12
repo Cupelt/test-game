@@ -408,7 +408,7 @@ script = ExtResource("18_crugv")
 parent = NodePath("..")
 base_stats = Dictionary[int, float]({
 0: 100.0,
-3: 3.5,
+3: 35000.0,
 4: 1.0,
 5: 70.0
 })

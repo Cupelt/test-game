@@ -3,6 +3,8 @@ class_name EntityStats
 
 signal on_stats_changed(type: StatType, old_value: float, new_value: float)
 signal on_attacked(data: AttackInfo)
+signal on_reacted(source: Reaction.AttackType, trigger: Reaction.AttackType, reaction: Reaction)
+signal on_status_changed(old_status: Reaction.AttackType, new_status: Reaction.AttackType)
 
 enum StatType {
 	MAX_HP, HP, HP_GENERATION,
@@ -33,11 +35,15 @@ func give_damage(data: AttackInfo):
 	on_attacked.emit(data)
 	Event.on_attacked.emit(data)
 	
-	if status_effect == 0:
-		status_effect = data.type
-	else:
-		var reaction: Reaction = ReactionManager.reaction_map[status_effect][data.type]
+	var before_status = status_effect
+	var reaction: Reaction = ReactionManager.get_reaction(status_effect, data.type)
+	if reaction:
 		reaction.apply_effect(data)
+	else:
+		status_effect = data.type
+	
+	on_reacted.emit(before_status, status_effect, reaction)
+	
 	
 	add_stats(EntityStats.StatType.HP, -data.damage)
 

@@ -10,7 +10,7 @@ func init(data: Dictionary) -> void:
 	self.position = data["position"]
 	time = 0;
 	stats.reset()
-	$HpViewComponent.init()
+	$StatusComponent.init()
 	$ChasingComponent.is_chasing = true
 	
 	reset()

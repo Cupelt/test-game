@@ -4,6 +4,7 @@ class_name Reaction
 # 1XXX -> 원소 타입
 # 2XXX -> 무기 타입
 enum AttackType {
+	NONE = 0,
 	PYRO = 1000,
 	WATER = 1001,
 	ICE = 1002,
@@ -27,10 +28,10 @@ func can_reaction(_source: AttackType, _trigger: AttackType) -> bool:
 	   (is_two_way and _source == trigger and _trigger == source)
 
 static func is_element_type(type: AttackType) -> bool:
-	return type < 2000
+	return type < 2000 and type != 0
 	
 static func is_weapon_type(type: AttackType) -> bool:
-	return type >= 2000
+	return type >= 2000 and type != 0
 
 static func get_element_types() -> Array[AttackType]:
 	return AttackType.values().filter(is_element_type)

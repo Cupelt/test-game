@@ -6,8 +6,7 @@ class_name DamageUI
 @export var label: Label
 @export var wiggle_body: Node2D
 
-@export var wiggle_fector: float = 10
-@export var duration: float = 0.5;
+@export var wiggle_fector: Vector2 = Vector2(10, 20)
 
 @export_category("details")
 @export var element_colors: Dictionary[Reaction.AttackType, Color]
@@ -28,15 +27,20 @@ func init(data: Dictionary):
 	pass
 	
 func _enter_tree() -> void: # after loaded
-	anim.play("play")
+	var animation = anim.get_animation("play_2")
+	
+	anim.play("play_2")
 	anim.animation_finished.connect(func(_name): check_complete(), CONNECT_ONE_SHOT)
 	# anim.get_animation("play").track_set_key_value(0, 2, randf_range(-wiggle_fector, wiggle_fector))
 	
-	var wiggle_pos = Vector2(randf_range(-wiggle_fector, wiggle_fector), 0)
+	var wiggle_pos = Vector2(
+		randf_range(-wiggle_fector.x, wiggle_fector.x), 
+		randf_range(0, wiggle_fector.y)
+		)
 	wiggle_body.position = Vector2.ZERO
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(wiggle_body, "position", wiggle_pos, duration).as_relative() \
+	tween.tween_property(wiggle_body, "position", wiggle_pos, animation.length / 2).as_relative() \
 		.set_ease(Tween.EASE_OUT) \
 		.set_trans(Tween.TRANS_CUBIC)
 		

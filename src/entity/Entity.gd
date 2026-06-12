@@ -15,6 +15,7 @@ func reset() -> void:
 	is_die = false
 
 func die():
+	print("die")
 	animTree["parameters/is_die/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	is_die = true
 

@@ -23,7 +23,7 @@ height = 4
 
 [sub_resource type="Gradient" id="Gradient_x6d2m"]
 offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0.47058824, 0.47058824, 0.47058824, 1)
+colors = PackedColorArray(0.40392157, 0.40392157, 0.40392157, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_5ope8"]
 gradient = SubResource("Gradient_x6d2m")
@@ -57,7 +57,7 @@ texture_under = SubResource("GradientTexture2D_x6d2m")
 texture_progress = SubResource("GradientTexture2D_03cju")
 script = ExtResource("1_ibvpa")
 
-[node name="HpPrograssLate" type="TextureProgressBar" parent="HpPrograssComponent" unique_id=1978789997]
+[node name="HpCatchPrograss" type="TextureProgressBar" parent="HpPrograssComponent" unique_id=1978789997]
 z_index = -1
 layout_mode = 0
 offset_right = 32.0
@@ -88,37 +88,7 @@ layout_mode = 2
 texture = SubResource("CompressedTexture2D_ibvpa")
 expand_mode = 2
 
-[node name="status_1" type="TextureRect" parent="status" unique_id=2031472232]
-visible = false
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_ibvpa")
-expand_mode = 2
-
-[node name="status_2" type="TextureRect" parent="status" unique_id=1102311023]
-visible = false
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_ibvpa")
-expand_mode = 2
-
-[node name="status_3" type="TextureRect" parent="status" unique_id=1417352186]
-visible = false
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_ibvpa")
-expand_mode = 2
-
-[node name="status_4" type="TextureRect" parent="status" unique_id=1948821142]
-visible = false
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_ibvpa")
-expand_mode = 2
-
-[node name="status_5" type="TextureRect" parent="status" unique_id=690416756]
-visible = false
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_ibvpa")
-expand_mode = 2
-
-[node name="status_6" type="TextureRect" parent="status" unique_id=1971199026]
+[node name="status_1" type="TextureRect" parent="status" unique_id=1311720960]
 visible = false
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_ibvpa")
