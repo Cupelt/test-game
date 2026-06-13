@@ -13,8 +13,9 @@ func attack(player: Player, direction: Vector2):
 		"attacker": player,
 		"attack_info": AttackInfo.new(
 			player, 
-			attack_element, 
-			stats.get_stat(EntityStats.StatType.ATTACK) * 3
+			stats.get_stat(EntityStats.StatType.ATTACK) * 3,
+			weapon_type,
+			attack_element,
 		),
 	})
 	

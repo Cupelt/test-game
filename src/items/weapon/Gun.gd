@@ -31,7 +31,8 @@ func attack(player: Player, direction: Vector2):
 			hit_collider.stats.give_damage(AttackInfo.new(
 				player,
 				damage,
-				GlobalContainer.attack_type_map[&"projectile"]
+				weapon_type,
+				attack_element
 			))
 		
 		print("히트스캔 적중!: ", hit_collider.name, " 위치: ", hit_position)

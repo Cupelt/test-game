@@ -10,6 +10,10 @@ var _reaction_map: Dictionary[StringName, Dictionary]
 func _ready() -> void:
 	for effect in reactions:
 		_reaction_map.get_or_add(effect.source.id, {})[effect.trigger.id] = effect
+		if effect.is_two_way:
+			_reaction_map.get_or_add(effect.trigger.id, {})[effect.source.id] = effect
 
 func get_reaction(source: AttackType, trigger: AttackType) -> Reaction:
-	return _reaction_map.get(source.id, {}).get(source.id, null)
+	if !source or !trigger:
+		return
+	return _reaction_map.get(source.id, {}).get(trigger.id, null)

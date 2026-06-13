@@ -15,8 +15,13 @@ func init(data: Dictionary):
 	
 	var info = data["attack_info"]
 	label.text = format_with_commas(roundi(info.damage))
+	# TODO: 반응 텍스트 띄우기
 	
-	var color = info.type.color
+	var color: Color
+	if info.element_type:
+		color = info.element_type.color
+	else:
+		color = Color.WHITE
 	label.label_settings.shadow_color = color
 	
 	completion_count = 0

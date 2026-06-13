@@ -7,13 +7,20 @@
 [ext_resource type="Script" uid="uid://dpxympa2e04rf" path="res://src/player/CameraManager.gd" id="10_exl2s"]
 [ext_resource type="Script" uid="uid://dvf3e81mn8uia" path="res://src/room/minimap/MinimapManager.gd" id="11_jpwt2"]
 [ext_resource type="Script" uid="uid://b8qg0u0acnyck" path="res://src/utils/godot/MouseHover.gd" id="11_rgneq"]
+[ext_resource type="Script" uid="uid://cyl2ni8stewp7" path="res://src/items/Weapon.gd" id="12_lknfy"]
 [ext_resource type="PackedScene" uid="uid://dseq2ygifh0cl" path="res://scene/minimap_object.tscn" id="13_7nq3w"]
+[ext_resource type="Script" uid="uid://secqim2hgqqu" path="res://src/items/weapon/Bow.gd" id="13_ugglh"]
+[ext_resource type="Resource" uid="uid://dh7e3wyfk3rtd" path="res://settings/effects/attack_types/element/Pyro.tres" id="13_uks7h"]
 [ext_resource type="Shader" uid="uid://dfymtvavxsdxm" path="res://shader/fog_cutter.tres" id="14_f6etw"]
 [ext_resource type="Script" uid="uid://b5okll2hn6hd8" path="res://src/player/FogCutter.gd" id="14_hb2k2"]
 [ext_resource type="Texture2D" uid="uid://dsr4rojkvxhv2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier.png" id="14_ja8bw"]
 [ext_resource type="Script" uid="uid://bq30ss1yiv5qx" path="res://src/room/minimap/MinimapPositioner.gd" id="15_5ayrf"]
+[ext_resource type="Resource" uid="uid://fccwxtc8joe7" path="res://settings/effects/attack_types/weapon/Projectile.tres" id="15_crugv"]
+[ext_resource type="Script" uid="uid://dk3tdc4bgfpuf" path="res://src/items/weapon/Bow_shotgun.gd" id="15_ljfyf"]
 [ext_resource type="Script" uid="uid://d24nbxgblbw7l" path="res://src/manager/EntityManager.gd" id="15_pnaty"]
+[ext_resource type="Resource" uid="uid://c7mgr3s7tp2j0" path="res://settings/effects/attack_types/element/Water.tres" id="16_4pk16"]
 [ext_resource type="PackedScene" uid="uid://cgma8ivmvl6tr" path="res://scene/components/status_component.tscn" id="16_13kf1"]
+[ext_resource type="Script" uid="uid://bip1lpoamnmtg" path="res://src/items/weapon/Gun.gd" id="16_crugv"]
 [ext_resource type="Script" uid="uid://q15mwrnt5vpc" path="res://src/ui/damage_counter/HurtEffect.gd" id="17_lb1tb"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="18_crugv"]
 [ext_resource type="Script" uid="uid://buqf30dx1sgty" path="res://scene/WeaponController.gd" id="22_e10wd"]
@@ -209,6 +216,39 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ja8bw"]
 shader = ExtResource("14_f6etw")
 shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_0x7r0")
+
+[sub_resource type="Resource" id="Resource_4pk16"]
+script = ExtResource("13_ugglh")
+attack_element = ExtResource("13_uks7h")
+weapon_type = ExtResource("15_crugv")
+max_ammo = 15
+reload_delay = 2.0
+attack_rate = 0.2
+name = "Bow"
+metadata/_custom_type_script = "uid://secqim2hgqqu"
+
+[sub_resource type="Resource" id="Resource_lb1tb"]
+script = ExtResource("13_ugglh")
+attack_element = ExtResource("16_4pk16")
+weapon_type = ExtResource("15_crugv")
+max_ammo = 120
+reload_delay = 5.0
+attack_rate = 0.05
+name = "Minigun"
+metadata/_custom_type_script = "uid://secqim2hgqqu"
+
+[sub_resource type="Resource" id="Resource_e10wd"]
+script = ExtResource("15_ljfyf")
+max_ammo = 5
+reload_delay = 3.0
+attack_rate = 0.5
+metadata/_custom_type_script = "uid://dk3tdc4bgfpuf"
+
+[sub_resource type="Resource" id="Resource_r3cm4"]
+script = ExtResource("16_crugv")
+is_infinity_ammo = true
+attack_rate = 0.1
+metadata/_custom_type_script = "uid://bip1lpoamnmtg"
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_crugv"]
 blend_mode = 1
@@ -419,6 +459,12 @@ metadata/_edit_use_anchors_ = true
 [node name="Weapons" type="Node2D" parent="EntityManager/Player" unique_id=1427293497 node_paths=PackedStringArray("player")]
 script = ExtResource("22_e10wd")
 player = NodePath("..")
+weapons = Dictionary[int, ExtResource("12_lknfy")]({
+0: SubResource("Resource_4pk16"),
+1: SubResource("Resource_lb1tb"),
+2: SubResource("Resource_e10wd"),
+3: SubResource("Resource_r3cm4")
+})
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EntityManager/Player" unique_id=1363778018]
 visible = false

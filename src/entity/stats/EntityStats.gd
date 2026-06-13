@@ -32,20 +32,19 @@ func give_damage(data: AttackInfo):
 	
 	data.target = parent
 	
-	on_attacked.emit(data)
-	Event.on_attacked.emit(data)
-	
 	var before_status = status_effect
-	var reaction: Reaction = ReactionManager.get_reaction(status_effect, data.type)
+	var reaction: Reaction = ReactionManager.get_reaction(status_effect, data.element_type)
 	if reaction:
 		reaction.apply_effect(data)
-		status_effect = reaction.get_next_element(status_effect, data.type) 
 		on_reaction_triggered.emit(reaction, data.damage)
-	else:
-		status_effect = data.type
+	elif data.element_type != null:
+		status_effect = data.element_type
 	
 	if before_status != status_effect:
 		on_status_changed.emit(before_status, status_effect)
+	
+	on_attacked.emit(data)
+	Event.on_attacked.emit(data)
 	
 	add_stats(EntityStats.StatType.HP, -data.damage)
 

@@ -30,6 +30,7 @@ func status_update(old_status: AttackType, new_status: AttackType):
 		_status_objects[0].texture = new_status.icon
 
 func react_update(source: AttackType, trigger: AttackType, reaction: Reaction):
+	print("reacted")
 	if reaction:
 		if source:
 			_status_objects[0].texture = source.icon
