@@ -21,8 +21,10 @@
 [ext_resource type="Resource" uid="uid://c7mgr3s7tp2j0" path="res://settings/effects/attack_types/element/Water.tres" id="16_4pk16"]
 [ext_resource type="PackedScene" uid="uid://cgma8ivmvl6tr" path="res://scene/components/status_component.tscn" id="16_13kf1"]
 [ext_resource type="Script" uid="uid://bip1lpoamnmtg" path="res://src/items/weapon/Gun.gd" id="16_crugv"]
+[ext_resource type="Resource" uid="uid://bhbc5fnpymi13" path="res://settings/effects/attack_types/element/Ice.tres" id="17_crugv"]
 [ext_resource type="Script" uid="uid://q15mwrnt5vpc" path="res://src/ui/damage_counter/HurtEffect.gd" id="17_lb1tb"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="18_crugv"]
+[ext_resource type="Resource" uid="uid://4rx11dxywv81" path="res://settings/effects/attack_types/element/Void.tres" id="19_4pk16"]
 [ext_resource type="Script" uid="uid://buqf30dx1sgty" path="res://scene/WeaponController.gd" id="22_e10wd"]
 [ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
 [ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
@@ -239,6 +241,8 @@ metadata/_custom_type_script = "uid://secqim2hgqqu"
 
 [sub_resource type="Resource" id="Resource_e10wd"]
 script = ExtResource("15_ljfyf")
+attack_element = ExtResource("17_crugv")
+weapon_type = ExtResource("15_crugv")
 max_ammo = 5
 reload_delay = 3.0
 attack_rate = 0.5
@@ -246,6 +250,8 @@ metadata/_custom_type_script = "uid://dk3tdc4bgfpuf"
 
 [sub_resource type="Resource" id="Resource_r3cm4"]
 script = ExtResource("16_crugv")
+attack_element = ExtResource("19_4pk16")
+weapon_type = ExtResource("15_crugv")
 is_infinity_ammo = true
 attack_rate = 0.1
 metadata/_custom_type_script = "uid://bip1lpoamnmtg"
@@ -412,7 +418,7 @@ script = ExtResource("18_crugv")
 parent = NodePath("..")
 base_stats = Dictionary[int, float]({
 0: 100.0,
-3: 35000.0,
+3: 3.5,
 4: 1.0,
 5: 70.0
 })

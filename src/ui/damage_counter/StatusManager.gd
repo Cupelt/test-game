@@ -6,8 +6,10 @@ class_name StatusManager
 
 @onready var hp_prograss = $HpPrograssComponent
 @onready var status = $status
+@onready var anim = $status/AnimationTree/AnimationPlayer
+@onready var anim_tree = $status/AnimationTree
 
-@onready var _status_objects: Array[TextureRect] = [
+@onready var _status_objects: Array[Control] = [
 	status.get_child(0),
 	status.get_child(1)
 ]
@@ -23,20 +25,26 @@ func _ready() -> void:
 func init():
 	hp_prograss.init()
 	
-func status_update(old_status: AttackType, new_status: AttackType):
-	_status_objects[0].visible = new_status != null
+func status_update(old_status: AttackType, new_status: AttackType):	
+	if anim.is_playing():
+		await anim.animation_finished
+		if new_status != stats.status_effect:
+			return
 	
-	if _status_objects[0].visible:
-		_status_objects[0].texture = new_status.icon
+	if new_status != null:
+		_status_objects[0].get_child(0).texture = new_status.icon
+		anim_tree["parameters/has_element/transition_request"] = "true"
+		anim_tree["parameters/change_element/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	else:
+		anim_tree["parameters/has_element/transition_request"] = "false"
 
 func react_update(source: AttackType, trigger: AttackType, reaction: Reaction):
-	print("reacted")
 	if reaction:
 		if source:
-			_status_objects[0].texture = source.icon
+			_status_objects[0].get_child(0).texture = source.icon
 		
 		if trigger:
-			_status_objects[1].texture = trigger.icon
+			_status_objects[1].get_child(0).texture = trigger.icon
 		
-		# TODO: Reaction Animation
+		anim_tree["parameters/react/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	

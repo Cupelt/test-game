@@ -7,6 +7,7 @@ class_name DamageUI
 @export var wiggle_body: Node2D
 
 @export var wiggle_fector: Vector2 = Vector2(10, 20)
+static var damage_memory: float
 
 var completion_count = 0
 
@@ -22,15 +23,15 @@ func init(data: Dictionary):
 		color = info.element_type.color
 	else:
 		color = Color.WHITE
-	label.label_settings.shadow_color = color
+	label.label_settings.font_color = color
 	
 	completion_count = 0
 	pass
 	
 func _enter_tree() -> void: # after loaded
-	var animation = anim.get_animation("play_2")
+	var animation = anim.get_animation("play_3")
 	
-	anim.play("play_2")
+	anim.play("play_3")
 	anim.animation_finished.connect(func(_name): check_complete(), CONNECT_ONE_SHOT)
 	# anim.get_animation("play").track_set_key_value(0, 2, randf_range(-wiggle_fector, wiggle_fector))
 	
@@ -41,7 +42,7 @@ func _enter_tree() -> void: # after loaded
 	wiggle_body.position = Vector2.ZERO
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(wiggle_body, "position", wiggle_pos, animation.length / 2).as_relative() \
+	tween.tween_property(wiggle_body, "position", wiggle_pos, 0).as_relative() \
 		.set_ease(Tween.EASE_OUT) \
 		.set_trans(Tween.TRANS_CUBIC)
 		

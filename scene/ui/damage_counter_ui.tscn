@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://1i3kplfcs6x6"]
 
 [ext_resource type="Script" uid="uid://dbg3mygguo2j8" path="res://src/ui/damage_counter/DamageUI.gd" id="1_gfyqg"]
-[ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="2_1js0o"]
+[ext_resource type="FontVariation" uid="uid://lnth44d58tvm" path="res://style/Default_Font.res" id="2_gfyqg"]
 
 [sub_resource type="Theme" id="Theme_gfyqg"]
 
@@ -46,6 +46,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PositionHelper/Wiggle:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.925926, 1.925926)]
+}
 
 [sub_resource type="Animation" id="Animation_lb1tb"]
 resource_name = "play"
@@ -65,7 +77,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Wiggle:scale")
+tracks/1/path = NodePath("PositionHelper/Wiggle:scale")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -74,27 +86,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1.5, 1.5), Vector2(1e-05, 1e-05)]
 }
-tracks/2/type = "method"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath(".:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"destroy_object"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.10000001, 0.49769545),
 "transitions": PackedFloat32Array(0.6, 0.6, 1),
 "update": 0,
@@ -107,7 +105,7 @@ length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("PositionHelper:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -119,14 +117,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Wiggle:scale")
-tracks/1/interp = 1
+tracks/1/path = NodePath("PositionHelper/Wiggle:scale")
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.10000001, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.10000001, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(1.5, 1.5), Vector2(1.5, 1.5)]
+"values": [Vector2(0, 0), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -141,11 +139,40 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_1js0o"]
+resource_name = "play_3"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PositionHelper/Wiggle:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.4, 0.6),
+"transitions": PackedFloat32Array(1.5, 0.2841969, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(3, 3), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(0.6, 0.6, 0.6, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e10wd"]
 _data = {
 &"RESET": SubResource("Animation_4pk16"),
 &"play": SubResource("Animation_lb1tb"),
-&"play_2": SubResource("Animation_gfyqg")
+&"play_2": SubResource("Animation_gfyqg"),
+&"play_3": SubResource("Animation_1js0o")
 }
 
 [node name="DamageUI" type="Node2D" unique_id=1479113069 node_paths=PackedStringArray("anim", "label", "wiggle_body")]
@@ -153,14 +180,16 @@ top_level = true
 visibility_layer = 513
 script = ExtResource("1_gfyqg")
 anim = NodePath("AnimationPlayer")
-label = NodePath("Wiggle/Label")
-wiggle_body = NodePath("Wiggle")
-wiggle_fector = Vector2(10, -20)
+label = NodePath("PositionHelper/Wiggle/Label")
+wiggle_body = NodePath("PositionHelper/Wiggle")
+wiggle_fector = Vector2(10, -10)
 
-[node name="Wiggle" type="Node2D" parent="." unique_id=1650882799]
-scale = Vector2(1.5, 1.5)
+[node name="PositionHelper" type="Node2D" parent="." unique_id=265717638]
 
-[node name="Label" type="Label" parent="Wiggle" unique_id=731436978]
+[node name="Wiggle" type="Node2D" parent="PositionHelper" unique_id=1650882799]
+scale = Vector2(1.925926, 1.925926)
+
+[node name="Label" type="Label" parent="PositionHelper/Wiggle" unique_id=731436978]
 z_index = 10
 anchors_preset = 8
 anchor_left = 0.5
@@ -174,10 +203,11 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_gfyqg")
-theme_override_fonts/font = ExtResource("2_1js0o")
+theme_override_fonts/font = ExtResource("2_gfyqg")
 text = "10"
 label_settings = SubResource("LabelSettings_gfyqg")
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1349205248]
 libraries/ = SubResource("AnimationLibrary_e10wd")

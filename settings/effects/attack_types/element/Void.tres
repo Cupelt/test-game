@@ -2,8 +2,16 @@
 
 [ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/ElementType.gd" id="1_dykp7"]
 
+[sub_resource type="Gradient" id="Gradient_dykp7"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.6156863, 0.30588236, 0.8666667, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uk0go"]
+gradient = SubResource("Gradient_dykp7")
+
 [resource]
 script = ExtResource("1_dykp7")
 color = Color(0.6156863, 0.30588236, 0.8666667, 1)
 id = &"void"
+icon = SubResource("GradientTexture2D_uk0go")
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"
