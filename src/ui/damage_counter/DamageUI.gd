@@ -14,7 +14,7 @@ var completion_count = 0
 func init(data: Dictionary):
 	global_position = data["position"]
 	
-	var info = data["attack_info"]
+	var info: AttackInfo = data["attack_info"]
 	label.text = format_with_commas(roundi(info.damage))
 	# TODO: 반응 텍스트 띄우기
 	
@@ -24,6 +24,12 @@ func init(data: Dictionary):
 	else:
 		color = Color.WHITE
 	label.label_settings.font_color = color
+	
+	var size = Vector2.ONE
+	if info.is_reacted: size += Vector2.ONE * 1
+	if info.is_crit: size += Vector2.ONE * 0.5
+	
+	scale = size
 	
 	completion_count = 0
 	pass

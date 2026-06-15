@@ -8,6 +8,9 @@ var damage: float
 var element_type: ElementType
 var weapon_type: WeaponType
 
+var is_crit: bool = false
+var is_reacted: bool = false
+
 func _init(_attacker: Node2D, 
 		_damage: float,
 		_weapon_type: WeaponType,

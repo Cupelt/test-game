@@ -23,6 +23,7 @@ Event="*uid://clbdvc57e5gbx"
 GlobalContainer="*uid://yywbwoy0o8sg"
 ReactionManager="*uid://7nkxvhlw155k"
 DamageCounter="*uid://d16huqgrw3l1s"
+PhantomCameraManager="*uid://duq6jhf6unyis"
 
 [editor]
 
@@ -30,7 +31,7 @@ naming/script_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 

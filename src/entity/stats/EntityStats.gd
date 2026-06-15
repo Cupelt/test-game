@@ -36,6 +36,8 @@ func give_damage(data: AttackInfo):
 	var reaction: Reaction = ReactionManager.get_reaction(status_effect, data.element_type)
 	if reaction:
 		reaction.apply_effect(data)
+		data.is_reacted = true
+		
 		on_reaction_triggered.emit(status_effect, data.element_type, reaction)
 		status_effect = reaction.get_next_element(status_effect, data.element_type)
 	elif data.element_type != null:

@@ -13,4 +13,4 @@ func _on_hp_changed(data: AttackInfo):
 	ObjectPool.spawn_object(ui, {
 		"position" : data.target.global_position,
 		"attack_info": data
-		}, data.target)
+		}, null) # TODO: CanvasLayer
