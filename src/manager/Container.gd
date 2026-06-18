@@ -2,6 +2,7 @@ extends Node
 
 var player: Player = null;
 var entity_manager: EntityManager = null;
+var canvas: CanvasLayer = null;
 
 var _attack_type_paths: Array[String] = [
 	"res://settings/effects/attack_types/element/Electric.tres",

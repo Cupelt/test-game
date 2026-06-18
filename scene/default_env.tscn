@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="18_crugv"]
 [ext_resource type="Resource" uid="uid://4rx11dxywv81" path="res://settings/effects/attack_types/element/Void.tres" id="19_4pk16"]
 [ext_resource type="Script" uid="uid://buqf30dx1sgty" path="res://scene/WeaponController.gd" id="22_e10wd"]
+[ext_resource type="Script" uid="uid://d6b0gshhb4cn" path="res://src/manager/CanvasRegister.gd" id="24_e10wd"]
 [ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
 [ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
 [ext_resource type="Texture2D" uid="uid://cql6trghu6ch" path="res://assets/DG UI-HUD Exp/Skill level sistem.png" id="29_crugv"]
@@ -499,6 +500,7 @@ stats = NodePath("../StatsContainer")
 position = Vector2(220, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207279906]
+script = ExtResource("24_e10wd")
 
 [node name="MinimapManager" type="Control" parent="CanvasLayer" unique_id=1842779490 node_paths=PackedStringArray("minimap")]
 layout_mode = 3
