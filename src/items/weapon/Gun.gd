@@ -4,7 +4,7 @@ class_name HitScanGun
 @export var max_range = 999
 var muzzle_flash: Node2D
 
-func attack(player: Player, direction: Vector2):
+func attack(player: Player, direction: Vector2) -> bool:
 	var stats = player.stats
 	
 	var space_state = player.get_world_2d().direct_space_state
@@ -21,10 +21,10 @@ func attack(player: Player, direction: Vector2):
 		var hit_position = result.position
 		
 		if not hit_collider.is_in_group("Enemy"):
-			return
+			return false
 		
 		if hit_collider.is_die:
-			return
+			return false
 		
 		if hit_collider.stats != null:
 			var damage = player.stats.get_stat(EntityStats.StatType.ATTACK) * 10
@@ -37,4 +37,4 @@ func attack(player: Player, direction: Vector2):
 		
 		print("히트스캔 적중!: ", hit_collider.name, " 위치: ", hit_position)
 	
-	super(player, direction)
+	return super(player, direction)

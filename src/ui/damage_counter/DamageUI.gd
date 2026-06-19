@@ -1,10 +1,10 @@
-extends ObjectPool
+extends Node2D
 class_name DamageUI
 
-# TODO animation
 @export var anim: AnimationPlayer
 @export var label: Label
 @export var wiggle_body: Node2D
+@export var position_helper: Node2D
 
 @export var wiggle_fector: Vector2 = Vector2(10, 20)
 static var damage_memory: float
@@ -23,7 +23,10 @@ func init(data: Dictionary):
 		color = info.element_type.color
 	else:
 		color = Color.WHITE
-	label.label_settings.font_color = color
+	label.add_theme_color_override("font_color", color)
+	label.add_theme_color_override("font_outline_color", 
+		Color(0, 0, 0, int(info.is_reacted or info.is_crit))
+	)
 	
 	var size = Vector2.ONE
 	if info.is_reacted: size += Vector2.ONE * 1

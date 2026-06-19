@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BowShotgun" format=3 uid="uid://w6aomr5m8avw"]
+
+[ext_resource type="Resource" uid="uid://bhbc5fnpymi13" path="res://resources/effects/attack_types/element/Ice.tres" id="1_eea6l"]
+[ext_resource type="Script" uid="uid://dk3tdc4bgfpuf" path="res://src/items/weapon/Bow_shotgun.gd" id="1_v4xi8"]
+[ext_resource type="Resource" uid="uid://fccwxtc8joe7" path="res://resources/effects/attack_types/weapon/Projectile.tres" id="3_ok5mh"]
+
+[resource]
+script = ExtResource("1_v4xi8")
+attack_element = ExtResource("1_eea6l")
+weapon_type = ExtResource("3_ok5mh")
+max_ammo = 5
+reload_delay = 2.0
+attack_rate = 0.5
+name = "Shotgun"
+metadata/_custom_type_script = "uid://dk3tdc4bgfpuf"

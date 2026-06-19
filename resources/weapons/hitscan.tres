@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="HitScanGun" format=3 uid="uid://bkln84g71vkgo"]
+
+[ext_resource type="Script" uid="uid://bip1lpoamnmtg" path="res://src/items/weapon/Gun.gd" id="1_detng"]
+[ext_resource type="Resource" uid="uid://4rx11dxywv81" path="res://resources/effects/attack_types/element/Void.tres" id="1_mtbia"]
+[ext_resource type="Resource" uid="uid://fccwxtc8joe7" path="res://resources/effects/attack_types/weapon/Projectile.tres" id="3_cp3mp"]
+
+[resource]
+script = ExtResource("1_detng")
+attack_element = ExtResource("1_mtbia")
+weapon_type = ExtResource("3_cp3mp")
+is_infinity_ammo = true
+attack_rate = 0.1
+metadata/_custom_type_script = "uid://bip1lpoamnmtg"

@@ -1,7 +1,7 @@
 extends Node
 
 @onready var reactions: Array[Reaction] = [
-	load("res://settings/effects/reactions/Vaporize.tres")
+	load("res://resources/effects/reactions/Vaporize.tres")
 ]
 
 var _reaction_map: Dictionary[StringName, Dictionary]

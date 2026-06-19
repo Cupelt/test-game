@@ -4,7 +4,7 @@ class_name Bow
 var arrow_scene = preload("res://scene/projectile/arrow.tscn")
 
 
-func attack(player: Player, direction: Vector2):
+func attack(player: Player, direction: Vector2) -> bool:
 	var stats = player.stats
 	ObjectPool.spawn_object(arrow_scene, {
 		"position": player.global_position,
@@ -19,4 +19,4 @@ func attack(player: Player, direction: Vector2):
 		),
 	})
 	
-	super(player, direction)
+	return super(player, direction)

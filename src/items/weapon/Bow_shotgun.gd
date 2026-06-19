@@ -4,7 +4,7 @@ class_name BowShotgun
 var arrow_scene = preload("res://scene/projectile/arrow.tscn")
 @export_range(0, 180) var spread_angle: float = 10.0
 
-func attack(player: Player, direction: Vector2):
+func attack(player: Player, direction: Vector2) -> bool:
 	var stats = player.stats
 	
 	var base_angle_rad = direction.angle()
@@ -29,4 +29,4 @@ func attack(player: Player, direction: Vector2):
 			),
 		})
 	
-	super(player, direction)
+	return super(player, direction)

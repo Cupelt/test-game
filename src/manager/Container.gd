@@ -5,13 +5,13 @@ var entity_manager: EntityManager = null;
 var canvas: CanvasLayer = null;
 
 var _attack_type_paths: Array[String] = [
-	"res://settings/effects/attack_types/element/Electric.tres",
-	"res://settings/effects/attack_types/element/Ice.tres",
-	"res://settings/effects/attack_types/element/Pyro.tres",
-	"res://settings/effects/attack_types/element/Void.tres",
-	"res://settings/effects/attack_types/element/Water.tres",
-	"res://settings/effects/attack_types/weapon/Greatsword.tres",
-	"res://settings/effects/attack_types/weapon/Projectile.tres",
+	"res://resources/effects/attack_types/element/Electric.tres",
+	"res://resources/effects/attack_types/element/Ice.tres",
+	"res://resources/effects/attack_types/element/Pyro.tres",
+	"res://resources/effects/attack_types/element/Void.tres",
+	"res://resources/effects/attack_types/element/Water.tres",
+	"res://resources/effects/attack_types/weapon/Greatsword.tres",
+	"res://resources/effects/attack_types/weapon/Projectile.tres",
 ]
 var attack_type_map: Dictionary[StringName, AttackType]
 
