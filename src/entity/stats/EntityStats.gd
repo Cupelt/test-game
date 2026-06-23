@@ -16,7 +16,7 @@ enum StatType {
 @export var base_stats: Dictionary[StatType, float]
 var _stats: Dictionary[StatType, float]
 
-var status_effect: AttackType
+var attached_elements: Dictionary[ElementType, float]
 
 func _ready() -> void:
 	reset()
@@ -32,15 +32,14 @@ func give_damage(data: AttackInfo):
 	
 	data.target = parent
 	
-	var before_status = status_effect
-	var reaction: Reaction = ReactionManager.get_reaction(status_effect, data.element_type)
-	if reaction:
-		reaction.apply_effect(data)
-		data.is_reacted = true
+	var reacted = false
+	if not apply_reaction(data, data.element_type, data.element_gauge).is_empty():
+		reacted = true
 		
-		on_reaction_triggered.emit(status_effect, data.element_type, reaction)
-		status_effect = reaction.get_next_element(status_effect, data.element_type)
-	elif data.element_type != null:
+	if not apply_reaction(data, data.weapon_type, 0).is_empty():
+		reacted = true
+	
+	if not reacted:
 		status_effect = data.element_type
 	
 	if before_status != status_effect:
@@ -51,6 +50,25 @@ func give_damage(data: AttackInfo):
 	
 	add_stats(EntityStats.StatType.HP, -data.damage)
 
+func apply_reaction(data: AttackInfo, type: AttackType, gauge: float) -> Array[Reaction]:
+	var reactions: Array[Reaction]
+	
+	for active_element in attached_elements.keys():
+		var reaction: Reaction = ReactionManager.get_reaction(active_element, type)
+		if reaction:
+			reaction.apply_effect(data)
+			reactions.append(reaction)
+			
+			on_reaction_triggered.emit(active_element, type, reaction)
+			var element_modifier = reaction.get_next_element(
+				{ active_element : attached_elements[active_element] }, 
+				{ type : gauge }
+			)
+			
+			for mod in element_modifier.keys():
+				attached_elements[mod] += element_modifier[mod]
+	
+	return reactions
 
 func set_stats(type: StatType, value: float):
 	var old_value = get_stat(type)
