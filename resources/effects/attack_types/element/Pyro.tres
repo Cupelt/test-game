@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ElementType" format=3 uid="uid://dh7e3wyfk3rtd"]
 
-[ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/ElementType.gd" id="1_uvnuf"]
+[ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/reactions/ElementType.gd" id="1_uvnuf"]
 
 [sub_resource type="Gradient" id="Gradient_uvnuf"]
 offsets = PackedFloat32Array(0)
