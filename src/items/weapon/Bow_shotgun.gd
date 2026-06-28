@@ -21,12 +21,10 @@ func attack(player: Player, direction: Vector2) -> bool:
 			
 			"direction": final_direction,
 			"attacker": player,
-			"attack_data": AttackData.new(
-				player, 
-				stats.get_stat(EntityStats.StatType.ATTACK) * 3,
-				weapon_type,
-				attack_element,
-			),
+			"attack_data": AttackData.Builder.new()\
+				.refrence_weapon(self)\
+				.set_damage_by_stats(stats, EntityStats.StatType.ATTACK, 3)\
+				.build()
 		})
 	
 	return super(player, direction)

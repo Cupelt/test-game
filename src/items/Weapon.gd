@@ -3,27 +3,24 @@ class_name Weapon
 
 @export_category("General Setting")
 @export var ingame_sprite: Texture2D
-@export var attack_element: ElementType:
-	set(value):
-		attack_element = value
-@export var weapon_type: WeaponType:
-	set(value):
-		weapon_type = value
-
 @export var is_disable = false
+@export_group("Element Settings")
+@export var attack_element: ElementType
+@export var element_duration: float = 10
+@export_group("Weapon Settings")
+@export var weapon_type: WeaponType
+@export var attack_rate: float
+var attack_cooldown: float = 0.0
+var reload_cooldown: float = 0.0
+
 var _is_equipped: bool = false
 
-@export_category("Ammo Setting")
+@export_group("Ammo Setting")
 @export var is_infinity_ammo = false
 @export var max_ammo: int
 @export var reload_delay: float
 var current_ammo: int
 var is_reloading: bool = false
-
-@export_category("Attack Setting")
-@export var attack_rate: float
-var attack_cooldown: float = 0.0
-var reload_cooldown: float = 0.0
 
 func can_attack() -> bool:
 	if is_disable: return false

@@ -16,8 +16,8 @@ func _process(delta: float) -> void:
 		
 		data.weapons[0].reload_cooldown if data.weapons[0] else "null",
 		data.weapons[1].reload_cooldown if data.weapons[1] else "null",
-		data.weapons[2].reload_cooldown if data.weapons[2] else "null",
-		data.weapons[3].reload_cooldown if data.weapons[3] else "null",
+		#data.weapons[2].reload_cooldown if data.weapons[2] else "null",
+		#data.weapons[3].reload_cooldown if data.weapons[3] else "null",
 	]
 	
 	text = origin % current_data

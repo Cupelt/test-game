@@ -19,10 +19,8 @@
 [ext_resource type="Script" uid="uid://d24nbxgblbw7l" path="res://src/manager/EntityManager.gd" id="15_pnaty"]
 [ext_resource type="PackedScene" uid="uid://cgma8ivmvl6tr" path="res://scene/components/status_component.tscn" id="16_13kf1"]
 [ext_resource type="Resource" uid="uid://iuv3353nwe33" path="res://resources/weapons/Minigun.tres" id="16_crugv"]
-[ext_resource type="Resource" uid="uid://w6aomr5m8avw" path="res://resources/weapons/shotgun.tres" id="17_4pk16"]
 [ext_resource type="Script" uid="uid://q15mwrnt5vpc" path="res://src/ui/damage_counter/HurtEffect.gd" id="17_lb1tb"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="18_crugv"]
-[ext_resource type="Resource" uid="uid://bkln84g71vkgo" path="res://resources/weapons/hitscan.tres" id="18_lb1tb"]
 [ext_resource type="Script" uid="uid://buqf30dx1sgty" path="res://scene/WeaponController.gd" id="22_e10wd"]
 [ext_resource type="Script" uid="uid://d6b0gshhb4cn" path="res://src/manager/CanvasRegister.gd" id="24_e10wd"]
 [ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
@@ -439,9 +437,7 @@ script = ExtResource("22_e10wd")
 player = NodePath("..")
 weapons = Dictionary[int, ExtResource("12_lknfy")]({
 0: ExtResource("15_ljfyf"),
-1: ExtResource("16_crugv"),
-2: ExtResource("17_4pk16"),
-3: ExtResource("18_lb1tb")
+1: ExtResource("16_crugv")
 })
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EntityManager/Player" unique_id=1363778018]
@@ -607,8 +603,8 @@ reload_cooldown: [color=green]%.2f[/color]
 Reload Info
 slot1: [color=violet]%.2f[/color]
 slot2: [color=violet]%.2f[/color]
-slot3: [color=violet]%.2f[/color]
-slot4: [color=violet]%.2f[/color]"
+slot3: [color=violet]%%.2f[/color]
+slot4: [color=violet]%%.2f[/color]"
 fit_content = true
 scroll_active = false
 script = ExtResource("36_b7cw7")

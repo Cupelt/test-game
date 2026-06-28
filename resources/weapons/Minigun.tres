@@ -8,8 +8,8 @@
 script = ExtResource("2_n377b")
 attack_element = ExtResource("1_yotfp")
 weapon_type = ExtResource("3_h0yov")
+attack_rate = 0.05
 max_ammo = 150
 reload_delay = 5.0
-attack_rate = 0.05
 name = "Bow"
 metadata/_custom_type_script = "uid://secqim2hgqqu"

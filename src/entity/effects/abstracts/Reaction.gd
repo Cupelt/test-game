@@ -15,12 +15,8 @@ func can_reaction(_source: AttackType, _trigger: AttackType) -> bool:
 			(is_two_way and _source.id == trigger.id and _trigger.id == source.id)):
 		return false
 	
-	
+	# TODO: 원래 원소 부족할 때 검사 하려고 했는데 안쓸듯?
 	return true
-
-func get_gauge_modifier(attack_info: AttackResult, source_type: ElementType, trigger_type: ElementType) -> Dictionary[ElementType, float]:
-
-	return modifiers
 
 func get_consume_rate(_source: AttackType, _trigger: AttackType) -> float:
 	return 1

@@ -17,7 +17,7 @@ func attack(player: Player, direction: Vector2) -> bool:
 	
 	var result = space_state.intersect_ray(query)
 	if result:
-		var hit_collider = result.collider
+		var hit_collider: Entity = result.collider
 		var hit_position = result.position
 		
 		if not hit_collider.is_in_group("Enemy"):
@@ -27,13 +27,10 @@ func attack(player: Player, direction: Vector2) -> bool:
 			return false
 		
 		if hit_collider.stats != null:
-			var damage = player.stats.get_stat(EntityStats.StatType.ATTACK) * 10
-			hit_collider.stats.give_damage(AttackData.new(
-				player,
-				damage,
-				weapon_type,
-				attack_element
-			))
+			AttackData.Builder.new()\
+				.refrence_weapon(self)\
+				.set_damage_by_stats(stats, EntityStats.StatType.ATTACK, 10)\
+				.build().apply_attack(hit_collider)
 		
 		print("히트스캔 적중!: ", hit_collider.name, " 위치: ", hit_position)
 	

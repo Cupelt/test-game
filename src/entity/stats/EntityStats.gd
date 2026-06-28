@@ -28,7 +28,7 @@ func reset():
 		
 func _process(delta: float):
 	for key in attached_elements.keys().duplicate_deep():
-		attached_elements[key] -= delta
+		attached_elements[key] -= delta # TODO: safe 한 키 값 추출
 		if attached_elements[key] <= 0:
 			attached_elements.erase(key)
 

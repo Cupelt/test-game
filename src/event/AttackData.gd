@@ -8,7 +8,7 @@ var element_duration: float = 10
 var weapon_type: WeaponType
 
 func apply_attack(target: Entity) -> void:
-	var result: AttackResult = AttackResult.new(self)
+	var result: AttackResult = AttackResult.new(self, target)
 	
 	var target_stats: EntityStats = target.stats
 	
@@ -43,6 +43,13 @@ class Builder:
 	
 	var _instance: AttackData = AttackData.new()
 	
+	func refrence_weapon(weapon: Weapon) -> Builder:
+		_instance.element_type = weapon.attack_element
+		_instance.element_duration = weapon.element_duration
+		
+		_instance.weapon_type = weapon.weapon_type
+		return self
+	
 	func set_attacker(attacker: Node) -> Builder:
 		_instance.attacker = attacker
 		return self
@@ -51,17 +58,20 @@ class Builder:
 		_instance.damage = damage
 		return self
 	
+	func set_damage_by_stats(stats: EntityStats, type: EntityStats.StatType, factor: float) -> Builder:
+		_instance.damage = stats.get_stat(type) * factor
+		return self
+	
+	func set_weapon(type: WeaponType) -> Builder:
+		_instance.weapon_type = type
+		return self
+	
 	func set_element(type: ElementType, duration: float) -> Builder:
 		_instance.element_type = type
 		_instance.element_duration = duration
 		return self
-		
-	func set_critical(is_crit: bool) -> Builder:
-		_instance.is_critical = is_crit
-		return self
 	
 	func build() -> AttackData:
-		assert(_instance.target != null, "AttackData: 'target'은 null일 수 없습니다.")
 		assert(_instance.weapon_type != null, "AttackData: 'weapon_type'은 null일 수 없습니다.")
 		return _instance
 	
