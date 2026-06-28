@@ -21,7 +21,7 @@ func _connect_stats_signals():
 	if stats and not stats.on_attacked.is_connected(update):
 		stats.on_attacked.connect(update)
 	
-func update(data: AttackInfo) -> void:
+func update(data: AttackResult) -> void:
 	var max_hp = stats.get_stat(EntityStats.StatType.MAX_HP)
 	var new_value = stats.get_stat(EntityStats.StatType.HP) - data.damage
 	

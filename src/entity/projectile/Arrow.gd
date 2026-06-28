@@ -3,7 +3,7 @@ extends Entity
 var direction: Vector2
 @onready var sprite: Sprite2D = $Sprite2D
 
-var attack_info: AttackInfo
+var attack_data: AttackData
 @export_range(1, 10, 0.1) var life_time: float = 5;
 var timer: float = 0;
 
@@ -19,7 +19,7 @@ func init(data: Dictionary) -> void:
 	direction = data["direction"]
 	rotation = direction.angle()
 	
-	attack_info = data["attack_info"]
+	attack_data = data["attack_data"]
 	pass
 
 func _process(delta: float) -> void:
@@ -33,5 +33,5 @@ func hit(body: Entity):
 	if not body.is_in_group("Enemy"):
 		return
 		
-	body.stats.give_damage(attack_info)
+	attack_data.apply_attack(body)
 	ObjectPool.safe_destroy_object(self)

@@ -6,11 +6,11 @@ extends Node
 func _ready() -> void:
 	Event.on_attacked.connect(_on_hp_changed)
 
-func _on_hp_changed(data: AttackInfo):
+func _on_hp_changed(data: AttackResult):
 	if data.target is Player:
 		return
 	
 	ObjectPool.spawn_object(ui, {
 		"position" : data.target.global_position,
-		"attack_info": data
+		"attack_result": data
 		}, data.target)

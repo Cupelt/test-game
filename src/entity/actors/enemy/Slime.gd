@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	#if time > 5:
 		#destroy_object()
 
-func on_die(data: AttackInfo) -> void:
+func on_die(data: AttackResult) -> void:
 	if stats.get_stat(EntityStats.StatType.HP) - data.damage > 0:
 		return
 	

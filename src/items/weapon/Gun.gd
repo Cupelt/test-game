@@ -28,7 +28,7 @@ func attack(player: Player, direction: Vector2) -> bool:
 		
 		if hit_collider.stats != null:
 			var damage = player.stats.get_stat(EntityStats.StatType.ATTACK) * 10
-			hit_collider.stats.give_damage(AttackInfo.new(
+			hit_collider.stats.give_damage(AttackData.new(
 				player,
 				damage,
 				weapon_type,

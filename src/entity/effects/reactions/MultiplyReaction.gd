@@ -4,5 +4,5 @@ class_name MultiplyReaction
 @export var multiply_fector = 1.0
 
 # return = modifired damage
-func apply_effect(data: AttackInfo):
+func apply_effect(data: AttackResult):
 	data.damage *= multiply_fector

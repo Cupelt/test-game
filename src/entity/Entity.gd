@@ -19,5 +19,5 @@ func die():
 	animTree["parameters/is_die/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	is_die = true
 
-func hurt(data: AttackInfo) -> void:
+func hurt(data: AttackResult) -> void:
 	animTree["parameters/is_hurt/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE

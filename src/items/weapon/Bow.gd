@@ -11,7 +11,7 @@ func attack(player: Player, direction: Vector2) -> bool:
 		
 		"direction": direction,
 		"attacker": player,
-		"attack_info": AttackInfo.new(
+		"attack_data": AttackData.new(
 			player, 
 			stats.get_stat(EntityStats.StatType.ATTACK) * 3,
 			weapon_type,

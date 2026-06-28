@@ -1,0 +1,68 @@
+extends RefCounted
+class_name AttackData
+
+var damage: float = 0
+var element_type: ElementType = null
+var element_duration: float = 10
+
+var weapon_type: WeaponType
+
+func apply_attack(target: Entity) -> void:
+	var result: AttackResult = AttackResult.new(self)
+	
+	var target_stats: EntityStats = target.stats
+	
+	var target_elements = target.stats.attached_elements
+	var trigger_type = element_type
+	
+	var reacted = false;
+	for source_type in target_elements.keys():
+		var reaction: Reaction = ReactionManager.get_reaction(source_type, trigger_type)
+		if reaction:
+			reaction.apply_effect(result)
+			result._reactions.append(reaction)
+			
+			target_stats.on_reaction_triggered.emit(
+				result,
+				source_type, element_type,
+				reaction
+			)
+			
+			target_stats.set_attatch_element(source_type, 0)
+	
+	if !result.is_reacted:
+		target_stats.set_attatch_element(element_type, element_duration)
+	
+	target_stats.on_attacked.emit(result)
+	Event.on_attacked.emit(result)
+	
+	target.stats.add_stats(EntityStats.StatType.HP, -result.damage)
+
+class Builder:
+	extends RefCounted
+	
+	var _instance: AttackData = AttackData.new()
+	
+	func set_attacker(attacker: Node) -> Builder:
+		_instance.attacker = attacker
+		return self
+		
+	func set_damage(damage: float) -> Builder:
+		_instance.damage = damage
+		return self
+	
+	func set_element(type: ElementType, duration: float) -> Builder:
+		_instance.element_type = type
+		_instance.element_duration = duration
+		return self
+		
+	func set_critical(is_crit: bool) -> Builder:
+		_instance.is_critical = is_crit
+		return self
+	
+	func build() -> AttackData:
+		assert(_instance.target != null, "AttackData: 'target'은 null일 수 없습니다.")
+		assert(_instance.weapon_type != null, "AttackData: 'weapon_type'은 null일 수 없습니다.")
+		return _instance
+	
+	

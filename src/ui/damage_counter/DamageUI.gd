@@ -14,23 +14,23 @@ var completion_count = 0
 func init(data: Dictionary):
 	global_position = data["position"]
 	
-	var info: AttackInfo = data["attack_info"]
-	label.text = format_with_commas(roundi(info.damage))
+	var atk: AttackResult = data["attack_result"]
+	label.text = format_with_commas(roundi(atk.damage))
 	# TODO: 반응 텍스트 띄우기
 	
 	var color: Color
-	if info.element_type:
-		color = info.element_type.color
+	if atk.attack_data.element_type:
+		color = atk.attack_data.element_type.color
 	else:
 		color = Color.WHITE
 	label.add_theme_color_override("font_color", color)
 	label.add_theme_color_override("font_outline_color", 
-		Color(0, 0, 0, int(info.is_reacted or info.is_crit))
+		Color(0, 0, 0, int(atk.is_reacted or atk.is_crit))
 	)
 	
 	var size = Vector2.ONE
-	if info.is_reacted: size += Vector2.ONE * 1
-	if info.is_crit: size += Vector2.ONE * 0.5
+	if atk.is_reacted: size += Vector2.ONE * 1
+	if atk.is_crit: size += Vector2.ONE * 0.5
 	
 	scale = size
 	

@@ -38,7 +38,7 @@ func status_update(old_status: AttackType, new_status: AttackType):
 	else:
 		anim_tree["parameters/has_element/transition_request"] = "false"
 
-func react_update(source: AttackType, trigger: AttackType, reaction: Reaction):
+func react_update(result: AttackResult, source: AttackType, trigger: AttackType, reaction: Reaction):
 	if reaction:
 		if source:
 			_status_objects[0].get_child(0).texture = source.icon
