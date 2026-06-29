@@ -3,44 +3,37 @@
 [ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="1_ibvpa"]
 [ext_resource type="Script" uid="uid://bvyawy8hwmtxm" path="res://src/ui/damage_counter/StatusManager.gd" id="1_xi7ok"]
 
-[sub_resource type="Gradient" id="Gradient_xi7ok"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0.47058824, 0.47058824, 0.47058824, 0)
+[sub_resource type="Gradient" id="Gradient_03cju"]
+offsets = PackedFloat32Array(0.5478992, 0.64705884, 0.65378153)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_x6d2m"]
-gradient = SubResource("Gradient_xi7ok")
-width = 32
-height = 4
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xgcyn"]
+gradient = SubResource("Gradient_03cju")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_m048v"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0, 0, 1)
+[sub_resource type="Curve" id="Curve_86x8s"]
+_data = [Vector2(0, 1), 0.0, -2.8917701, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_03cju"]
-gradient = SubResource("Gradient_m048v")
-width = 32
-height = 4
+[sub_resource type="CurveTexture" id="CurveTexture_suq1s"]
+curve = SubResource("Curve_86x8s")
 
-[sub_resource type="Gradient" id="Gradient_x6d2m"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0.40392157, 0.40392157, 0.40392157, 1)
+[sub_resource type="Curve" id="Curve_67mem"]
+_data = [Vector2(0, 0), 0.0, 13.834349, 0, 0, Vector2(0.10745233, 0.79299366), 0.8531619, 0.8531619, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ope8"]
-gradient = SubResource("Gradient_x6d2m")
-width = 32
-height = 4
+[sub_resource type="CurveTexture" id="CurveTexture_x8l21"]
+curve = SubResource("Curve_67mem")
 
-[sub_resource type="Gradient" id="Gradient_xgcyn"]
-offsets = PackedFloat32Array(0.009287925)
-colors = PackedColorArray(0.59607846, 0.59607846, 0.59607846, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_86x8s"]
-gradient = SubResource("Gradient_xgcyn")
-width = 32
-height = 4
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ibvpa"]
-load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_suc5i"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_x8l21")
+alpha_curve = SubResource("CurveTexture_suq1s")
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_03cju"]
 animation = &"attach_element"
@@ -70,7 +63,7 @@ animation = &"has_element"
 advance_on_start = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xi7ok"]
-graph_offset = Vector2(-674.84595, -96.32575)
+graph_offset = Vector2(-785.0954, -72.92314)
 nodes/true/node = SubResource("AnimationNodeAnimation_ibvpa")
 nodes/true/position = Vector2(-760, -60)
 nodes/has_element/node = SubResource("AnimationNodeTransition_ibvpa")
@@ -85,7 +78,7 @@ nodes/change_element/node = SubResource("AnimationNodeOneShot_5ope8")
 nodes/change_element/position = Vector2(-520, -100)
 nodes/attach/node = SubResource("AnimationNodeAnimation_03cju")
 nodes/attach/position = Vector2(-760, 120)
-node_connections = [&"output", 0, &"react", &"has_element", 0, &"change_element", &"has_element", 1, &"false", &"react", 0, &"has_element", &"react", 1, &"reaction", &"change_element", 0, &"true", &"change_element", 1, &"attach"]
+node_connections = [&"has_element", 0, &"change_element", &"has_element", 1, &"false", &"react", 0, &"has_element", &"react", 1, &"reaction", &"change_element", 0, &"true", &"change_element", 1, &"attach"]
 
 [sub_resource type="Animation" id="Animation_ibvpa"]
 length = 0.001
@@ -311,7 +304,7 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("GPUParticles2D")
+tracks/3/path = NodePath("../GPUParticles2D")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -356,40 +349,74 @@ _data = {
 &"reaction": SubResource("Animation_x6d2m")
 }
 
-[sub_resource type="Gradient" id="Gradient_03cju"]
-offsets = PackedFloat32Array(0.5478992, 0.64705884, 0.65378153)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="Gradient" id="Gradient_xi7ok"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.47058824, 0.47058824, 0.47058824, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xgcyn"]
-gradient = SubResource("Gradient_03cju")
-width = 512
-height = 512
-fill = 1
-fill_from = Vector2(0.5, 0.5)
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x6d2m"]
+gradient = SubResource("Gradient_xi7ok")
+width = 32
+height = 4
 
-[sub_resource type="Curve" id="Curve_86x8s"]
-_data = [Vector2(0, 1), 0.0, -2.8917701, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="Gradient" id="Gradient_m048v"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
 
-[sub_resource type="CurveTexture" id="CurveTexture_suq1s"]
-curve = SubResource("Curve_86x8s")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_03cju"]
+gradient = SubResource("Gradient_m048v")
+width = 32
+height = 4
 
-[sub_resource type="Curve" id="Curve_67mem"]
-_data = [Vector2(0, 0), 0.0, 13.834349, 0, 0, Vector2(0.10745233, 0.79299366), 0.8531619, 0.8531619, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="Gradient" id="Gradient_x6d2m"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.40392157, 0.40392157, 0.40392157, 1)
 
-[sub_resource type="CurveTexture" id="CurveTexture_x8l21"]
-curve = SubResource("Curve_67mem")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ope8"]
+gradient = SubResource("Gradient_x6d2m")
+width = 32
+height = 4
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_suc5i"]
-gravity = Vector3(0, 0, 0)
-scale_min = 0.099999994
-scale_max = 0.099999994
-scale_curve = SubResource("CurveTexture_x8l21")
-alpha_curve = SubResource("CurveTexture_suq1s")
+[sub_resource type="Gradient" id="Gradient_xgcyn"]
+offsets = PackedFloat32Array(0.009287925)
+colors = PackedColorArray(0.59607846, 0.59607846, 0.59607846, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_86x8s"]
+gradient = SubResource("Gradient_xgcyn")
+width = 32
+height = 4
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ibvpa"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
 
 [node name="StatusComponent" type="Node2D" unique_id=829077794]
 script = ExtResource("1_xi7ok")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=697892188]
+position = Vector2(0, -22)
+emitting = false
+amount = 30
+texture = SubResource("GradientTexture2D_xgcyn")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_suc5i")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1044784089]
+root_node = NodePath("../status")
+tree_root = SubResource("AnimationNodeBlendTree_xi7ok")
+anim_player = NodePath("AnimationPlayer")
+parameters/has_element/current_state = "true"
+parameters/has_element/transition_request = ""
+parameters/has_element/current_index = 0
+parameters/react/active = false
+parameters/react/internal_active = false
+parameters/react/request = 0
+parameters/change_element/active = false
+parameters/change_element/internal_active = false
+parameters/change_element/request = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=1179098997]
+root_node = NodePath("../../status")
+libraries/ = SubResource("AnimationLibrary_x6d2m")
 
 [node name="HpPrograssComponent" type="TextureProgressBar" parent="." unique_id=563405001]
 offset_left = -16.0
@@ -430,12 +457,12 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 alignment = 1
 
 [node name="status_0" type="Control" parent="status" unique_id=761837541]
-visible = false
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 size_flags_vertical = 4
 
 [node name="image" type="TextureRect" parent="status/status_0" unique_id=108899670]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -443,11 +470,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -3.0
-offset_top = -3.0
+offset_top = -3.0000002
 offset_right = 3.0000057
 offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.5, 1.5)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = SubResource("CompressedTexture2D_ibvpa")
 expand_mode = 2
@@ -473,29 +501,3 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = SubResource("CompressedTexture2D_ibvpa")
 expand_mode = 2
-
-[node name="AnimationTree" type="AnimationTree" parent="status" unique_id=1044784089]
-tree_root = SubResource("AnimationNodeBlendTree_xi7ok")
-anim_player = NodePath("AnimationPlayer")
-parameters/has_element/current_state = "false"
-parameters/has_element/transition_request = ""
-parameters/has_element/current_index = 1
-parameters/react/active = false
-parameters/react/internal_active = false
-parameters/react/request = 0
-parameters/change_element/active = false
-parameters/change_element/internal_active = false
-parameters/change_element/request = 0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="status/AnimationTree" unique_id=1179098997]
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_x6d2m")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="status" unique_id=697892188]
-position = Vector2(20, 3)
-emitting = false
-amount = 30
-texture = SubResource("GradientTexture2D_xgcyn")
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_suc5i")

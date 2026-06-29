@@ -6,7 +6,7 @@ class_name StatusManager
 
 @onready var hp_prograss = $HpPrograssComponent
 @onready var status = $status
-@onready var anim = $status/AnimationTree/AnimationPlayer
+@onready var anim: AnimationPlayer = $status/AnimationTree/AnimationPlayer
 @onready var anim_tree = $status/AnimationTree
 
 @onready var _status_objects: Array[Control] = [
@@ -14,13 +14,17 @@ class_name StatusManager
 	status.get_child(1)
 ]
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	return
 	hp_prograss.stats = stats
 	stats.on_status_changed.connect(status_update)
 	stats.on_reaction_triggered.connect(react_update)
 	init()
+
+func _process(delta: float) -> void:
+	if (Input.is_key_pressed(KEY_F)):
+		trigger_reaction_animation(0, 1, "test")
 
 func init():
 	hp_prograss.init()
@@ -30,7 +34,7 @@ func status_update(old_status: AttackType, new_status: AttackType):
 		await anim.animation_finished
 		if new_status != stats.status_effect:
 			return
-	
+
 	if new_status != null:
 		_status_objects[0].get_child(0).texture = new_status.icon
 		anim_tree["parameters/has_element/transition_request"] = "true"
@@ -47,4 +51,37 @@ func react_update(result: AttackResult, source: AttackType, trigger: AttackType,
 			_status_objects[1].get_child(0).texture = trigger.icon
 		
 		anim_tree["parameters/react/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		
+
+const ELEMENT_COLORS = {
+	0: Color(0.2, 0.6, 1.0),
+	1: Color(1.0, 0.3, 0.1),
+	2: Color(0.3, 0.1, 0.5)
+}
+
+func trigger_reaction_animation(elem_a: int, elem_b: int, reaction_text: String):
+	var icon_container = $status.get_children()
+	var node_a = icon_container[elem_a]
+	var node_b = icon_container[elem_b]
 	
+	if not node_a or not node_b: return
+
+	# 1. 두 아이콘의 현재 글로벌 위치 구하기 (중간에 암흑이 있어도 정확한 좌표를 가져옴)
+	var pos_a = node_a.global_position + (node_a.size / 2)
+	var pos_b = node_b.global_position + (node_b.size / 2)
+	var center_pos = (pos_a + pos_b) / 2
+
+	# 2. 반응에 참여하지 않는 원소들(예: 암흑) 투명화 처리 (Staging)
+	for child in icon_container:
+		if child != node_a and child != node_b:
+			var tween_fade = create_tween()
+			tween_fade.tween_property(child, "modulate:a", 0.3, 0.15)
+			tween_fade.tween_property(child, "modulate:a", 1.0, 0.15).set_delay(0.5)
+
+	# 3. 선 연결 및 충돌 애니메이션 (Tween 활용)
+	create_projectile_effect(node_a, pos_a, center_pos)
+	create_projectile_effect(node_b, pos_b, center_pos)
+
+func create_projectile_effect(node: Control, start_pos: Vector2, end_pos: Vector2):
+	var tween = create_tween()
+	# TODO: Tween 으로 동적 애니메이션 만들기

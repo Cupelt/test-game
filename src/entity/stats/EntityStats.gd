@@ -27,13 +27,14 @@ func reset():
 		_stats[StatType.HP] = _stats[StatType.MAX_HP]
 		
 func _process(delta: float):
-	for key in attached_elements.keys().duplicate_deep():
+	for key in attached_elements.keys().duplicate():
 		attached_elements[key] -= delta # TODO: safe 한 키 값 추출
 		if attached_elements[key] <= 0:
 			attached_elements.erase(key)
 
 func set_attatch_element(type: ElementType, duration: float):
 	attached_elements[type] = duration
+	on_status_changed.emit()
 
 func set_stats(type: StatType, value: float):
 	var old_value = get_stat(type)
