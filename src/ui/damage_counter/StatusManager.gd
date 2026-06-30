@@ -59,6 +59,8 @@ const ELEMENT_COLORS = {
 	2: Color(0.3, 0.1, 0.5)
 }
 
+var reaction_anim_delay = 0.2
+
 func trigger_reaction_animation(elem_a: int, elem_b: int, reaction_text: String):
 	var icon_container = $status.get_children()
 	var node_a = icon_container[elem_a]
@@ -76,12 +78,54 @@ func trigger_reaction_animation(elem_a: int, elem_b: int, reaction_text: String)
 		if child != node_a and child != node_b:
 			var tween_fade = create_tween()
 			tween_fade.tween_property(child, "modulate:a", 0.3, 0.15)
-			tween_fade.tween_property(child, "modulate:a", 1.0, 0.15).set_delay(0.5)
+			tween_fade.tween_property(child, "modulate:a", 1.0, 0.15)\
+				.set_delay(reaction_anim_delay)
 
 	# 3. 선 연결 및 충돌 애니메이션 (Tween 활용)
 	create_projectile_effect(node_a, pos_a, center_pos)
 	create_projectile_effect(node_b, pos_b, center_pos)
 
 func create_projectile_effect(node: Control, start_pos: Vector2, end_pos: Vector2):
-	var tween = create_tween()
-	# TODO: Tween 으로 동적 애니메이션 만들기
+	var tween = create_tween().set_parallel(true)
+	
+	var img_node = node.get_node("image")
+	var after_node = node.get_node("image/after")
+	node.position
+	#tween.parallel().tween_property(
+			#node.get_node("image"), 
+			#"position:y", -5, 
+			#reaction_anim_delay
+		#)\
+		#.set_ease(Tween.EASE_OUT)\
+		#.set_trans(Tween.TRANS_CUBIC)
+	#tween.parallel().tween_property(
+			#node.get_node("image/after"), 
+			#"scale", Vector2.ONE * 1.8, 
+			#reaction_anim_delay / 2
+		#)\
+		#.set_ease(Tween.EASE_IN)
+	#
+	#tween.tween_property(
+			#node.get_node("image/after"), 
+			#"scale", Vector2.ONE * 1, 
+			#reaction_anim_delay / 2
+		#)\
+		#.set_ease(Tween.EASE_OUT)
+	#
+	#tween.tween_property(node.get_node("image"), "modulate:a", 0, 0.15)\
+		#.set_delay(reaction_anim_delay)
+
+	# 반동
+	tween.tween_property(img_node, "position", Vector2(-1, 0), 0.13)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	
+	# Inpect
+	tween.tween_property(img_node, "position", end_pos, 0.2 - 0.13)\
+		.set_delay(0.13333334)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+
+	#tween.chain().tween_callback(func():
+		## 파티클 방출 (track 3)
+		#var xform = Transform2D(Vector2(20, 1), Vector2(30, 1), Vector2(0, 0))
+		#particles.emit_particle(xform, Vector2(0, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), 0)
+	#)

@@ -285,7 +285,7 @@ tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.13333334, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"transitions": PackedFloat32Array(1, 1, 2),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-1, 0), Vector2(2, 0)]
 }
@@ -391,6 +391,10 @@ load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.cte
 [node name="StatusComponent" type="Node2D" unique_id=829077794]
 script = ExtResource("1_xi7ok")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1010423448]
+position = Vector2(-20, -25)
+zoom = Vector2(3, 3)
+
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=697892188]
 position = Vector2(0, -22)
 emitting = false
@@ -462,7 +466,6 @@ layout_mode = 2
 size_flags_vertical = 4
 
 [node name="image" type="TextureRect" parent="status/status_0" unique_id=108899670]
-self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -470,18 +473,34 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -3.0
-offset_top = -3.0000002
+offset_top = -3.0
 offset_right = 3.0000057
-offset_bottom = 3.0
+offset_bottom = 2.999999
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.5, 1.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("CompressedTexture2D_ibvpa")
+expand_mode = 2
+
+[node name="after" type="TextureRect" parent="status/status_0/image" unique_id=1195892481]
+self_modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -2.9999995
+offset_right = 3.0000057
+offset_bottom = 2.9999995
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = SubResource("CompressedTexture2D_ibvpa")
 expand_mode = 2
 
 [node name="status_1" type="Control" parent="status" unique_id=1379623979]
-visible = false
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 
@@ -496,6 +515,24 @@ offset_left = -3.0
 offset_top = -3.0
 offset_right = 3.000002
 offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("CompressedTexture2D_ibvpa")
+expand_mode = 2
+
+[node name="after" type="TextureRect" parent="status/status_1/image" unique_id=664925419]
+self_modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -2.9999995
+offset_right = 3.0000057
+offset_bottom = 2.9999995
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
