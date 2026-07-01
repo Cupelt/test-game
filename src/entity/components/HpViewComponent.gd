@@ -14,7 +14,7 @@ func _ready() -> void:
 	init()
 	
 func init() -> void:
-	self.visible = false
+	# self.visible = false
 	_connect_stats_signals()
 
 func _connect_stats_signals():

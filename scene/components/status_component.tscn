@@ -3,38 +3,6 @@
 [ext_resource type="Script" uid="uid://bc4pl2vmmvc22" path="res://src/entity/components/HpViewComponent.gd" id="1_ibvpa"]
 [ext_resource type="Script" uid="uid://bvyawy8hwmtxm" path="res://src/ui/damage_counter/StatusManager.gd" id="1_xi7ok"]
 
-[sub_resource type="Gradient" id="Gradient_03cju"]
-offsets = PackedFloat32Array(0.5478992, 0.64705884, 0.65378153)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xgcyn"]
-gradient = SubResource("Gradient_03cju")
-width = 512
-height = 512
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Curve" id="Curve_86x8s"]
-_data = [Vector2(0, 1), 0.0, -2.8917701, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_suq1s"]
-curve = SubResource("Curve_86x8s")
-
-[sub_resource type="Curve" id="Curve_67mem"]
-_data = [Vector2(0, 0), 0.0, 13.834349, 0, 0, Vector2(0.10745233, 0.79299366), 0.8531619, 0.8531619, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_x8l21"]
-curve = SubResource("Curve_67mem")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_suc5i"]
-gravity = Vector3(0, 0, 0)
-scale_min = 0.099999994
-scale_max = 0.099999994
-scale_curve = SubResource("CurveTexture_x8l21")
-alpha_curve = SubResource("CurveTexture_suq1s")
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_03cju"]
 animation = &"attach_element"
 
@@ -304,7 +272,7 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../GPUParticles2D")
+tracks/3/path = NodePath("GPUParticles2D")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -388,21 +356,45 @@ height = 4
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ibvpa"]
 load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
 
-[node name="StatusComponent" type="Node2D" unique_id=829077794]
+[sub_resource type="Gradient" id="Gradient_03cju"]
+offsets = PackedFloat32Array(0.5478992, 0.64705884, 0.65378153)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xgcyn"]
+gradient = SubResource("Gradient_03cju")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_86x8s"]
+_data = [Vector2(0, 1), 0.0, -2.8917701, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_suq1s"]
+curve = SubResource("Curve_86x8s")
+
+[sub_resource type="Curve" id="Curve_67mem"]
+_data = [Vector2(0, 0), 0.0, 13.834349, 0, 0, Vector2(0.10745233, 0.79299366), 0.8531619, 0.8531619, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_x8l21"]
+curve = SubResource("Curve_67mem")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_suc5i"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_x8l21")
+alpha_curve = SubResource("CurveTexture_suq1s")
+
+[node name="StatusComponent" type="Node2D" unique_id=829077794 node_paths=PackedStringArray("reaction_impect")]
 script = ExtResource("1_xi7ok")
+reaction_impect = NodePath("status/GPUParticles2D")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1010423448]
 position = Vector2(-20, -25)
 zoom = Vector2(3, 3)
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=697892188]
-position = Vector2(0, -22)
-emitting = false
-amount = 30
-texture = SubResource("GradientTexture2D_xgcyn")
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_suc5i")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1044784089]
 root_node = NodePath("../status")
@@ -538,3 +530,12 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = SubResource("CompressedTexture2D_ibvpa")
 expand_mode = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="status" unique_id=697892188]
+position = Vector2(20, 3)
+emitting = false
+amount = 30
+texture = SubResource("GradientTexture2D_xgcyn")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_suc5i")
