@@ -4,7 +4,6 @@ class_name EntityStats
 signal on_stats_changed(type: StatType, old_value: float, new_value: float)
 signal on_attacked(data: AttackResult)
 signal on_reaction_triggered(result: AttackResult, source: AttackType, trigger: AttackType, reaction: Reaction)
-signal on_status_changed(old_status: AttackType, new_status: AttackType)
 
 enum StatType {
 	MAX_HP, HP, HP_GENERATION,
@@ -33,8 +32,10 @@ func _process(delta: float):
 			attached_elements.erase(key)
 
 func set_attatch_element(type: ElementType, duration: float):
+	var old_elements = attached_elements.duplicate()
+	
 	attached_elements[type] = duration
-	on_status_changed.emit()
+	# on_elements_changed.emit(old_elements, attached_elements)
 
 func set_stats(type: StatType, value: float):
 	var old_value = get_stat(type)

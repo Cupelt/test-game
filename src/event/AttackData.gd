@@ -15,7 +15,6 @@ func apply_attack(target: Entity) -> void:
 	var target_elements = target.stats.attached_elements
 	var trigger_type = element_type
 	
-	var reacted = false;
 	for source_type in target_elements.keys():
 		var reaction: Reaction = ReactionManager.get_reaction(source_type, trigger_type)
 		if reaction:

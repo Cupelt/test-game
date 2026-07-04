@@ -28,7 +28,7 @@ static func destroy_object(obj: Node) -> void:
 
 # TODO: Change Dictionary to Resource
 static func spawn_object(scene: PackedScene, data: Dictionary = {}, parent: Node = GlobalContainer.entity_manager) -> Node:
-	var obj: Node2D
+	var obj: Node
 	if pool.get_or_add(scene.resource_path, []).is_empty():
 		obj = scene.instantiate()
 	else :

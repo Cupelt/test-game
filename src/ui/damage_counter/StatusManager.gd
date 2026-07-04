@@ -8,6 +8,7 @@ class_name StatusManager
 @onready var status = $status
 @onready var anim: AnimationPlayer = $status/AnimationTree/AnimationPlayer
 @onready var anim_tree = $status/AnimationTree
+@onready var status_icon_scene = load("res://scene/ui/staus_icon.tscn")
 
 @export var reaction_impect: GPUParticles2D
 
@@ -18,9 +19,8 @@ class_name StatusManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	return
 	hp_prograss.stats = stats
-	stats.on_status_changed.connect(status_update)
+	stats.on_attacked.connect(update)
 	stats.on_reaction_triggered.connect(react_update)
 	init()
 
@@ -30,36 +30,49 @@ func _process(delta: float) -> void:
 
 func init():
 	hp_prograss.init()
-	
-func status_update(old_status: AttackType, new_status: AttackType):	
-	if anim.is_playing():
-		await anim.animation_finished
-		if new_status != stats.status_effect:
-			return
 
-	if new_status != null:
-		_status_objects[0].get_child(0).texture = new_status.icon
-		anim_tree["parameters/has_element/transition_request"] = "true"
-		anim_tree["parameters/change_element/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-	else:
-		anim_tree["parameters/has_element/transition_request"] = "false"
+func update(data: AttackResult):
+	var icon_list = status.get_children()
+	var has_icon: bool = icon_list.any(func(e):
+		return data.attack_data.element_type.id == e.type.id
+	)
+		
+	if has_icon:
+		return
+
+	var status_icon: StatusIcon = ObjectPool.spawn_object(status_icon_scene, {}, status)
+	status_icon.type = data.attack_data.element_type
+	
+	var status_texture = status_icon.get_child(0) as TextureRect
+	var texture = GradientTexture2D.new()
+	var gradient = Gradient.new()
+	var element_color = data.attack_data.element_type.color
+	gradient.set_color(0, element_color)
+	gradient.set_color(1, element_color)
+	
+	texture.gradient = gradient
+	texture.height = 512
+	texture.width = 512
+	
+	status_texture.texture = texture
+	
+	status_texture.scale = Vector2(1.5, 1.5)
+	status_texture.self_modulate = Color(1, 1, 1, 0)
+	
+	var tween = create_tween().set_parallel(true)
+	
+	tween.tween_property(status_texture, "scale", Vector2.ONE, 0.2)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property(status_texture, "self_modulate", Color(1, 1, 1, 1), 0.2)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 func react_update(result: AttackResult, source: AttackType, trigger: AttackType, reaction: Reaction):
 	if reaction:
-		if source:
-			_status_objects[0].get_child(0).texture = source.icon
-		
-		if trigger:
-			_status_objects[1].get_child(0).texture = trigger.icon
-		
-		anim_tree["parameters/react/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-		
-
-const ELEMENT_COLORS = {
-	0: Color(0.2, 0.6, 1.0),
-	1: Color(1.0, 0.3, 0.1),
-	2: Color(0.3, 0.1, 0.5)
-}
+		var icon_list = status.get_children()
+		var source_node: bool = icon_list.find_custom(func(e):
+			return data.attack_data.element_type.id == e.type.id
+		)
+		# TODO: 앞뒤 맞춰서 anim 실행
 
 var reaction_anim_delay = 0.2
 
@@ -112,28 +125,3 @@ func trigger_reaction_animation(elem_a: int, elem_b: int, reaction_text: String)
 		var xform = Transform2D(0.0, Vector2.ONE, 0.0, center_pos)
 		reaction_impect.emit_particle(xform, Vector2.ZERO, Color.WHITE, Color.WHITE, 0)
 	)
-
-func create_projectile_effect(node: Control, start_pos: Vector2, end_pos: Vector2) -> Tween: 
-	var tween = create_tween().set_parallel(true)
-	
-	var img_node = node.get_node("image")
-	# 반동
-	tween.tween_property(img_node, "global_position", start_pos - start_pos.direction_to(end_pos), 0.13)\
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	
-	# Impect
-	tween.tween_property(img_node, "global_position", end_pos, 0.2 - 0.13)\
-		.set_delay(0.13)\
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-
-	tween.tween_callback(func():
-		img_node.global_position = start_pos
-	)
-	
-	#tween.chain().tween_callback(func():
-		## 파티클 방출 (track 3)
-		#var xform = Transform2D(Vector2(20, 1), Vector2(30, 1), Vector2(0, 0))
-		#particles.emit_particle(xform, Vector2(0, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), 0)
-	#)
-	
-	return tween
