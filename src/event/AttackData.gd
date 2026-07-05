@@ -27,10 +27,10 @@ func apply_attack(target: Entity) -> void:
 				reaction
 			)
 			
-			target_stats.set_attatch_element(source_type, 0)
+			target_stats.remove_attatch_element(source_type)
 	
-	if !result.is_reacted:
-		target_stats.set_attatch_element(element_type, element_duration)
+	if not result.is_reacted:
+		target_stats.add_attatch_element(trigger_type, element_duration)
 	
 	target_stats.on_attacked.emit(result)
 	Event.on_attacked.emit(result)

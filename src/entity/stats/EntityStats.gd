@@ -2,6 +2,8 @@ extends Node
 class_name EntityStats
 
 signal on_stats_changed(type: StatType, old_value: float, new_value: float)
+signal on_status_append(type: AttackType, duration: float)
+signal on_status_remove(type: AttackType)
 signal on_attacked(data: AttackResult)
 signal on_reaction_triggered(result: AttackResult, source: AttackType, trigger: AttackType, reaction: Reaction)
 
@@ -29,13 +31,15 @@ func _process(delta: float):
 	for key in attached_elements.keys().duplicate():
 		attached_elements[key] -= delta # TODO: safe 한 키 값 추출
 		if attached_elements[key] <= 0:
-			attached_elements.erase(key)
+			remove_attatch_element(key)
 
-func set_attatch_element(type: ElementType, duration: float):
-	var old_elements = attached_elements.duplicate()
-	
+func add_attatch_element(type: ElementType, duration: float):
 	attached_elements[type] = duration
-	# on_elements_changed.emit(old_elements, attached_elements)
+	on_status_append.emit(type, duration)
+
+func remove_attatch_element(type: ElementType):
+	attached_elements.erase(type)
+	on_status_remove.emit(type)
 
 func set_stats(type: StatType, value: float):
 	var old_value = get_stat(type)

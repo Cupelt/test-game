@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b8h2xaplk1dwb"]
 
-[ext_resource type="Script" uid="uid://dsntxiegbmhv7" path="res://src/ui/stats/element_icon.gd" id="1_0twwj"]
+[ext_resource type="Script" uid="uid://dsntxiegbmhv7" path="res://src/ui/stats/ElementIcon.gd" id="1_0twwj"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ibvpa"]
 load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
@@ -21,8 +21,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -3.0
 offset_top = -3.0
-offset_right = 3.0000057
-offset_bottom = 2.999999
+offset_right = 3.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
