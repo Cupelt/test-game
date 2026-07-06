@@ -62,17 +62,43 @@ func react_update(result: AttackResult, source: AttackType, trigger: AttackType,
 		var source_node = icons[source.id]
 		var trigger_node: StatusIcon = ObjectPool.spawn_object(status_icon_scene, {"type": trigger}, status)
 		
-		trigger_reaction_animation(
-			min(source_node.get_index(), trigger_node.get_index()),
-			max(source_node.get_index(), trigger_node.get_index()),
-			reaction
-		)
+		trigger_reaction_animation_2(source_node.get_index())
+		trigger_reaction_animation_2(trigger_node.get_index())
+		
+		#trigger_reaction_animation(
+			#min(source_node.get_index(), trigger_node.get_index()),
+			#max(source_node.get_index(), trigger_node.get_index()),
+			#reaction
+		#)
 		
 		await _reaction_tween.finished
 		ObjectPool.destroy_object(trigger_node)
-		# TODO: 앞뒤 맞춰서 anim 실행
 
 var reaction_anim_delay = 0.2
+
+func trigger_reaction_animation_2(index: int):
+	var icon_container = $status.get_children()
+	var node: Control = icon_container[index]
+	var texture_node: Control = node.get_child(0)
+	
+	#_reaction_tween = create_tween() # 순차 진행을 위해 기본은 세로형(시퀀스)으로 생성
+	#
+	## 1단계: 꾹 눌리는 준비 동작 (Squash) - 아주 빠르게
+	#_reaction_tween.tween_property(texture_node, "scale", Vector2(1.3, 0.7), reaction_anim_delay * 0.3)\
+		#.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		#
+	## 2단계: 팍! 늘어나며 사라지는 동작 (Stretch & Fade) - 동시에 실행
+	#_reaction_tween.chain().set_parallel(true)
+	#_reaction_tween.tween_property(texture_node, "scale", Vector2(0.0, 12.0), reaction_anim_delay * 0.7)\
+		#.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN) # 더 날카로운 QUART 사용
+	#_reaction_tween.tween_property(texture_node, "self_modulate:a", 0.0, reaction_anim_delay * 0.7)\
+		#.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	
+	_reaction_tween = create_tween().set_parallel(true)
+	_reaction_tween.tween_property(texture_node, "scale", Vector2(0, 12.5), reaction_anim_delay)\
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_reaction_tween.tween_property(texture_node, "self_modulate:a", 0.0, reaction_anim_delay)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 func trigger_reaction_animation(elem_a: int, elem_b: int, reaction: Reaction):
 	var icon_container = $status.get_children()
@@ -86,9 +112,7 @@ func trigger_reaction_animation(elem_a: int, elem_b: int, reaction: Reaction):
 
 	var pos_a = node_a.position
 	var pos_b = node_b.position
-	print(pos_a, pos_b)
 	var center_pos = (pos_a + pos_b) / 2
-	print(center_pos)
 
 	for child in icon_container:
 		if child != node_a and child != node_b:
