@@ -24,13 +24,14 @@ func init(data: Dictionary):
 	else:
 		color = Color.WHITE
 	label.add_theme_color_override("font_color", color)
-	label.add_theme_color_override("font_outline_color", 
-		Color(0, 0, 0, int(atk.is_reacted or atk.is_crit))
-	)
+	label.add_theme_color_override("font_outline_color", color.darkened(0.5))
 	
 	var size = Vector2.ONE
-	if atk.is_reacted: size += Vector2.ONE * 1
-	if atk.is_crit: size += Vector2.ONE * 0.5
+	z_index = 0
+	
+	if atk.is_reacted or atk.is_crit:
+		size = Vector2.ONE * 2
+		z_index = 1
 	
 	scale = size
 	
