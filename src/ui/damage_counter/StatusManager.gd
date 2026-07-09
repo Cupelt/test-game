@@ -41,7 +41,7 @@ func status_append(type: AttackType, duration: float):
 	if icons.has(type.id):
 		return
 
-	var status_icon: StatusIcon = ObjectPool.spawn_object(status_icon_scene, {"type": type}, status)
+	var status_icon: StatusIcon = ObjectPool.spawn_object(status_icon_scene, {"type": type, "stats": stats}, status)
 	icons[type.id] = status_icon
 
 	var status_texture = status_icon.get_child(0) as TextureRect
@@ -57,7 +57,7 @@ func status_append(type: AttackType, duration: float):
 func react_update(result: AttackResult, source: AttackType, trigger: AttackType, reaction: Reaction):
 	if reaction:
 		var source_node = icons[source.id]
-		var trigger_node: StatusIcon = ObjectPool.spawn_object(status_icon_scene, {"type": trigger}, status)
+		var trigger_node: StatusIcon = ObjectPool.spawn_object(status_icon_scene, {"type": trigger, "stats": stats}, status)
 		
 		trigger_reaction_animation_2(source_node.get_index())
 		trigger_reaction_animation_2(trigger_node.get_index())

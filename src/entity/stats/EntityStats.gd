@@ -33,6 +33,9 @@ func _process(delta: float):
 		if attached_elements[key] <= 0:
 			remove_attatch_element(key)
 
+func get_element_left_duration(type: ElementType) -> float:
+	return attached_elements.get(type, -1)
+
 func add_attatch_element(type: ElementType, duration: float):
 	attached_elements[type] = duration
 	on_status_append.emit(type, duration)
