@@ -1,13 +1,19 @@
 extends Node2D
 class_name GoldEntity
 
+@export var anim_tree: AnimationTree
+
 @export var gold: int = 1
 var is_taken = false
 
 func init(data: Dictionary):
 	gold = data.gold
+	global_position = data.position
 	is_taken = false
 	pass
+	
+func _enter_tree() -> void:
+	anim_tree["parameters/spawn/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	
 func _process(delta: float) -> void:
 	if is_taken:
@@ -35,5 +41,8 @@ func take_gold(player: Player):
 		0.0, 1.0, 0.3
 	).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	
-	tween.tween_callback(func (): player.gold += gold)
+	tween.tween_callback(func (): 
+		player.gold += gold
+		ObjectPool.safe_destroy_object(self)
+	)
 	

@@ -2,6 +2,7 @@ extends Entity
 class_name Slime
 
 var time: float = 0.0
+@onready var gold: PackedScene = load("res://scene/shop/bronze.tscn")
 
 func _ready() -> void:
 	stats.on_attacked.connect(on_die)
@@ -29,4 +30,5 @@ func on_die(data: AttackResult) -> void:
 	
 	$ChasingComponent.is_chasing = false
 	DefaultSpawner.total_enemy -= 1
+	ObjectPool.spawn_object(gold, {"gold": randi_range(1, 10), "position": global_position}, GlobalContainer.entity_manager)
 	die()

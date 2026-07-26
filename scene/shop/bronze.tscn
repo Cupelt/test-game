@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://dbb71jeeeubmn"]
+
+[ext_resource type="Script" uid="uid://bgpkdm1y15i2s" path="res://src/shop/GoldEntity.gd" id="1_g7mcl"]
+[ext_resource type="Texture2D" uid="uid://dtlvavexjv2wb" path="res://assets/Dungeon Gathering Full Ver. 1.1/All tiles v1.png" id="2_axjt6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e10wd"]
+atlas = ExtResource("2_axjt6")
+region = Rect2(112, 608, 128, 16)
+
+[sub_resource type="Animation" id="Animation_r3cm4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rfk2u"]
+resource_name = "idle"
+length = 0.46666667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.20000002, 0.26666668, 0.33333334, 0.40000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_e10wd"]
+resource_name = "spawn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b7cw7"]
+_data = {
+&"RESET": SubResource("Animation_r3cm4"),
+&"idle": SubResource("Animation_rfk2u"),
+&"spawn": SubResource("Animation_e10wd")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r3cm4"]
+animation = &"spawn"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e10wd"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_g7mcl"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_rfk2u"]
+filters = ["..:self_modulate", ".:position", ".:self_modulate"]
+mix_mode = 1
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_mks8r"]
+graph_offset = Vector2(-665.0938, 158.40005)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_e10wd")
+nodes/Animation/position = Vector2(-360, 220)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_r3cm4")
+"nodes/Animation 2/position" = Vector2(-620, 440)
+nodes/spawn/node = SubResource("AnimationNodeOneShot_rfk2u")
+nodes/spawn/position = Vector2(-60, 300)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_g7mcl")
+nodes/TimeScale/position = Vector2(-386.76205, 507.67432)
+node_connections = [&"output", 0, &"spawn", &"spawn", 0, &"Animation", &"spawn", 1, &"TimeScale", &"TimeScale", 0, &"Animation 2"]
+
+[node name="Bronze" type="Node2D" unique_id=1780214558 node_paths=PackedStringArray("anim_tree")]
+script = ExtResource("1_g7mcl")
+anim_tree = NodePath("Sprite2D/AnimationTree")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=789492428]
+texture = SubResource("AtlasTexture_e10wd")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=48820788]
+libraries/ = SubResource("AnimationLibrary_b7cw7")
+
+[node name="AnimationTree" type="AnimationTree" parent="Sprite2D" unique_id=1632329763]
+tree_root = SubResource("AnimationNodeBlendTree_mks8r")
+anim_player = NodePath("../AnimationPlayer")
+parameters/spawn/active = false
+parameters/spawn/internal_active = false
+parameters/spawn/request = 0
+parameters/TimeScale/scale = 0.75
