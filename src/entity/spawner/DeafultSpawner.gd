@@ -1,4 +1,5 @@
 extends Timer
+class_name DefaultSpawner
 
 @export var player: Player
 @export var nav_map: NavigationRegion2D
@@ -8,14 +9,23 @@ extends Timer
 @export var min_spawn_radius: float = 300.0
 @export var max_spawn_radius: float = 500.0
 
+@export var max_enemy: int = 100
+
 @export var spawn_interval_factor: float = 0.05
 @export var max_spawn_interval: float = 1.0
 @export_range(0.01, 1, 0.001) var min_spawn_interval: float = 0.1
 
+@export var is_active = false
+
 var minutes: float = 0
 var spawn_accumulator: float = 0.0
 
+static var total_enemy: int = 0
+
 func _process(delta: float) -> void:
+	if total_enemy >= max_enemy:
+		return
+	
 	spawn_accumulator += delta
 	minutes += delta / 60.0
 	

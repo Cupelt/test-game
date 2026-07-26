@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 		ObjectPool.safe_destroy_object(self)
 
 func hit(body: Entity):
-	if not body.is_in_group("Enemy"):
+	if not body.is_in_group("Enemy") or body.is_die:
 		return
 		
 	attack_data.apply_attack(body)

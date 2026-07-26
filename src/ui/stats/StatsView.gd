@@ -1,10 +1,15 @@
-extends ItemList
+extends RichTextLabel
 
-@export var stats: EntityStats
+@export var player: Player
+@onready var stats: EntityStats = player.stats
 @export var allow_stats: Array[EntityStats.StatType]
 
-func _ready() -> void:
-	var index = 0
+@onready var origin = text
+
+func _process(delta: float) -> void:
+	var context = [player.gold]
+	
 	for key in allow_stats:
-		set_item_text(index, str(stats.get_stat(key)))
-		index += 1
+		context.append(stats.get_stat(key))
+	
+	text = origin % context

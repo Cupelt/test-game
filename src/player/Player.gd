@@ -6,6 +6,8 @@ class_name Player
 
 var map_pos: Vector2i = Vector2i.MAX
 
+var gold: int = 0
+
 func init(data: Dictionary) -> void:
 	reset()
 	# 플레이어 스폰 시 초기화 로직이 필요하다면 여기에 작성

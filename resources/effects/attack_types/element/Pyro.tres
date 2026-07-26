@@ -1,17 +1,11 @@
 [gd_resource type="Resource" script_class="ElementType" format=3 uid="uid://dh7e3wyfk3rtd"]
 
+[ext_resource type="Texture2D" uid="uid://cjaf4hw2vhu3h" path="res://assets/claude/elem_fire_8x8.png" id="1_g0yfw"]
 [ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/reactions/ElementType.gd" id="1_uvnuf"]
-
-[sub_resource type="Gradient" id="Gradient_uvnuf"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.9411765, 0.26666668, 0.21960784, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_seluf"]
-gradient = SubResource("Gradient_uvnuf")
 
 [resource]
 script = ExtResource("1_uvnuf")
 color = Color(0.9411765, 0.26666668, 0.21960784, 1)
 id = &"pyro"
-icon = SubResource("GradientTexture2D_seluf")
+icon = ExtResource("1_g0yfw")
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"

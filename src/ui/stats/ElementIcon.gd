@@ -28,6 +28,14 @@ func init(data: Dictionary):
 	status_texture.texture = type.icon
 	status_texture.scale = Vector2.ONE
 	status_texture.self_modulate = Color(1, 1, 1, 1)
+	
+	var color: Color
+	if type is ElementType:
+		color = type.color
+	else:
+		color = Color.WHITE
+	(status_texture.material as ShaderMaterial).set_shader_parameter("line_color", color.darkened(0.5))
+	(status_texture.material as ShaderMaterial).set_shader_parameter("line_thickness", 0)
 
 func _process(delta: float) -> void:
 	var left_time = stats.get_element_left_duration(type)

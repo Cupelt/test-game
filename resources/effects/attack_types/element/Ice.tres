@@ -1,17 +1,11 @@
 [gd_resource type="Resource" script_class="ElementType" format=3 uid="uid://bhbc5fnpymi13"]
 
 [ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/reactions/ElementType.gd" id="1_eudgv"]
-
-[sub_resource type="Gradient" id="Gradient_eudgv"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.5647059, 0.8784314, 0.9372549, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tglcg"]
-gradient = SubResource("Gradient_eudgv")
+[ext_resource type="Texture2D" uid="uid://bsti2ujelo8uj" path="res://assets/claude/elem_ice_8x8.png" id="1_ykh35"]
 
 [resource]
 script = ExtResource("1_eudgv")
 color = Color(0.5647059, 0.8784314, 0.9372549, 1)
 id = &"ice"
-icon = SubResource("GradientTexture2D_tglcg")
+icon = ExtResource("1_ykh35")
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"

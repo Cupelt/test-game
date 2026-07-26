@@ -28,4 +28,5 @@ func on_die(data: AttackResult) -> void:
 		return
 	
 	$ChasingComponent.is_chasing = false
+	DefaultSpawner.total_enemy -= 1
 	die()

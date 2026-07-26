@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://cxbuxhgfisf1k"]
 
+[ext_resource type="Script" uid="uid://7id4ngcor2xy" path="res://src/manager/WaveManager.gd" id="1_crugv"]
 [ext_resource type="Script" uid="uid://b3cgqyrir7flk" path="res://src/entity/spawner/DeafultSpawner.gd" id="1_hb2k2"]
 [ext_resource type="PackedScene" uid="uid://rlk5f1jvtx4t" path="res://scene/enemy/common/slime.tscn" id="2_ja8bw"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_4pk16"]
@@ -22,12 +23,15 @@
 [ext_resource type="Script" uid="uid://q15mwrnt5vpc" path="res://src/ui/damage_counter/HurtEffect.gd" id="17_lb1tb"]
 [ext_resource type="Resource" uid="uid://w6aomr5m8avw" path="res://resources/weapons/shotgun.tres" id="17_uks7h"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="18_crugv"]
+[ext_resource type="Script" uid="uid://bgpkdm1y15i2s" path="res://src/shop/GoldEntity.gd" id="20_lb1tb"]
+[ext_resource type="Texture2D" uid="uid://dtlvavexjv2wb" path="res://assets/Dungeon Gathering Full Ver. 1.1/All tiles v1.png" id="21_e10wd"]
 [ext_resource type="Script" uid="uid://buqf30dx1sgty" path="res://src/items/WeaponController.gd" id="22_e10wd"]
 [ext_resource type="Script" uid="uid://d6b0gshhb4cn" path="res://src/manager/CanvasRegister.gd" id="24_e10wd"]
-[ext_resource type="FontFile" uid="uid://b3khivv3jhd0e" path="res://assets/DG UI-HUD Exp/HexFont16.ttf" id="28_ljfyf"]
+[ext_resource type="FontVariation" uid="uid://lnth44d58tvm" path="res://style/Default_Font.res" id="26_4pk16"]
 [ext_resource type="Script" uid="uid://bqht6jcbj07ot" path="res://src/ui/stats/StatsView.gd" id="28_uks7h"]
-[ext_resource type="Texture2D" uid="uid://cql6trghu6ch" path="res://assets/DG UI-HUD Exp/Skill level sistem.png" id="29_crugv"]
+[ext_resource type="FontVariation" uid="uid://dbdf82cp5mgke" path="res://style/Large_Font.res" id="30_4pk16"]
 [ext_resource type="Texture2D" uid="uid://dqana5mjsatkb" path="res://assets/Harvest Sumer Free Ver. Pack/tilesets/Set 1.0.png" id="30_lb1tb"]
+[ext_resource type="Script" uid="uid://brq88wcskbjhu" path="res://scene/TimerLabelView.gd" id="31_lb1tb"]
 [ext_resource type="Script" uid="uid://oc3jpmlogxi7" path="res://src/manager/DebugLabel.gd" id="36_b7cw7"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_j0hnk"]
@@ -179,6 +183,7 @@ animation = &"enable_flip"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_uks7h"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ugglh"]
+graph_offset = Vector2(-848.9802, 48.81967)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_f6etw")
 nodes/Idle/position = Vector2(-700, 140)
 nodes/Flip/node = SubResource("AnimationNodeAdd2_hb2k2")
@@ -246,6 +251,57 @@ linear_accel_min = -2.2351742e-06
 linear_accel_max = -2.2351742e-06
 alpha_curve = SubResource("CurveTexture_r3cm4")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_e10wd"]
+atlas = ExtResource("21_e10wd")
+region = Rect2(112, 608, 128, 16)
+
+[sub_resource type="Animation" id="Animation_r3cm4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_rfk2u"]
+resource_name = "anim"
+length = 0.46666667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.20000002, 0.26666668, 0.33333334, 0.40000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b7cw7"]
+_data = {
+&"RESET": SubResource("Animation_r3cm4"),
+&"anim": SubResource("Animation_rfk2u")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e10wd"]
+animation = &"anim"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_mks8r"]
+graph_offset = Vector2(-216, 37)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_e10wd")
+nodes/Animation/position = Vector2(140.55362, 83.45371)
+node_connections = [&"output", 0, &"Animation"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nq3w"]
 atlas = ExtResource("9_ldvgu")
 region = Rect2(192, 96, 52, 40)
@@ -257,24 +313,7 @@ load_path = "res://.godot/imported/Mini map UI icons.png-5e86652716a6c189aff5c6c
 atlas = SubResource("CompressedTexture2D_crugv")
 region = Rect2(100, 68, 8, 8)
 
-[sub_resource type="FontVariation" id="FontVariation_4pk16"]
-base_font = ExtResource("28_ljfyf")
-spacing_bottom = -6
-baseline_offset = -0.35
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lb1tb"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r3cm4"]
-atlas = ExtResource("29_crugv")
-region = Rect2(48, 64, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rfk2u"]
-atlas = ExtResource("29_crugv")
-region = Rect2(48, 64, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1hvmv"]
-atlas = ExtResource("29_crugv")
-region = Rect2(48, 80, 7, 7)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_crugv"]
 
 [sub_resource type="Resource" id="Resource_crugv"]
 script = ExtResource("7_e10wd")
@@ -610,19 +649,18 @@ sources/0 = SubResource("TileSetAtlasSource_e10wd")
 [node name="DefaultEnv" type="Node2D" unique_id=294223548]
 metadata/_edit_horizontal_guides_ = [-113.0, 46.0]
 
-[node name="Managers" type="Node2D" parent="." unique_id=1337478864]
+[node name="WaveManager" type="Node2D" parent="." unique_id=1378497681]
+script = ExtResource("1_crugv")
 
-[node name="EnemySponers" type="Node2D" parent="." unique_id=1217171044]
-
-[node name="DeafultSpawner" type="Timer" parent="EnemySponers" unique_id=190355749 node_paths=PackedStringArray("player", "nav_map", "entity_layer")]
+[node name="DeafultSpawner" type="Timer" parent="WaveManager" unique_id=190355749 node_paths=PackedStringArray("player", "nav_map", "entity_layer")]
 autostart = true
 script = ExtResource("1_hb2k2")
 player = NodePath("../../EntityManager/Player")
 nav_map = NodePath("../../NavigationRegion2D")
 entity_layer = NodePath("../../EntityManager")
 enemy_scene = ExtResource("2_ja8bw")
-spawn_interval_factor = 2.0
-min_spawn_interval = 0.25
+
+[node name="Managers" type="Node2D" parent="." unique_id=1337478864]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1111824442]
 physics_interpolation_mode = 1
@@ -783,10 +821,26 @@ process_material = SubResource("ParticleProcessMaterial_rfk2u")
 [node name="StatusComponent" parent="EntityManager/Player" unique_id=829077794 node_paths=PackedStringArray("stats") instance=ExtResource("16_13kf1")]
 stats = NodePath("../StatsContainer")
 
+[node name="Bronze" type="Node2D" parent="EntityManager" unique_id=2904578]
+position = Vector2(247, -1)
+script = ExtResource("20_lb1tb")
+
+[node name="Sprite2D" type="Sprite2D" parent="EntityManager/Bronze" unique_id=614895017]
+texture = SubResource("AtlasTexture_e10wd")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EntityManager/Bronze/Sprite2D" unique_id=1455033496]
+libraries/ = SubResource("AnimationLibrary_b7cw7")
+
+[node name="AnimationTree" type="AnimationTree" parent="EntityManager/Bronze/Sprite2D" unique_id=366794359]
+tree_root = SubResource("AnimationNodeBlendTree_mks8r")
+anim_player = NodePath("../AnimationPlayer")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207279906]
 script = ExtResource("24_e10wd")
 
 [node name="MinimapManager" type="Control" parent="CanvasLayer" unique_id=1842779490 node_paths=PackedStringArray("minimap")]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 879.0
@@ -856,49 +910,39 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_5ayrf")
 
-[node name="StatViewController" type="Control" parent="CanvasLayer" unique_id=308539265]
-layout_mode = 3
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=487666215]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 21.0
-offset_top = -147.0
-offset_right = 186.0
-offset_bottom = -21.0
+offset_left = 25.0
+offset_top = -232.0
+offset_right = 150.0
+offset_bottom = -25.0
 grow_vertical = 0
+pivot_offset_ratio = Vector2(0, 1)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_crugv")
 script = ExtResource("11_rgneq")
 
-[node name="StatView" type="ItemList" parent="CanvasLayer/StatViewController" unique_id=1451483712 node_paths=PackedStringArray("stats")]
-clip_contents = false
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -126.0
-offset_right = 97.0
-offset_bottom = 4.0
-grow_vertical = 0
+[node name="StatsLabel" type="RichTextLabel" parent="CanvasLayer/PanelContainer" unique_id=760412892 node_paths=PackedStringArray("player")]
+layout_mode = 2
 mouse_filter = 2
-theme_override_colors/guide_color = Color(0.69803923, 0.69803923, 0.69803923, 0)
-theme_override_fonts/font = SubResource("FontVariation_4pk16")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/panel = SubResource("StyleBoxEmpty_lb1tb")
-wraparound_items = false
-item_count = 3
-icon_scale = 1.5
-item_0/text = " "
-item_0/icon = SubResource("AtlasTexture_r3cm4")
-item_0/selectable = false
-item_1/text = " "
-item_1/icon = SubResource("AtlasTexture_rfk2u")
-item_1/selectable = false
-item_2/text = " "
-item_2/icon = SubResource("AtlasTexture_1hvmv")
-item_2/selectable = false
+theme_override_fonts/normal_font = ExtResource("26_4pk16")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "gold %d
+
+hp %.2f%%
+hp_gen %.2f%% 
+atk %.1f
+stk_spd %.1f
+spd %.1f"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 2
 script = ExtResource("28_uks7h")
-stats = NodePath("../../../EntityManager/Player/StatsContainer")
-allow_stats = Array[int]([1, 2, 3])
+player = NodePath("../../../EntityManager/Player")
+allow_stats = Array[int]([0, 2, 3, 4, 5])
 
 [node name="WeaponHotbar" type="Control" parent="CanvasLayer" unique_id=347296526]
 layout_mode = 3
@@ -939,6 +983,29 @@ scroll_active = false
 script = ExtResource("36_b7cw7")
 data = NodePath("../../EntityManager/Player/Weapons")
 
+[node name="TimerLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=375616623 node_paths=PackedStringArray("wave_manager")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -73.0
+offset_top = 15.0
+offset_right = 73.0
+offset_bottom = 55.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0)
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("30_4pk16")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "%s
+[font=res://style/Default_Font.res][outline_size=2]Status: %s"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+script = ExtResource("31_lb1tb")
+wave_manager = NodePath("../../WaveManager")
+
 [node name="PhantomCamera2D" type="Node2D" parent="." unique_id=677887626]
 position = Vector2(-9, 1)
 script = ExtResource("6_lb1tb")
@@ -957,5 +1024,5 @@ tile_set = SubResource("TileSet_mks8r")
 
 [connection signal="mouse_entered" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/MinimapManager/MinimapLayout" to="CanvasLayer/MinimapManager/MinimapLayout" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="CanvasLayer/StatViewController" to="CanvasLayer/StatViewController" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/StatViewController" to="CanvasLayer/StatViewController" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/PanelContainer" to="CanvasLayer/PanelContainer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/PanelContainer" to="CanvasLayer/PanelContainer" method="_on_mouse_exited"]

@@ -83,6 +83,12 @@ func trigger_reaction_animation_2(index: int):
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)\
 			.as_relative()
 	
+	_reaction_tween.tween_method(
+		func(value: float): texture_node.material.set_shader_parameter("line_thickness", value),
+		0.0, 0.5, 
+		reaction_anim_delay * 0.7
+	)
+	
 	_reaction_tween.chain()
 	
 	_reaction_tween.tween_property(texture_node, "scale", Vector2(0, 12.5), reaction_anim_delay * 0.3)\

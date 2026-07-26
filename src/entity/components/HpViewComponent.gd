@@ -16,7 +16,7 @@ func _ready() -> void:
 	
 func init() -> void:
 	self.visible = false
-	_connect_stats_signals()
+	# _connect_stats_signals()
 
 func _connect_stats_signals():
 	if stats and not stats.on_attacked.is_connected(update):

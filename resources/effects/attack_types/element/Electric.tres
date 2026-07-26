@@ -1,17 +1,11 @@
 [gd_resource type="Resource" script_class="ElementType" format=3 uid="uid://c3gar22q7wvmt"]
 
 [ext_resource type="Script" uid="uid://qm68nqxec0cg" path="res://src/entity/stats/reactions/ElementType.gd" id="1_s8vwy"]
-
-[sub_resource type="Gradient" id="Gradient_s8vwy"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0.8392157, 0.039215688, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_jhwqn"]
-gradient = SubResource("Gradient_s8vwy")
+[ext_resource type="Texture2D" uid="uid://bg2r44hwsgmmd" path="res://assets/claude/elem_electric_8x8.png" id="1_wtpr7"]
 
 [resource]
 script = ExtResource("1_s8vwy")
 color = Color(1, 0.8392157, 0.039215688, 1)
 id = &"electric"
-icon = SubResource("GradientTexture2D_jhwqn")
+icon = ExtResource("1_wtpr7")
 metadata/_custom_type_script = "uid://rgd4yq2feb7u"

@@ -13,7 +13,6 @@ atlas = SubResource("CompressedTexture2D_1b6dv")
 
 [node name="Arrow" type="CharacterBody2D" unique_id=2034252202 node_paths=PackedStringArray("area", "stats")]
 script = ExtResource("2_aycig")
-life_time = 1.0
 area = NodePath("Area2D")
 stats = NodePath("StatsContainer")
 

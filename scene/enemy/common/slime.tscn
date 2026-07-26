@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dsgmff1mmew3h" path="res://src/entity/components/SmoothColision.gd" id="1_gscq4"]
 [ext_resource type="PackedScene" uid="uid://b743d5mleod1e" path="res://scene/components/chasing_component.tscn" id="2_038jq"]
 [ext_resource type="PackedScene" uid="uid://bvyclavyfar6s" path="res://scene/components/near_attack_component.tscn" id="3_7ulis"]
+[ext_resource type="Texture2D" uid="uid://b38j0gcwm7227" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Shadow sprites/Orc-shadow.png" id="3_y0aba"]
 [ext_resource type="PackedScene" uid="uid://62d262n8gca5" path="res://scene/components/smooth_collision_compoennt.tscn" id="4_m048v"]
 [ext_resource type="Script" uid="uid://8x8pm88uaq1y" path="res://src/entity/stats/EntityStats.gd" id="5_jqhro"]
 [ext_resource type="PackedScene" uid="uid://cgma8ivmvl6tr" path="res://scene/components/status_component.tscn" id="8_m048v"]
@@ -142,9 +143,11 @@ stats = NodePath("StatsContainer")
 animTree = NodePath("Sprite2D/AnimationTree")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=721537449]
+visible = false
 shape = SubResource("CircleShape2D_j0hnk")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=515532670]
+z_index = 1
 texture = ExtResource("1_038jq")
 hframes = 8
 vframes = 3
@@ -164,6 +167,13 @@ parameters/is_die/request = 0
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_v862c")
 
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D" unique_id=1251262299]
+self_modulate = Color(1, 1, 1, 0.40392157)
+z_index = -1
+position = Vector2(-0.5, -5)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("3_y0aba")
+
 [node name="NearAttackComponent" parent="." unique_id=60038562 node_paths=PackedStringArray("collision", "stats") instance=ExtResource("3_7ulis")]
 collision = NodePath("CollisionShape2D")
 stats = NodePath("../StatsContainer")
@@ -174,6 +184,8 @@ shape = SubResource("CircleShape2D_7ulis")
 debug_color = Color(0.94420815, 6.4495207e-06, 0.60038, 0.41960785)
 
 [node name="SmoothCollisionCompoennt" parent="." unique_id=178064422 node_paths=PackedStringArray("collision") instance=ExtResource("4_m048v")]
+process_mode = 4
+physics_interpolation_mode = 2
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmoothCollisionCompoennt" unique_id=1007020458]

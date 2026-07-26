@@ -30,7 +30,7 @@ func init(data: Dictionary):
 	z_index = 0
 	
 	if atk.is_reacted or atk.is_crit:
-		size = Vector2.ONE * 2
+		size = Vector2.ONE * 2.5
 		z_index = 1
 	
 	scale = size

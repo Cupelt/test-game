@@ -11,6 +11,7 @@ func _ready() -> void:
 	$Area2D/CollisionShape2D.shape = collision.shape
 
 func _physics_process(delta):
+	return
 	var max_speed = parent.velocity.length()
 	var separation_vector = calculate_separation_vector()
 	var combined_velocity = parent.velocity + (separation_vector * push_force)
