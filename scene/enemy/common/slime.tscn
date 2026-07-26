@@ -81,7 +81,7 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"destroy_object"
+"method": &"return_object"
 }]
 }
 
@@ -199,7 +199,7 @@ position = Vector2(-1, 0)
 script = ExtResource("5_jqhro")
 parent = NodePath("..")
 base_stats = Dictionary[int, float]({
-0: 10000000.0,
+0: 100.0,
 3: 1.0,
 5: 50.0
 })

@@ -615,7 +615,6 @@ metadata/_edit_horizontal_guides_ = [-113.0, 46.0]
 [node name="EnemySponers" type="Node2D" parent="." unique_id=1217171044]
 
 [node name="DeafultSpawner" type="Timer" parent="EnemySponers" unique_id=190355749 node_paths=PackedStringArray("player", "nav_map", "entity_layer")]
-process_mode = 4
 autostart = true
 script = ExtResource("1_hb2k2")
 player = NodePath("../../EntityManager/Player")
@@ -784,9 +783,6 @@ process_material = SubResource("ParticleProcessMaterial_rfk2u")
 [node name="StatusComponent" parent="EntityManager/Player" unique_id=829077794 node_paths=PackedStringArray("stats") instance=ExtResource("16_13kf1")]
 stats = NodePath("../StatsContainer")
 
-[node name="Slime" parent="EntityManager" unique_id=1588441702 instance=ExtResource("2_ja8bw")]
-position = Vector2(220, 0)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207279906]
 script = ExtResource("24_e10wd")
 
@@ -944,6 +940,7 @@ script = ExtResource("36_b7cw7")
 data = NodePath("../../EntityManager/Player/Weapons")
 
 [node name="PhantomCamera2D" type="Node2D" parent="." unique_id=677887626]
+position = Vector2(-9, 1)
 script = ExtResource("6_lb1tb")
 zoom = Vector2(0.25, 0.25)
 tween_resource = SubResource("Resource_crugv")

@@ -13,7 +13,7 @@ static func destroy_object(obj: Node) -> void:
 		push_warning("%s is not poolable object")
 		return
 		
-	obj.set_meta("is_enabled", false)
+	obj.set_meta("_is_enabled", false)
 	obj.global_position = Vector2.INF
 	# await obj.get_tree().process_frame
 	
@@ -42,6 +42,6 @@ static func spawn_object(scene: PackedScene, data: Dictionary = {}, parent: Node
 	if obj.has_method("init"):
 		obj.init(data)
 	parent.add_child(obj)
-	obj.set_meta("is_enabled", true)
+	obj.set_meta("_is_enabled", true)
 	
 	return obj

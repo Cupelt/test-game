@@ -24,9 +24,13 @@ func _process(delta: float) -> void:
 	
 	while spawn_accumulator >= interval:
 		spawn_accumulator -= interval
-		var spawn_pos = get_valid_spawn_pos()
-		if spawn_pos == Vector2.INF:
-			continue
+		#var spawn_pos = get_valid_spawn_pos()
+		#if spawn_pos == Vector2.INF:
+			#continue
+			
+		var random_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))
+		var dist = randf_range(min_spawn_radius, max_spawn_radius)
+		var spawn_pos = player.global_position + (random_direction * dist)
 		
 		ObjectPool.spawn_object(enemy_scene, {
 			"position": spawn_pos, 

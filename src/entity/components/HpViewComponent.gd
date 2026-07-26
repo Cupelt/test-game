@@ -1,4 +1,5 @@
 extends TextureProgressBar
+class_name HpViewComponent
 
 @export var stats: EntityStats
 @export var catch_delay = 0.2
@@ -14,7 +15,7 @@ func _ready() -> void:
 	init()
 	
 func init() -> void:
-	# self.visible = false
+	self.visible = false
 	_connect_stats_signals()
 
 func _connect_stats_signals():

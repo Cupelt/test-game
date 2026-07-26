@@ -25,6 +25,17 @@ func _physics_process(delta: float) -> void:
 	# 1. 상태 체크 (가장 가벼운 조건부터)
 	if not is_chasing or target == null:
 		return
+	
+	var dir = global_position.direction_to(target.global_position)
+	parent.global_position += dir * stats.get_stat(EntityStats.StatType.SPEED) * delta
+	#parent.velocity = parent.velocity.move_toward(
+		#dir * stats.get_stat(EntityStats.StatType.SPEED), 
+		#2500 * delta
+	#)
+	
+	# parent.move_and_slide()
+	
+	return
 
 	# 2. 다음 경로 확인
 	if nav_agent_node.is_navigation_finished():

@@ -4,7 +4,7 @@ class_name StatusManager
 @export var stats: EntityStats
 @export var default_status_icon: Texture2D
 
-@onready var hp_prograss = $HpPrograssComponent
+@export var hp_prograss: HpViewComponent
 @onready var status: HBoxContainer = $status
 # @onready var anim: AnimationPlayer = $status/AnimationTree/AnimationPlayer
 # @onready var anim_tree = $status/AnimationTree

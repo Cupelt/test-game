@@ -157,8 +157,9 @@ gradient = SubResource("Gradient_xgcyn")
 width = 32
 height = 4
 
-[node name="StatusComponent" type="Node2D" unique_id=829077794 node_paths=PackedStringArray("reaction_impect")]
+[node name="StatusComponent" type="Node2D" unique_id=829077794 node_paths=PackedStringArray("hp_prograss", "reaction_impect")]
 script = ExtResource("1_xi7ok")
+hp_prograss = NodePath("HpPrograssComponent")
 reaction_impect = NodePath("GPUParticles2D")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1010423448]
@@ -193,6 +194,7 @@ root_node = NodePath("../../status")
 libraries/ = SubResource("AnimationLibrary_x6d2m")
 
 [node name="HpPrograssComponent" type="TextureProgressBar" parent="." unique_id=563405001]
+visible = false
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0

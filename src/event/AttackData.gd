@@ -8,6 +8,9 @@ var element_duration: float = 10
 var weapon_type: WeaponType
 
 func apply_attack(target: Entity) -> void:
+	if target.is_die:
+		return
+	
 	var result: AttackResult = AttackResult.new(self, target)
 	
 	var target_stats: EntityStats = target.stats
